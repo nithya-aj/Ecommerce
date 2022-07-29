@@ -1,0 +1,40 @@
+<div class="container-fluid page-body-wrapper" style="margin-top: 64px;">
+    <!-- partial:partials/_sidebar.html -->
+
+    {{>admin-sidebar}}
+
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Add category</h4>
+                        <form action="/admin/add-category" method="post" class="forms-sample"
+                            enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="exampleInputName1">Category</label>
+                                <input name="cat_name" type="text" class="form-control" id="exampleInputName1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail3">Description</label>
+                                <input name="cat_desc" class="form-control" id="exampleInputEmail3" required>
+                            </div>
+                            <div class="form-group">
+                                <label>File upload</label>
+                                <input type="file" name="image" class="file-upload-default">
+                                <div class="input-group col-xs-12">
+                                    <input name="cat_image" type="file" class="form-control file-upload-info" placeholder="Upload Image" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary me-2">Add Category</button>
+                            <button class="btn btn-light" type="reset">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:../../partials/_footer.html -->
+        {{>admin-footer}}
+        <!-- partial -->
+    </div>
