@@ -10,14 +10,15 @@ router.get('/', function (req, res) {
   res.render('admin/homepage', { admin: true })
 })
 
-router.get('/view-products', function (req, res, next) {
-  productHelpers.getAllProducts().then((products) => {
-    res.render('admin/view-products', { products, admin: true });
-  })
+router.get('/view-products',async function (req, res, next) {
+  let products = await productHelpers.getAllProducts()
+  let category = await categoryHelpers.getAllCategory()
+    res.render('admin/view-products', { products,category, admin: true });
 });
 
-router.get('/add-product', function (req, res) {
-  res.render('admin/add-product', { admin: true })
+router.get('/add-product',async function (req, res) {
+  let category = await categoryHelpers.getAllCategory()
+  res.render('admin/add-product', { admin: true, category })
 })
 
 router.post('/add-product', (req, res) => {
@@ -26,7 +27,7 @@ router.post('/add-product', (req, res) => {
     console.log(image);
     image.mv('./public/assets/images/products/' + insertedId + '.jpg', (err, done) => {
       if (!err) {
-        res.render('admin/add-product', { admin: true })
+        res.render('admin/add-product', { admin: true})
       } else {
         console.log(err);
       }
@@ -43,8 +44,9 @@ router.get('/delete-product/:id', (req, res) => {
 
 router.get('/edit-product/:id', async (req, res) => {
   let product = await productHelpers.getProductDetails(req.params.id)
+  let category = await categoryHelpers.getAllCategory(req.params.id)
   console.log(product);
-  res.render('admin/edit-product', { admin: true, product })
+  res.render('admin/edit-product', { admin: true, product,category })
 })
 
 router.post('/edit-product/:id', (req, res) => {

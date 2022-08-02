@@ -5,6 +5,8 @@ var objectId=require('mongodb').ObjectId
 
 module.exports = {
     addProduct: (products, callback) => {
+        products.price = parseInt(products.price)
+        products.real_price = parseInt(products.real_price)
         db.get().collection('products').insertOne(products).then((data) => {
             callback(data.insertedId)
         })

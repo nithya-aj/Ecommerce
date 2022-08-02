@@ -17,7 +17,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail3">Category</label>
-                                <input name="category" class="form-control" id="exampleInputEmail3" required>
+                                <select name="category" class="form-select" aria-label="Default select example">
+                                    <option value="1">select category</option>
+                                    {{#each category}}
+                                    <option >{{this.cat_name}}</option>
+                                    {{/each}}
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword4">Name</label>
@@ -25,12 +30,14 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword4">Descritption</label>
-                                <input name="description" type="text" class="form-control" id="exampleInputPassword4" required>
+                                <input name="description" type="text" class="form-control" id="exampleInputPassword4"
+                                    required>
                             </div>
                             <div class="form-group col-md-12 row">
                                 <div class="col">
                                     <label for="exampleInputCity1">Price</label>
-                                    <input name="price" type="text" class="form-control" id="exampleInputCity1" required>
+                                    <input name="price" type="text" class="form-control" id="exampleInputCity1"
+                                        required>
                                 </div>
                                 <div class="col">
                                     <label for="exampleInputCity1">Real Price</label>
@@ -41,7 +48,8 @@
                                 <label>File upload</label>
                                 <input type="file" name="image" class="file-upload-default">
                                 <div class="input-group col-xs-12">
-                                    <input name="image" type="file" class="form-control file-upload-info" placeholder="Upload Image" required>
+                                    <input name="image" type="file" class="form-control file-upload-info"
+                                        placeholder="Upload Image" required>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary me-2">Add Product</button>
