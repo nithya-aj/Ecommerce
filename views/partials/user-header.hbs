@@ -1,82 +1,150 @@
 <header>
-    {{!-- main header --}}
-    <div class="header-top">
-        <div class="container">
-            <ul class="header-social-container">
-                <li>
-                    <a href="#" class="social-link">
-                        <ion-icon name="logo-facebook"></ion-icon>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="social-link">
-                        <ion-icon name="logo-twitter"></ion-icon>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="social-link">
-                        <ion-icon name="logo-instagram"></ion-icon>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="social-link">
-                        <ion-icon name="logo-linkedin"></ion-icon>
-                    </a>
-                </li>
-            </ul>
-            <div class="header-alert-news">
-                <p>
-                    <b>Free Shipping</b>
-                    This Week Order Over - $55
-                </p>
-            </div>
-            <div class="header-top-actions">
-                <select name="currency">
-                    <option value="usd">USD &dollar;</option>
-                    <option value="eur">EUR &euro;</option>
-                </select>
-                <select name="language">
-                    <option value="en-US">English</option>
-                    <option value="es-ES">Espa&ntilde;ol</option>
-                    <option value="fr">Fran&ccedil;ais</option>
-                </select>
-            </div>
-        </div>
+  {{!-- main header --}}
+  <div class="header-top">
+    <div class="container">
+      <ul class="header-social-container">
+        <li>
+          <a href="#" class="social-link">
+            <ion-icon name="logo-facebook"></ion-icon>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="social-link">
+            <ion-icon name="logo-twitter"></ion-icon>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="social-link">
+            <ion-icon name="logo-instagram"></ion-icon>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="social-link">
+            <ion-icon name="logo-linkedin"></ion-icon>
+          </a>
+        </li>
+      </ul>
+      <div class="header-alert-news">
+        <p>
+          <b>Free Shipping</b>
+          This Week Order Over - $55
+        </p>
+      </div>
+      <div class="header-top-actions">
+        <select name="currency">
+          <option value="usd">USD &dollar;</option>
+          <option value="eur">EUR &euro;</option>
+        </select>
+        <select name="language">
+          <option value="en-US">English</option>
+          <option value="es-ES">Espa&ntilde;ol</option>
+          <option value="fr">Fran&ccedil;ais</option>
+        </select>
+      </div>
     </div>
-    {{!-- /main header --}}
-    <div class="header-main">
-        <div class="container">
-            <a href="/" class="header-logo">
-                <img src="assets/images/logo/logo.svg" alt="Anon's logo" width="120" height="36">
-            </a>
-            <div class="header-search-container">
-                <input type="search" name="search" class="search-field" placeholder="Enter your product name...">
-                <button class="search-btn">
-                    <ion-icon name="search-outline"></ion-icon>
-                </button>
-            </div>
-            <div class="header-user-actions">
-                <div class="dropdown">
-                    <button class="dropbtn,action-btn"><i style="font-size: 37px;" class="fa fa-user"></i></button>
-                    <div class="dropdown-content">
-                        {{#if user}}
-                        <a href="/login">Account</a>
-                        <a href="/logout">Logout</a>
-                        {{else}}
-                        <a href="/login">Login</a>
-                        <a href="/signup">Register</a>
-                        {{/if}}
-                    </div>
-                </div>
-                <a href="/user/wishlist"><button class="action-btn">
-                        <ion-icon name="heart-outline"></ion-icon>
-                        <span class="count">0</span>
-                    </button></a>
-                <a href="/cart"><button class="action-btn">
-                    <ion-icon name="bag-handle-outline"></ion-icon>
-                    <span class="count" id="cart-count">{{cartCount}}</span>
-                </button></a>
-            </div>
+  </div>
+  {{!-- /main header --}}
+  <div class="header-main">
+    <div class="container">
+      <a href="/" class="header-logo">
+        <img src="assets/images/logo/logo.svg" alt="Anon's logo" width="120" height="36">
+      </a>
+      <div class="header-search-container">
+        <input type="search" name="search" class="search-field" placeholder="Enter your product name...">
+        <button class="search-btn">
+          <ion-icon name="search-outline"></ion-icon>
+        </button>
+      </div>
+      <div class="header-user-actions">
+        <div class="dropdown">
+          {{!-- <button class="dropbtn,action-btn"><i style="font-size: 37px;" class="fa fa-user"></i></button>
+          <div class="dropdown-content">
+            {{#if user}}
+            <a href="/login">My Account</a>
+            <a href="#">Orders</a>
+            <a href="#">wishlist</a>
+            <a href="#">Cart</a>
+            <a href="#">Logout</a>
+            {{else}}
+            <a href="/login">Login</a>
+            <a href="/signup">Register</a>
+            {{/if}}
+          </div> --}}
+          {{#if user}}
+          <button class="dropbtn,action-btn"><i style="font-size: 28px;" class="fa fa-user">  <span style="color: blue; font-size :23px;">{{user.firstName}}</span></i></button>
+          <div class="dropdown-content">
+            <a href="#">My Account</a>
+            <a href="#">Orders</a>
+            <a href="#">wishlist</a>
+            <a href="#">Cart</a>
+            <a href="/logout">Logout</a>
+          </div>
+          {{else}}
+          <button class="dropbtn,action-btn"><i style="font-size: 37px;" class="fa fa-user"></i></button>
+          <div class="dropdown-content">
+            <a href="/login">Login</a>
+            <a href="/signup">Register</a>
+          </div>
+          {{/if}}
         </div>
+        <a href="/user/wishlist"><button class="action-btn">
+            <ion-icon name="heart-outline"></ion-icon>
+            <span class="count">0</span>
+          </button></a>
+        {{#if user}}
+        <a href="/cart"><button class="action-btn">
+            <ion-icon name="bag-handle-outline"></ion-icon>
+            <span class="count" id="cart-count">{{cartCount}}</span>
+          </button></a>
+        {{else}}
+        <a href="/cart"><button class="action-btn">
+            <ion-icon name="bag-handle-outline"></ion-icon>
+            <span class="count">0</span>
+          </button></a>
+        {{/if}}
+      </div>
     </div>
+  </div>
 </header>
+
+<nav class="desktop-navigation-menu">
+  <div class="container">
+    <ul class="desktop-menu-category-list">
+      <li class="menu-category">
+        <a href="/" class="menu-title">Home</a>
+      </li>
+      <li class="menu-category">
+        <a href="#" class="menu-title">Categories</a>
+        <div class="dropdown-panel">
+          {{#each category}}
+          <ul class="dropdown-panel-list">
+            <li class="menu-title">
+              <a href="#">{{this.cat_name}}</a>
+            </li>
+            <li class="panel-list-item">
+              <a href="#">
+                <img src="/assets/images/products/{{this._id}}.jpg" alt="" width="250" height="119">
+              </a>
+            </li>
+          </ul>
+          {{/each}}
+        </div>
+      </li>
+      <li class="menu-category">
+        <a href="#" class="menu-title">Special Deal</a>
+      </li>
+      <li class="menu-category">
+        <a href="/view-products" class="menu-title">Products</a>
+      </li>
+      <li class="menu-category">
+        <a href="#" class="menu-title">Services</a>
+      </li>
+      <li class="menu-category">
+        <a href="#" class="menu-title">Hot offers</a>
+      </li>
+      <li class="menu-category">
+        <a href="#" class="menu-title">Contact Us</a>
+      </li>
+    </ul>
+  </div>
+</nav>

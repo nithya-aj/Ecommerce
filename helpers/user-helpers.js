@@ -1,5 +1,6 @@
 var db = require('../config/connection');
 var collection = require('../config/collections');
+const client = require('twilio')('ACf9af3508f42107fa635b3f9cd47d23ba', '0d68adc69582147eb735b26656a42bb8');
 var bcrypt = require('bcrypt');
 const { response } = require('../app');
 var objectId = require('mongodb').ObjectId
@@ -18,11 +19,43 @@ module.exports = {
                 response.err = 'Fill The Form';
                 resolve(response)
             } else {
+                // userData.userStatus = true;
+                // db.get().collection(collection.USER_COLLECTION).insertOne(userData).then((data) => {
+                //     resolve(userData)
+                // })
+                userData.password = await bcrypt.hash(userData.password, 10)
                 userData.userStatus = true;
-                db.get().collection(collection.USER_COLLECTION).insertOne(userData).then((data) => {
-                    resolve(userData)
-                })
+                client.verify.v2.services(collection.serviceID)
+                    .verifications
+                    .create({ to: '+91' + userData.phoneNumber, channel: 'sms' })
+                    .then(verification => console.log(verification.status));
+                console.log('no same email');
+                console.log(collection.serviceID);
+                resolve({ userData })
             }
+        })
+    },
+    signupOtp: (userData, userDetails) => {
+        return new Promise((resolve, reject) => {
+            let response = {}
+            client.verify.services(collection.serviceID)
+                .verificationChecks
+                .create({
+                    to: `+91${userDetails.phoneNumber}`,
+                    code: userData.otp
+                })
+                .then((verification_check) => {
+                    console.log(verification_check.status);
+                    if (verification_check.status == 'approved') {
+                        db.get().collection(collection.USER_COLLECTION).insertOne(userDetails).then((data) => {
+                            resolve(userDetails)
+                        })
+                    } else {
+                        response.err = 'otp is invalid';
+                        console.log(response);
+                        resolve(response)
+                    }
+                })
         })
     },
 
@@ -194,7 +227,7 @@ module.exports = {
                             $inc: { 'products.$.quantity': details.count }
                         }
                     ).then((response) => {
-                        resolve(true)
+                        resolve({status:true})
                     })
             }
         })
@@ -247,8 +280,21 @@ module.exports = {
                     }
                 }
             ]).toArray()
-            console.log(total);
-            resolve(total);
+            console.log(total[0].total);
+            resolve(total[0].total);
+        })
+    },
+    placeOrder:(order, products, total)=>{
+        return new Promise((resolve, reject)=>{
+            console.log(order, products, total);
+        })
+    },
+    getCartProductList:(userId)=>{
+        return new Promise(async(resolve, reject)=>{
+            console.log(userId);
+            let cart = await db.get().collection(collection.CART_COLLECTION).findOne({user:objectId(userId)})
+            console.log(cart);
+            resolve(cart.products)
         })
     }
 }
