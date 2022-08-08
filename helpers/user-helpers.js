@@ -1,6 +1,6 @@
 var db = require('../config/connection');
 var collection = require('../config/collections');
-const client = require('twilio')('ACf9af3508f42107fa635b3f9cd47d23ba', '0d68adc69582147eb735b26656a42bb8');
+const client = require('twilio')('ACf9af3508f42107fa635b3f9cd47d23ba', '8199288c03545bf386730accbfd3d5e2');
 var bcrypt = require('bcrypt');
 const { response } = require('../app');
 var objectId = require('mongodb').ObjectId
@@ -280,13 +280,39 @@ module.exports = {
                     }
                 }
             ]).toArray()
-            console.log(total[0].total);
-            resolve(total[0].total);
+            if(total[0]){
+                console.log(total[0].total);
+                resolve(total[0].total);
+            }else{
+                resolve(0)
+            }
         })
     },
     placeOrder:(order, products, total)=>{
         return new Promise((resolve, reject)=>{
             console.log(order, products, total);
+            let status = order['payment-method']==='COD'?'placed':'pending'
+            let orderObj={
+                deliveryDetails:{
+                    firstName:order.firstName,
+                    lastName:order.lastName,
+                    email:order.email,
+                    phone:order.phone,
+                    address:order.address,
+                    landMark:order.landMark,
+                    pinCode:order.pinCode
+                },
+                userId:objectId(order.userId),
+                paymentMethod:order['payment-method'],
+                products:products,
+                totalAmount:total,
+                status:status,
+                date:new Date()
+            }
+            db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObj).then((response)=>{
+                db.get().collection(collection.CART_COLLECTION).deleteOne({user:objectId(order.userId)})
+                resolve()
+            })
         })
     },
     getCartProductList:(userId)=>{
@@ -295,6 +321,50 @@ module.exports = {
             let cart = await db.get().collection(collection.CART_COLLECTION).findOne({user:objectId(userId)})
             console.log(cart);
             resolve(cart.products)
+        })
+    },
+    getUserOrders:(userId)=>{
+        console.log(userId);
+        return new Promise(async(resolve, reject)=>{
+            let orders = await db.get().collection(collection.ORDER_COLLECTION)
+            .find({userId:objectId(userId)}).toArray()
+            console.log(orders);
+            resolve(orders)
+        })
+    },
+    getOrderProducts:(orderId)=>{
+        return new Promise(async (resolve, reject) => {
+            let orderItems = await db.get().collection(collection.ORDER_COLLECTION).aggregate([
+                {
+                    $match: {_id:objectId(orderId) }
+                },
+                {
+                    $unwind: '$products'
+                },
+
+                {
+                    $project: {
+                        item: '$products.item',
+                        quantity: '$products.quantity'
+                    }
+                },
+                {
+                    $lookup: {
+                        from: collection.PRODUCT_COLLECTION,
+                        localField: 'item',
+                        foreignField: '_id',
+                        as: 'product'
+                    }
+                },
+                {
+                    $project: {
+                        item: 1, quantity: 1, product: { $arrayElemAt: ['$product', 0] }
+                    }
+                }
+
+            ]).toArray()
+            console.log(orderItems);
+            resolve(orderItems);
         })
     }
 }

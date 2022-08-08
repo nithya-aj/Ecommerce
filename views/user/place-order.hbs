@@ -5,117 +5,109 @@
                 <h2 class="title">Place Order</h2>
                 <section class="h-100 gradient-custom">
                     <form action="/" id="checkout-form">
-                        <div class="container">
+                        <div class="container-fluid">
                             <div class="row d-flex justify-content-center my-4 col-md-12">
-                                <div class="row">
-                                    <div class="col-md-8 mb-4">
-                                        <div class="card mb-4">
-                                            <div class="card-header py-3">
-                                                <h5 class="mb-0">Biling details</h5>
+                                <div class="col-md-8 mb-4">
+                                    <div class="card mb-4">
+                                        <div class="card-header py-3">
+                                            <h5 class="mb-0">Biling details</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <!-- 2 column grid layout with text inputs for the first and last names -->
+                                            <div class="row mb-3">
+                                                <div class="col">
+                                                    <div class="form-outline">
+                                                        <label class="form-label" for="">First name</label>
+                                                        <input type="text" id="firstName" name="firstName"
+                                                            class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="form-outline">
+                                                        <label class="form-label" for="">Last name</label>
+                                                        <input type="text" id="lastName" name="lastName"
+                                                            class="form-control" />
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="card-body">
-                                                <!-- 2 column grid layout with text inputs for the first and last names -->
-                                                <div class="row mb-3">
-                                                    <div class="col">
-                                                        <div class="form-outline">
-                                                            <label class="form-label" for="">First
-                                                                name</label>
-                                                            <input type="text" id="firstName" name="firstName"
-                                                                class="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="form-outline">
-                                                            <label class="form-label" for="">Last
-                                                                name</label>
-                                                            <input type="text" id="lastName" name="lastName"
-                                                                class="form-control" />
-                                                        </div>
-                                                    </div>
-                                                </div>
 
-                                                <!-- Text input -->
-                                                <div class="form-outline mb-4">
-                                                    <label class="form-label" for="">Company name</label>
-                                                    <input type="text" id="companyName" name="companyName"
-                                                        class="form-control" />
-                                                </div>
+                                            <!-- Email input -->
+                                            <div class="form-outline mb-4">
+                                                <label class="form-label" for="">Email</label>
+                                                <input type="email" id="email" name="email" class="form-control" />
+                                            </div>
 
-                                                <!-- Text input -->
-                                                <div class="form-outline mb-4">
-                                                    <label class="form-label" for="">Address</label>
-                                                    <input type="text" id="address" name="address"
-                                                        class="form-control" />
-                                                </div>
+                                            <!-- Number input -->
+                                            <div class="form-outline mb-4">
+                                                <label class="form-label" for="">Phone</label>
+                                                <input id="phone" name="phone" class="form-control" />
+                                                <input type="text" name="userId" id="" hidden value="{{user._id}}">
+                                            </div>
 
-                                                <!-- Email input -->
-                                                <div class="form-outline mb-4">
-                                                    <label class="form-label" for="">Email</label>
-                                                    <input type="email" id="email" name="email" class="form-control" />
-                                                </div>
+                                            <!-- Text input -->
+                                            <div class="form-outline mb-4">
+                                                <label class="form-label" for="">Address</label>
+                                                <input type="text" id="address" name="address" class="form-control" />
+                                            </div>
 
-                                                <!-- Number input -->
-                                                <div class="form-outline mb-4">
-                                                    <label class="form-label" for="">Phone</label>
-                                                    <input id="phone" name="phone" class="form-control" />
-                                                    <input type="text" name="userId" id="" hidden value="{{user._id}}">
-                                                </div>
+                                            <!-- Text input -->
+                                            <div class="form-outline mb-4">
+                                                <label class="form-label" for="">Land Mark</label>
+                                                <input type="text" id="landMark" name="landMark" class="form-control" />
+                                            </div>
 
-                                                <!-- Message input -->
-                                                <div class="form-outline mb-4">
-                                                    <label class="form-label" for="">Additional
-                                                        information</label>
-                                                    <textarea class="form-control" id="info" name="info"
-                                                        rows="4"></textarea>
-                                                </div>
+                                            <!-- Text input -->
+                                            <div class="form-outline mb-4">
+                                                <label class="form-label" for="">Pincode</label>
+                                                <input type="text" id="pinCode" name="pinCode" class="form-control" />
                                             </div>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <div class="col-md-4 mb-4">
-                                        <div class="card mb-4">
-                                            <div class="card-header py-3">
-                                                <h5 class="mb-0">Summary</h5>
-                                            </div>
-                                            <div class="card-body">
-                                                <ul class="list-group list-group-flush">
-                                                    <li
-                                                        class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                                                        Products
-                                                        <span>Rs.{{total}}</span>
-                                                    </li>
-                                                    <li
-                                                        class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                                        Shipping
-                                                        <span>Gratis</span>
-                                                    </li>
-                                                    <li
-                                                        class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
-                                                        <div>
-                                                            <strong>Total amount</strong>
-                                                            <strong>
-                                                                <p class="mb-0">(including VAT)</p>
-                                                            </strong>
-                                                        </div>
-                                                        <span><strong>$53.98</strong></span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="card-header py-3">
-                                                <h5 class="mb-0">Payment Method</h5>
-                                            </div>
-                                            <div class="card-body">
-                                                <label for="" class="radio-inline">
-                                                    <input type="radio" name="payment-method" value="COD" checked>COD
-                                                </label>
-                                                <label for="" class="radio-inline mt-2">
-                                                    <input type="radio" name="payment-method" value="ONLINE">ONLINE
-                                                    PAYMENT
-                                                </label>
-                                                <button type="submit" class="btn btn-primary btn-lg btn-block">
-                                                    Make purchase
-                                                </button>
-                                            </div>
+                                <div class="col-md-4 mb-4">
+                                    <div class="card mb-4">
+                                        <div class="card-header py-3">
+                                            <h5 class="mb-0">Summary</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <ul class="list-group list-group-flush">
+                                                <li
+                                                    class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                                    Products
+                                                    <span>Rs.{{total}}</span>
+                                                </li>
+                                                <li
+                                                    class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                                    Shipping
+                                                    <span>Gratis</span>
+                                                </li>
+                                                <li
+                                                    class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                                    <div>
+                                                        <strong>Total amount</strong>
+                                                        <strong>
+                                                            <p class="mb-0">(including VAT)</p>
+                                                        </strong>
+                                                    </div>
+                                                    <span><strong>$53.98</strong></span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="card-header py-3">
+                                            <h5 class="mb-0">Payment Method</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <label for="" class="radio-inline">
+                                                <input type="radio" name="payment-method" value="COD" checked>COD
+                                            </label>
+                                            <label for="" class="radio-inline mt-2">
+                                                <input type="radio" name="payment-method" value="ONLINE">ONLINE
+                                                PAYMENT
+                                            </label>
+                                            <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                                Make purchase
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -352,6 +344,9 @@
             data: $('#checkout-form').serialize(),
             success: (response) => {
                 alert('place order')
+                if(response.status){
+                    location.href='/order-placed'
+                }
             }
         })
     })

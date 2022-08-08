@@ -1,117 +1,143 @@
+<style>
+    .box {
+        margin-top: 60px;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
 
-<div class="product-container">
+    .alert {
+        margin-top: 25px;
+        background-color: #fff;
+        font-size: 25px;
+        font-family: sans-serif;
+        text-align: center;
+        width: 300px;
+        height: 100px;
+        padding-top: 150px;
+        position: relative;
+    }
+
+    .alert::before {
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        border-radius: 100%;
+        inset: 20px 0px 0px 100px;
+        font-size: 60px;
+        line-height: 100px;
+        border: 5px solid gray;
+        animation-name: reveal;
+        animation-duration: 1.5s;
+        animation-timing-function: ease-in-out;
+    }
+
+    .alert>.alert-body {
+        opacity: 0;
+        animation-name: reveal-message;
+        animation-duration: 1s;
+        animation-timing-function: ease-out;
+        animation-delay: 1.5s;
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes reveal-message {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    .success {
+        color: green;
+    }
+
+    .success::before {
+        content: '✓';
+        background-color: #eff;
+        box-shadow: 0px 0px 12px 7px rgba(200, 255, 150, 0.8) inset;
+        border: 5px solid green;
+    }
+
+    @keyframes reveal {
+        0% {
+            border: 5px solid transparent;
+            color: transparent;
+            box-shadow: 0px 0px 12px 7px rgba(255, 250, 250, 0.8) inset;
+            transform: rotate(1000deg);
+        }
+
+        25% {
+            border-top: 5px solid gray;
+            color: transparent;
+            box-shadow: 0px 0px 17px 10px rgba(255, 250, 250, 0.8) inset;
+        }
+
+        50% {
+            border-right: 5px solid gray;
+            border-left: 5px solid gray;
+            color: transparent;
+            box-shadow: 0px 0px 17px 10px rgba(200, 200, 200, 0.8) inset;
+        }
+
+        75% {
+            border-bottom: 5px solid gray;
+            color: gray;
+            box-shadow: 0px 0px 12px 7px rgba(200, 200, 200, 0.8) inset;
+        }
+
+        100% {
+            border: 5px solid gray;
+            box-shadow: 0px 0px 12px 7px rgba(200, 200, 200, 0.8) inset;
+        }
+    }
+    body {
+        text-align: center;
+        padding: 40px 0;
+      }
+        h1 {
+          color: #88B04B;
+          font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+          font-weight: 900;
+          font-size: 40px;
+          margin-bottom: 10px;
+        }
+        p {
+          color: #404F5E;
+          font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+          font-size:20px;
+          margin: 0;
+        }
+      i {
+        font-size: 100px;
+        line-height: 200px;
+        margin-left:-15px;
+      }
+      .card {
+        background: white;
+        padding: 60px;
+        border-radius: 4px;
+        box-shadow: 0 2px 3px #C8D0D8;
+        display: inline-block;
+        margin: 0 auto;
+      }
+</style>
+
+<div class="pd-wrap">
     <div class="container">
-        <div class="product-box">
-            <div class="product-main">
-                <h2 class="title">New Products</h2>
-                <div class="row">
-                    <div class="col-md-4">
-                        <section id="sidebar">
-                            <div class="border-bottom pb-2 ml-2">
-                                <h4 id="burgundy">Filters</h4>
-                            </div>
-                            <div class="py-2 border-bottom ml-3">
-                                <h6 class="font-weight-bold">Categories</h6>
-                                <div id="orange"><span class="fa fa-minus"></span></div>
-                                <form>
-                                    {{#each category}}
-                                    <div class="form-group">
-                                        <input type="checkbox" id="artisan">
-                                        <label for="artisan">{{this.cat_name}}</label>
-                                    </div>
-                                    {{/each}}
-                                </form>
-                            </div>
-                            {{!-- <div class="py-2 border-bottom ml-3">
-                                <h6 class="font-weight-bold">Accompainments</h6>
-                                <div id="orange"><span class="fa fa-minus"></span></div>
-                                <form>
-                                    <div class="form-group">
-                                        <input type="checkbox" id="tea">
-                                        <label for="tea">Tea Cakes</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="checkbox" id="cookies">
-                                        <label for="cookies">Cookies</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="checkbox" id="pastries">
-                                        <label for="pastries">Pastries</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="checkbox" id="dough">
-                                        <label for="dough">Cookie Dough</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="checkbox" id="choco">
-                                        <label for="choco">Chocolates</label>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="py-2 ml-3">
-                                <h6 class="font-weight-bold">Top Offers</h6>
-                                <div id="orange"><span class="fa fa-minus"></span></div>
-                                <form>
-                                    <div class="form-group">
-                                        <input type="checkbox" id="25off">
-                                        <label for="25">25% off</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="checkbox" id="5off">
-                                        <label for="5off" id="off">5% off on artisan breads</label>
-                                    </div>
-                                </form>
-                            </div> --}}
-                        </section>
+        <div class="card">
+                    <div class="success alert">
                     </div>
-                    <div class="col-md-8">
-                        <div class="product-grid">
-                            {{#each products}}
-                            <div class="showcase">
-                                <div class="showcase-banner">
-                                    <img src="/assets/images/products/{{this._id}}.jpg"
-                                        alt="Mens Winter Leathers Jackets" width="300" class="product-img default">
-                                    <img src="/assets/images/products/{{this._id}}.jpg"
-                                        alt="Mens Winter Leathers Jackets" width="300" class="product-img hover">
-                                    <p class="showcase-badge">{{this.badge}}</p>
-                                    <div class="showcase-actions">
-                                        <button class="btn-action">
-                                            <a href="/whishlist/{{this._id}}">
-                                                <ion-icon name="heart-outline"></ion-icon>
-                                            </a>
-                                        </button>
-                                        <button class="btn-action" onclick="addToCart('{{this._id}}')">
-                                            <ion-icon name="bag-add-outline"></ion-icon>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="showcase-content">
-                                    <a href="/product-details/{{this._id}}" class="showcase-category">{{this.name}}</a>
-                                    <a href="#">
-                                        <h3 class="showcase-title">{{this.category}}</h3>
-                                    </a>
-                                    <div class="showcase-rating">
-                                        <ion-icon name="star"></ion-icon>
-                                        <ion-icon name="star"></ion-icon>
-                                        <ion-icon name="star"></ion-icon>
-                                        <ion-icon name="star-outline"></ion-icon>
-                                        <ion-icon name="star-outline"></ion-icon>
-                                    </div>
-                                    <div class="price-box">
-                                        <p class="price">Rs.{{this.price}}</p>
-                                        <del>Rs.{{this.real_price}}</del>
-                                    </div>
-                                </div>
-                            </div>
-                            {{/each}}
-                        </div>
-                    </div>
-                </div>
-            </div>
+                    <h4>Order placed</h4>
+                    <h1>successfully</h1>
+            <p>We received your purchase request<br /> we'll be in touch shortly!</p><br>
+            <a href="/view-orders" class="btn btn-secondary" role="button">View orders</a>
         </div>
     </div>
 </div>
-<!--- FOOTER -->
 
 <footer>
     <div class="footer-category">

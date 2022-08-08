@@ -137,17 +137,44 @@ router.post('/remove-product', (req, res) => {
 
 router.get('/place-order', verifyLogin, async (req, res) => {
   let total = await userHelpers.getTotalAmount(req.session.user._id)
-  res.render('user/place-order', { user_head: true, total, user: req.session.user })
+  let category = await categoryHelpers.getAllCategory()
+  res.render('user/place-order', { user_head: true, total, user: req.session.user, cartCount, category})
 })
 
 router.post('/place-order', async (req, res) => {
-  console.log('kdfslkjdsl');
   let products = await userHelpers.getCartProductList(req.body.userId)
   let totalPrice = await userHelpers.getTotalAmount(req.body.userId)
   userHelpers.placeOrder(req.body, products, totalPrice).then((response) => {
-
+    res.json({status:true})
   })
   console.log(req.body);
+})
+
+router.get('/order-placed', async (req, res)=>{
+  let category = await categoryHelpers.getAllCategory()
+  res.render('user/order-placed',{user_head:true,user:req.session.user, category, cartCount})
+})
+
+router.get('/view-orders',verifyLogin, async(req, res)=>{
+  let category = await categoryHelpers.getAllCategory()
+  let orders = await userHelpers.getUserOrders(req.session.user._id)
+  res.render('user/orders',{user_head:true, user:req.session.user, category, cartCount, orders})  
+})
+
+router.get('/ordered-products/:id',async(req, res)=>{
+  let products = await userHelpers.getOrderProducts(req.params.id)
+  console.log(products);
+  let category = await categoryHelpers.getAllCategory()
+  res.render('user/ordered-products', {user_head:true, category, user:req.session.user, products, cartCount})
+})
+
+router.get('/product-details/:id', async(req, res)=>{
+  console.log(req.params.id);
+  let category = await categoryHelpers.getAllCategory()
+  let product = await productHelpers.getProductDetails(req.params.id)
+  userHelpers.addToCart.apply(req.params.id)
+  console.log(product);
+  res.render('user/product-details', {product , user:req.session.user._id, user_head:true, category, cartCount})
 })
 
 module.exports = router;

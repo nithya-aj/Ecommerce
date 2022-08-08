@@ -1,117 +1,118 @@
-
-<div class="product-container">
-    <div class="container">
-        <div class="product-box">
-            <div class="product-main">
-                <h2 class="title">New Products</h2>
-                <div class="row">
-                    <div class="col-md-4">
-                        <section id="sidebar">
-                            <div class="border-bottom pb-2 ml-2">
-                                <h4 id="burgundy">Filters</h4>
-                            </div>
-                            <div class="py-2 border-bottom ml-3">
-                                <h6 class="font-weight-bold">Categories</h6>
-                                <div id="orange"><span class="fa fa-minus"></span></div>
-                                <form>
-                                    {{#each category}}
-                                    <div class="form-group">
-                                        <input type="checkbox" id="artisan">
-                                        <label for="artisan">{{this.cat_name}}</label>
-                                    </div>
-                                    {{/each}}
-                                </form>
-                            </div>
-                            {{!-- <div class="py-2 border-bottom ml-3">
-                                <h6 class="font-weight-bold">Accompainments</h6>
-                                <div id="orange"><span class="fa fa-minus"></span></div>
-                                <form>
-                                    <div class="form-group">
-                                        <input type="checkbox" id="tea">
-                                        <label for="tea">Tea Cakes</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="checkbox" id="cookies">
-                                        <label for="cookies">Cookies</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="checkbox" id="pastries">
-                                        <label for="pastries">Pastries</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="checkbox" id="dough">
-                                        <label for="dough">Cookie Dough</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="checkbox" id="choco">
-                                        <label for="choco">Chocolates</label>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="py-2 ml-3">
-                                <h6 class="font-weight-bold">Top Offers</h6>
-                                <div id="orange"><span class="fa fa-minus"></span></div>
-                                <form>
-                                    <div class="form-group">
-                                        <input type="checkbox" id="25off">
-                                        <label for="25">25% off</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="checkbox" id="5off">
-                                        <label for="5off" id="off">5% off on artisan breads</label>
-                                    </div>
-                                </form>
-                            </div> --}}
-                        </section>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="product-grid">
-                            {{#each products}}
-                            <div class="showcase">
-                                <div class="showcase-banner">
-                                    <img src="/assets/images/products/{{this._id}}.jpg"
-                                        alt="Mens Winter Leathers Jackets" width="300" class="product-img default">
-                                    <img src="/assets/images/products/{{this._id}}.jpg"
-                                        alt="Mens Winter Leathers Jackets" width="300" class="product-img hover">
-                                    <p class="showcase-badge">{{this.badge}}</p>
-                                    <div class="showcase-actions">
-                                        <button class="btn-action">
-                                            <a href="/whishlist/{{this._id}}">
-                                                <ion-icon name="heart-outline"></ion-icon>
-                                            </a>
-                                        </button>
-                                        <button class="btn-action" onclick="addToCart('{{this._id}}')">
-                                            <ion-icon name="bag-add-outline"></ion-icon>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="showcase-content">
-                                    <a href="/product-details/{{this._id}}" class="showcase-category">{{this.name}}</a>
-                                    <a href="#">
-                                        <h3 class="showcase-title">{{this.category}}</h3>
-                                    </a>
-                                    <div class="showcase-rating">
-                                        <ion-icon name="star"></ion-icon>
-                                        <ion-icon name="star"></ion-icon>
-                                        <ion-icon name="star"></ion-icon>
-                                        <ion-icon name="star-outline"></ion-icon>
-                                        <ion-icon name="star-outline"></ion-icon>
-                                    </div>
-                                    <div class="price-box">
-                                        <p class="price">Rs.{{this.price}}</p>
-                                        <del>Rs.{{this.real_price}}</del>
-                                    </div>
-                                </div>
-                            </div>
-                            {{/each}}
-                        </div>
-                    </div>
-                </div>
-            </div>
+<div class="card">
+  <div class="card-body">
+    <div class="container mb-5 mt-3">
+      <div class="row d-flex align-items-baseline">
+        <div class="col-xl-9">
+          <p style="color: #7e8d9f;font-size: 20px;">Invoice >> <strong>ID: #123-123</strong></p>
         </div>
+        <div class="col-xl-3 float-end">
+          <a class="btn btn-light text-capitalize border-0" data-mdb-ripple-color="dark"><i
+              class="fas fa-print text-primary"></i> Print</a>
+          <a class="btn btn-light text-capitalize" data-mdb-ripple-color="dark"><i
+              class="far fa-file-pdf text-danger"></i> Export</a>
+        </div>
+        <hr>
+      </div>
+
+      <div class="container">
+        <div class="col-md-12">
+          <div class="text-center">
+            <i class="fab fa-mdb fa-4x ms-0" style="color:#5d9fc5 ;"></i>
+            <p class="pt-0">MDBootstrap.com</p>
+          </div>
+
+        </div>
+
+
+        <div class="row">
+          <div class="col-xl-8">
+            <ul class="list-unstyled">
+              <li class="text-muted">To: <span style="color:#5d9fc5 ;">John Lorem</span></li>
+              <li class="text-muted">Street, City</li>
+              <li class="text-muted">State, Country</li>
+              <li class="text-muted"><i class="fas fa-phone"></i> 123-456-789</li>
+            </ul>
+          </div>
+          <div class="col-xl-4">
+            <p class="text-muted">Invoice</p>
+            <ul class="list-unstyled">
+              <li class="text-muted"><i class="fas fa-circle" style="color:#84B0CA ;"></i> <span
+                  class="fw-bold">ID:</span>#123-456</li>
+              <li class="text-muted"><i class="fas fa-circle" style="color:#84B0CA ;"></i> <span
+                  class="fw-bold">Creation Date: </span>Jun 23,2021</li>
+              <li class="text-muted"><i class="fas fa-circle" style="color:#84B0CA ;"></i> <span
+                  class="me-1 fw-bold">Status:</span><span class="badge bg-warning text-black fw-bold">
+                  Unpaid</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row my-2 mx-1 justify-content-center">
+          <table class="table table-striped table-borderless">
+            <thead style="background-color:#84B0CA ;" class="text-white">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Description</th>
+                <th scope="col">Qty</th>
+                <th scope="col">Unit Price</th>
+                <th scope="col">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Pro Package</td>
+                <td>4</td>
+                <td>$200</td>
+                <td>$800</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Web hosting</td>
+                <td>1</td>
+                <td>$10</td>
+                <td>$10</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Consulting</td>
+                <td>1 year</td>
+                <td>$300</td>
+                <td>$300</td>
+              </tr>
+            </tbody>
+
+          </table>
+        </div>
+        <div class="row">
+          <div class="col-xl-8">
+            <p class="ms-3">Add additional notes and payment information</p>
+
+          </div>
+          <div class="col-xl-3">
+            <ul class="list-unstyled">
+              <li class="text-muted ms-3"><span class="text-black me-4">SubTotal</span>$1110</li>
+              <li class="text-muted ms-3 mt-2"><span class="text-black me-4">Tax(15%)</span>$111</li>
+            </ul>
+            <p class="text-black float-start"><span class="text-black me-3"> Total Amount</span><span
+                style="font-size: 25px;">$1221</span></p>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-xl-10">
+            <p>Thank you for your purchase</p>
+          </div>
+          <div class="col-xl-2">
+            <button type="button" class="btn btn-primary text-capitalize"
+              style="background-color:#60bdf3 ;">Pay Now</button>
+          </div>
+        </div>
+
+      </div>
     </div>
+  </div>
 </div>
-<!--- FOOTER -->
 
 <footer>
     <div class="footer-category">
