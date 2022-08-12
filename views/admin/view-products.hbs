@@ -31,14 +31,19 @@
                                 <tbody>
                                     {{#each products}}
                                     <tr class="table-warning">
-                                        <td>{{@index}}</td>
+                                        <td>{{inc @index}}</td>
                                         <td>{{this.badge}}</td>
                                         <td> {{this.category}} </td>
                                         <td> {{this.name}} </td>
                                         {{!-- <td>{{this.name}} </td> --}}
-                                        <td> {{this.price}}</td>
-                                        <td>{{this.real_price}}</td>
-                                        <td><img src="/assets/images/products/{{this._id}}.jpg" alt=""></td>
+                                        <td> Rs.{{this.price}}</td>
+                                        {{#if realPrice}}
+                                            <td>Rs.{{this.realPrice}}</td>
+                                        {{else}}
+                                            <td>{{this.realPrice}}</td>
+                                        {{/if}}
+                                        
+                                        <td><img src="/assets/images/products/{{this.images.[0]}}" alt=""></td>
                                         <td><a href="/admin/edit-product/{{this._id}}"><button type="button"
                                                     class="btn btn-outline-primary btn-sm">Edit</button></a></td>
                                         <td><a href="/admin/delete-product/{{this._id}}"><button type="button"

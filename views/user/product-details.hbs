@@ -16,14 +16,13 @@
         overflow: hidden;
         cursor: zoom-in;
     }
-    
 </style> --}}
 
 
 
 <div class="product-container">
     <div class="container">
-        <div class="product-box">
+        <div class="product-box col-md-12">
             <div class="product-main">
                 <h2 class="title">Products Details</h2>
 
@@ -31,19 +30,19 @@
                     <div class="col-md-6">
                         <div class="col-md-6 border-end">
                             <div class="d-flex flex-column justify-content-center">
-                                <div class="main_image"> <img src="/assets/images/products/{{product._id}}.jpg"
+                                <div class="main_image"> <img src="/assets/images/products/{{product.images.[0]}}"
                                         id="main_product_image" width="350">
                                 </div>
                                 <div class="thumbnail_images">
                                     <ul id="thumbnail">
                                         <li><img onclick="changeImage(this)"
-                                                src="/assets/images/products/{{product._id}}.jpg" width="70"></li>
+                                                src="/assets/images/products/{{product.images.[0]}}" width="70"></li>
                                         <li><img onclick="changeImage(this)"
-                                                src="/assets/images/products/{{product._id}}.jpg" width="70"></li>
+                                                src="/assets/images/products/{{product.images.[1]}}" width="70"></li>
                                         <li><img onclick="changeImage(this)"
-                                                src="/assets/images/products/{{product._id}}.jpg" width="70"></li>
+                                                src="/assets/images/products/{{product.images.[2]}}" width="70"></li>
                                         <li><img onclick="changeImage(this)"
-                                                src="/assets/images/products/{{product._id}}.jpg" width="70"></li>
+                                                src="/assets/images/products/{{product.images.[3]}}" width="70"></li>
                                     </ul>
                                 </div>
                             </div>
@@ -68,8 +67,12 @@
                                     </div>
                                     <span>3 Reviews</span>
                                 </div>
-                                <div class="product-price-discount"><span>{{product.price}}</span><span
-                                        class="line-through">{{this.real_price}}</span>
+                                <div class="product-price-discount"><span>Rs.{{product.price}}</span>
+                                    {{#if product.realPrice}}
+                                    <span class="line-through">Rs.{{product.realPrice}}</span>
+                                    {{else}}
+                                    <span class="line-through">{{product.realPrice}}</span>
+                                    {{/if}}
                                 </div>
                             </div>
                             <p>{{product.description}}</p>
@@ -98,7 +101,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link active" id="description-tab" data-toggle="tab"
                                         href="#description" role="tab" aria-controls="description"
-                                        aria-selected="true">Description</a>
+                                        aria-selected="true">Details</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab"
@@ -106,20 +109,52 @@
                                 </li>
                             </ul>
                             <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active" id="description" role="tabpanel"
-                                    aria-labelledby="description-tab">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                    incididunt ut labore
-                                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                                    laboris nisi ut
-                                    aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                                    velit esse
-                                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                                    proident, sunt in
-                                    culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde
-                                    omnis iste natus
-                                    error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
-                                </div>
+                                <table class="table table-striped">
+                                    <tbody>
+                                        <tr>
+                                            <td><b>Brand</b></td>
+                                            <td>{{product.brand}}</td>
+                                            <td><b>Collection</b></td>
+                                            <td>{{product.collection}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Function</td>
+                                            <td>{{product.function}}</td>
+                                            <td><b>Movement</b></td>
+                                            <td>{{product.movement}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Warrenty</b></td>
+                                            <td>{{product.warrenty}}</td>
+                                            <td><b>Case Material</b></td>
+                                            <td>{{product.caseMaterial}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Dial Colour</b></td>
+                                            <td>{{product.dialColour}}</td>
+                                            <td><b>Dial Shape</b></td>
+                                            <td>{{product.dialShape}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Glass Material</b></td>
+                                            <td>{{product.glassMaterial}}</td>
+                                            <td><b>Lock Mechanism</b></td>
+                                            <td>{{product.lockMechanism}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Strap Colour</b></td>
+                                            <td>{{product.strapColour}}</td>
+                                            <td><b>Strap Material</b></td>
+                                            <td>{{product.strapMaterial}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Water Resistance</b></td>
+                                            <td>{{product.waterResistance}}</td>
+                                            <td><b>Case Thickness</b></td>
+                                            <td>{{product.caseThickness}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                                 <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
                                     <div class="review-heading">REVIEWS</div>
                                     <p class="mb-20">There are no reviews yet.</p>

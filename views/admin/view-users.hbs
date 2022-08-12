@@ -35,7 +35,7 @@
                                 <tbody>
                                     {{#each usersData}}
                                     <tr class="table-warning">
-                                        <td>{{@index}}</td>
+                                        <td>{{inc @index}}</td>
                                         <td>{{this.firstName}}</td>
                                         <td> {{this.lastName}} </td>
                                         <td> {{this.email}} </td>
@@ -48,10 +48,12 @@
                                                     class="btn btn-outline-primary btn-sm">
                                                     Unblock</button></a></td>
                                         {{/if}}
-                                        <td><a href="/admin/delete-user/{{this._id}}"><button type="button"
+                                        {{!-- <td><a href="/admin/delete-user/{{this._id}}"><button type="button"
                                                     class="btn btn-outline-danger btn-sm"
                                                     onclick="return confirm('Are you want to delete {{this.name}}')">
-                                                    Delete</button></a></td>
+                                                    Delete</button></a></td> --}}
+                                        <td><a href="/admin/edit-user/{{this._id}}"><button type="button"
+                                                    class="btn btn-outline-primary btn-sm">Edit</button></a></td>
                                     </tr>
                                     {{/each}}
                                 </tbody>

@@ -335,6 +335,7 @@
     </div>
 </footer>
 
+
 <script>
     $("#checkout-form").submit((e) => {
         e.preventDefault()
@@ -344,10 +345,59 @@
             data: $('#checkout-form').serialize(),
             success: (response) => {
                 alert('place order')
-                if(response.status){
+                if(response.codSuccess){
                     location.href='/order-placed'
+                }else{
+                    razorpayPayment(response)
                 }
             }
         })
     })
+
+    function razorpayPayment(order){
+        var options = {
+            "key" : "rzp_test_AyhfXZFR2tRSf5",
+            "amount" : order.amount,
+            "currency" : "INR",
+            "name" : "ecommerce",
+            "description" : "test description",
+            "image" : "https://example.com/your_logo",
+            "order_id" : order.id,
+            "handler" : function(response){
+                verifyPayment(response, order)
+            },
+            "prefill":{
+                "name":"anu",
+                "email":"anu@gmail.com",
+                "contact":"9999999999"
+            },
+            "notes":{
+                "address":"Razorpay Corporate Office"
+            },
+            "theme":{
+                "color":"#F37254"
+            }
+        };
+        var rzp1 = new Razorpay(options);
+        rzp1.open()
+    }
+
+    function verifyPayment(payment, order){
+        $.ajax({
+            url:'/verify-payment',
+            data:{
+                payment,
+                order
+            },
+            method:'post',
+            success:(response)=>{
+                if(response.status){
+                    location.href = '/order-placed'
+                }else{
+                    alert('Payment failed')
+                }
+            }
+        })
+    }
+
 </script>

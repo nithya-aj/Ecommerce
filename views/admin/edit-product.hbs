@@ -17,7 +17,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail3">Category</label>
-                                <input name="category" value="{{product.category}}" class="form-control" id="exampleInputEmail3" required>
+                                <select name="category"  value="{{product.category}}" class="form-select" aria-label="Default select example">
+                                    <option value="1">select category</option>
+                                    {{#each category}}
+                                    <option >{{this.cat_name}}</option>
+                                    {{/each}}
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword4">Name</label>
@@ -34,15 +39,94 @@
                                 </div>
                                 <div class="col">
                                     <label for="exampleInputCity1">Real Price</label>
-                                    <input name="real_price" value="{{product.real_price}}" type="text" class="form-control" id="exampleInputCity1">
+                                    <input name="realPrice" value="{{product.realPrice}}" type="text" class="form-control" id="exampleInputCity1">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>File upload</label>
-                                <img src="/assets/images/products/{{product._id}}.jpg" alt="" style="width: 100px; height:auto" id="imgView" class="my-4">
-                                <input type="file" name="image" class="file-upload-default">
+                                <img src="/assets/images/products/{{product.images.[0]}}" alt="" style="width: 100px; height:auto" >
+                                <img src="/assets/images/products/{{this.images.[0]}}" alt="" style="width: 100px; height:auto" id="imgView" class="my-4">
                                 <div class="input-group col-xs-12">
-                                    <input name="image" type="file" class="form-control file-upload-info" placeholder="Upload Image" onchange="viewImage(event)" required>
+                                    <input name="images" type="file" class="form-control file-upload-info" placeholder="Upload Image" onchange="viewImage(event)" required multiple>
+                                </div>
+                            </div>
+                            <hr>
+                            <h4 class="card-title">Product Details </h4>
+                            <div class="form-group col-md-12 row">
+                                <div class="col">
+                                    <label for="exampleInputCity1">Brand</label>
+                                    <input name="brand" value="{{product.brand}}" type="text" class="form-control" id="exampleInputCity1"
+                                        required>
+                                </div>
+                                <div class="col">
+                                    <label for="exampleInputCity1">Collection</label>
+                                    <input name="collection" value="{{product.collection}}" type="text" class="form-control" id="exampleInputCity1">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12 row">
+                                <div class="col">
+                                    <label for="exampleInputCity1">Function</label>
+                                    <input name="function" value="{{product.function}}" type="text" class="form-control" id="exampleInputCity1"
+                                        required>
+                                </div>
+                                <div class="col">
+                                    <label for="exampleInputCity1">Movement</label>
+                                    <input name="movement" value="{{product.movement}}" type="text" class="form-control" id="exampleInputCity1">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12 row">
+                                <div class="col">
+                                    <label for="exampleInputCity1">Warrenty</label>
+                                    <input name="warrenty" value="{{product.warrenty}}" type="text" class="form-control" id="exampleInputCity1"
+                                        required>
+                                </div>
+                                <div class="col">
+                                    <label for="exampleInputCity1">Water Resistance</label>
+                                    <input name="waterResistance" value="{{product.waterResistance}}" type="text" class="form-control" id="exampleInputCity1">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12 row">
+                                <div class="col">
+                                    <label for="exampleInputCity1">Dial Colour</label>
+                                    <input name="dialColour" value="{{product.dialColour}}" type="text" class="form-control" id="exampleInputCity1"
+                                        >
+                                </div>
+                                <div class="col">
+                                    <label for="exampleInputCity1">Dial Shape</label>
+                                    <input name="dialShape" value="{{product.dialShape}}" type="text" class="form-control" id="exampleInputCity1">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12 row">
+                                <div class="col">
+                                    <label for="exampleInputCity1">Case Material</label>
+                                    <input name="caseMaterial" value="{{product.caseMaterial}}" type="text" class="form-control" id="exampleInputCity1"
+                                        required>
+                                </div>
+                                <div class="col">
+                                    <label for="exampleInputCity1">Case Thickness</label>
+                                    <input name="caseThickness" value="{{product.caseThickness}}" type="text" class="form-control" id="exampleInputCity1">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12 row">
+                                <div class="col">
+                                    <label for="exampleInputCity1">Strap Colour</label>
+                                    <input name="strapColour" value="{{product.strapColour}}" type="text" class="form-control" id="exampleInputCity1"
+                                        required>
+                                </div>
+                                <div class="col">
+                                    <label for="exampleInputCity1">Strap Material</label>
+                                    <input name="strapMaterial" value="{{product.strapMaterial}}" type="text" class="form-control" id="exampleInputCity1">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12 row">
+                                <div class="col">
+                                    <label for="exampleInputCity1">Glass material</label>
+                                    <input name="glassMaterial" value="{{product.glassMaterial}}" type="text" class="form-control" id="exampleInputCity1"
+                                        required>
+                                </div>
+                                <div class="col">
+                                    <label for="exampleInputCity1">Lock mechanism</label>
+                                    <input name="lockMechanism" value="{{product.lockMechanism}}" type="text" class="form-control" id="exampleInputCity1">
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary me-2">Update</button>

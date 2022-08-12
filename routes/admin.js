@@ -4,6 +4,18 @@ var router = express.Router();
 var productHelpers = require('../helpers/product-helpers')
 var userHelpers = require('../helpers/user-helpers')
 var categoryHelpers = require('../helpers/category-helpers')
+var multer = require('multer')
+
+var storageds = multer.diskStorage({
+  destination: function(req, file, cb){
+    cb(null, './public/assets/images/products')
+  },
+  filename: function(req, file, cb){
+    cb(null, Date.now() + file.originalname)
+  }
+})
+
+var upload = multer({storage: storageds})
 
 /* GET users listing. */
 router.get('/', function (req, res) {
@@ -21,18 +33,14 @@ router.get('/add-product',async function (req, res) {
   res.render('admin/add-product', { admin: true, category })
 })
 
-router.post('/add-product', (req, res) => {
-  productHelpers.addProduct(req.body, (insertedId) => {
-    let image = req.files.image
-    console.log(image);
-    image.mv('./public/assets/images/products/' + insertedId + '.jpg', (err, done) => {
-      if (!err) {
-        res.render('admin/add-product', { admin: true})
-      } else {
-        console.log(err);
-      }
-    })
+router.post('/add-product', upload.array('images', 4), (req, res) => {
+  var filenames = req.files.map(function(file){
+    return file.filename;
   })
+  req.body.images = filenames;
+  productHelpers.addProduct(req.body, (insertedId) => {
+    res.redirect('/admin/add-product')
+  }) 
 });
 router.get('/delete-product/:id', (req, res) => {
   let prodId = req.params.id
@@ -49,17 +57,15 @@ router.get('/edit-product/:id', async (req, res) => {
   res.render('admin/edit-product', { admin: true, product,category })
 })
 
-router.post('/edit-product/:id', (req, res) => {
-  let id = req.params.id
-  productHelpers.updateProduct(req.params.id, req.body).then(() => {
-    if (req.files.image) {
-      let image = req.files.image
-      console.log(image);
-      image.mv('./public/assets/images/products/' + id + '.jpg')
-      res.redirect('/admin/view-products')
-    }
+router.post('/edit-product/:id', upload.array('images', 4), (req, res) => {
+  var filenames = req.files.map(function(file){
+    return file.filename;
   })
-})
+  req.body.images = filenames;
+  productHelpers.updateProduct(req.params.id, req.body).then(() => {
+    res.redirect('/admin/view-products')
+  }) 
+});
 
 //--- category --- 
 router.get('/view-category', function (req, res, next) {

@@ -6,7 +6,7 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="col">NO</th>
+                            <th scope="col">No</th>
                             <th scope="col">Date</th>
                             <th scope="col">Address</th>
                             <th scope="col">Pincode</th>
@@ -19,7 +19,7 @@
                     <tbody>
                         {{#each orders}}
                         <tr>
-                            <th scope="row">{{@index}}</th>
+                            <th scope="row">{{inc @index}}</th>
                             <td>{{this.date}}</td>
                             <td>{{this.deliveryDetails.address}}</td>
                             <td>{{this.deliveryDetails.pinCode}}</td>
@@ -28,7 +28,7 @@
                             <td>{{this.paymentMethod}}</td>
                             <td>{{this.status}}</td>
                             <td><a href="/ordered-products/{{this._id}}"><button type="button" class="btn btn-outline-primary btn-sm">View Products</button></a></td>
-                            <td><a href="/ordered-products/{{this._id}}"><button type="button" class="btn btn-outline-primary btn-sm">Cancel Order</button></a></td>
+                            <td><a href="/ordered-products/{{this._id}}"><button type="button" class="btn btn-outline-danger btn-sm">Cancel Order</button></a></td>
                         </tr>
                         {{/each}}
                     </tbody>

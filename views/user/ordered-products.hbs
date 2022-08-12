@@ -8,9 +8,9 @@
                     {{#each products}}
                     <div class="showcase">
                         <div class="showcase-banner">
-                            <img src="/assets/images/products/{{product._id}}.jpg" alt="Mens Winter Leathers Jackets"
+                            <img src="/assets/images/products/{{product.images.[0]}}" alt="Mens Winter Leathers Jackets"
                                 width="300" class="product-img default">
-                            <img src="/assets/images/products/{{product._id}}.jpg" alt="Mens Winter Leathers Jackets"
+                            <img src="/assets/images/products/{{product.images.[0]}}" alt="Mens Winter Leathers Jackets"
                                 width="300" class="product-img hover">
                             <p class="showcase-badge">{{product.badge}}</p>
                             <div class="showcase-actions">
@@ -35,8 +35,12 @@
                                 <ion-icon name="star-outline"></ion-icon>
                             </div>
                             <div class="price-box">
-                                <p class="price">{{product.price}}</p>
-                                <del>{{product.real_price}}</del>
+                                <p class="price">Rs.{{product.price}}</p>
+                                {{#if product.realPrice}}
+                                <del>Rs.{{product.realPrice}}</del>
+                                {{else}}
+                                <del>{{product.realPrice}}</del>
+                                {{/if}}
                             </div>
                         </div>
                     </div>

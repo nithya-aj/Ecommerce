@@ -41,15 +41,94 @@
                                 </div>
                                 <div class="col">
                                     <label for="exampleInputCity1">Real Price</label>
-                                    <input name="real_price" type="text" class="form-control" id="exampleInputCity1">
+                                    <input name="realPrice" type="text" class="form-control" id="exampleInputCity1">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>File upload</label>
-                                <input type="file" name="image" class="file-upload-default">
+                                {{!-- <input type="file" name="images" class="file-upload-default" multiple> --}}
                                 <div class="input-group col-xs-12">
-                                    <input name="image" type="file" class="form-control file-upload-info"
-                                        placeholder="Upload Image" required>
+                                    <input name="images" type="file" class="form-control file-upload-info"
+                                        placeholder="Upload Image" required multiple>
+                                </div>
+                            </div>
+                            <hr>
+                            <h4 class="card-title">Product Details </h4>
+                            <div class="form-group col-md-12 row">
+                                <div class="col">
+                                    <label for="exampleInputCity1">Brand</label>
+                                    <input name="brand" type="text" class="form-control" id="exampleInputCity1"
+                                        required>
+                                </div>
+                                <div class="col">
+                                    <label for="exampleInputCity1">Collection</label>
+                                    <input name="collection" type="text" class="form-control" id="exampleInputCity1">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12 row">
+                                <div class="col">
+                                    <label for="exampleInputCity1">Function</label>
+                                    <input name="function" type="text" class="form-control" id="exampleInputCity1"
+                                        required>
+                                </div>
+                                <div class="col">
+                                    <label for="exampleInputCity1">Movement</label>
+                                    <input name="movement" type="text" class="form-control" id="exampleInputCity1">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12 row">
+                                <div class="col">
+                                    <label for="exampleInputCity1">Warrenty</label>
+                                    <input name="warrenty" type="text" class="form-control" id="exampleInputCity1"
+                                        required>
+                                </div>
+                                <div class="col">
+                                    <label for="exampleInputCity1">Water Resistance</label>
+                                    <input name="waterResistance" type="text" class="form-control" id="exampleInputCity1">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12 row">
+                                <div class="col">
+                                    <label for="exampleInputCity1">Dial Colour</label>
+                                    <input name="dialColour" type="text" class="form-control" id="exampleInputCity1"
+                                        >
+                                </div>
+                                <div class="col">
+                                    <label for="exampleInputCity1">Dial Shape</label>
+                                    <input name="dialShape" type="text" class="form-control" id="exampleInputCity1">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12 row">
+                                <div class="col">
+                                    <label for="exampleInputCity1">Case Material</label>
+                                    <input name="caseMaterial" type="text" class="form-control" id="exampleInputCity1"
+                                        required>
+                                </div>
+                                <div class="col">
+                                    <label for="exampleInputCity1">Case Thickness</label>
+                                    <input name="caseThickness" type="text" class="form-control" id="exampleInputCity1">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12 row">
+                                <div class="col">
+                                    <label for="exampleInputCity1">Strap Colour</label>
+                                    <input name="strapColour" type="text" class="form-control" id="exampleInputCity1"
+                                        required>
+                                </div>
+                                <div class="col">
+                                    <label for="exampleInputCity1">Strap Material</label>
+                                    <input name="strapMaterial" type="text" class="form-control" id="exampleInputCity1">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12 row">
+                                <div class="col">
+                                    <label for="exampleInputCity1">Glass material</label>
+                                    <input name="glassMaterial" type="text" class="form-control" id="exampleInputCity1"
+                                        required>
+                                </div>
+                                <div class="col">
+                                    <label for="exampleInputCity1">Lock mechanism</label>
+                                    <input name="lockMechanism" type="text" class="form-control" id="exampleInputCity1">
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary me-2">Add Product</button>

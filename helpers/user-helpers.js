@@ -4,6 +4,13 @@ const client = require('twilio')('ACf9af3508f42107fa635b3f9cd47d23ba', '8199288c
 var bcrypt = require('bcrypt');
 const { response } = require('../app');
 var objectId = require('mongodb').ObjectId
+const Razorpay = require('razorpay');
+const { DeactivationsContext } = require('twilio/lib/rest/messaging/v1/deactivation');
+const { resolve } = require('path');
+var instance = new Razorpay({
+  key_id: 'rzp_test_AyhfXZFR2tRSf5',
+  key_secret: 'EzVaW3QLUIRjRr5NLbm0pC9N',
+});
 
 
 module.exports = {
@@ -88,6 +95,22 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             let usersData = await db.get().collection(collection.USER_COLLECTION).find().toArray()
             resolve(usersData)
+        })
+    },
+
+    updateUser: (userId, userDetails) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.USER_COLLECTION)
+                .updateOne({ _id: objectId(userId) }, {
+                    $set: {
+                        firstName: userDetails.firstName,
+                        lastName: userDetails.lastName,
+                        phoneNumber: userDetails.phoneNumber,
+                        email: userDetails.email,
+                    }
+                }).then((response) => {
+                    resolve()
+                })
         })
     },
 
@@ -227,24 +250,24 @@ module.exports = {
                             $inc: { 'products.$.quantity': details.count }
                         }
                     ).then((response) => {
-                        resolve({status:true})
+                        resolve({ status: true })
                     })
             }
         })
     },
-    removeItem:(details)=>{
-        return new Promise((resolve, reject)=>{
+    removeItem: (details) => {
+        return new Promise((resolve, reject) => {
             db.get().collection(collection.CART_COLLECTION)
-            .updateOne({_id:objectId(details.cart)},
-            {
-                $pull:{products:{item:objectId(details.product)}}
-            }
-            ).then((response)=>{
-                resolve({removeProduct:true})
-            })
+                .updateOne({ _id: objectId(details.cart) },
+                    {
+                        $pull: { products: { item: objectId(details.product) } }
+                    }
+                ).then((response) => {
+                    resolve({ removeProduct: true })
+                })
         })
     },
-    getTotalAmount:(userId)=>{
+    getTotalAmount: (userId) => {
         return new Promise(async (resolve, reject) => {
             let total = await db.get().collection(collection.CART_COLLECTION).aggregate([
                 {
@@ -274,69 +297,69 @@ module.exports = {
                     }
                 },
                 {
-                    $group:{
-                        _id:null,
-                        total:{$sum:{$multiply:["$quantity" ,"$product.price"]}}
+                    $group: {
+                        _id: null,
+                        total: { $sum: { $multiply: ["$quantity", "$product.price"] } }
                     }
                 }
             ]).toArray()
-            if(total[0]){
+            if (total[0]) {
                 console.log(total[0].total);
                 resolve(total[0].total);
-            }else{
+            } else {
                 resolve(0)
             }
         })
     },
-    placeOrder:(order, products, total)=>{
-        return new Promise((resolve, reject)=>{
+    placeOrder: (order, products, total) => {
+        return new Promise((resolve, reject) => {
             console.log(order, products, total);
-            let status = order['payment-method']==='COD'?'placed':'pending'
-            let orderObj={
-                deliveryDetails:{
-                    firstName:order.firstName,
-                    lastName:order.lastName,
-                    email:order.email,
-                    phone:order.phone,
-                    address:order.address,
-                    landMark:order.landMark,
-                    pinCode:order.pinCode
+            let status = order['payment-method'] === 'COD' ? 'placed' : 'pending'
+            let orderObj = {
+                deliveryDetails: {
+                    firstName: order.firstName,
+                    lastName: order.lastName,
+                    email: order.email,
+                    phone: order.phone,
+                    address: order.address,
+                    landMark: order.landMark,
+                    pinCode: order.pinCode
                 },
-                userId:objectId(order.userId),
-                paymentMethod:order['payment-method'],
-                products:products,
-                totalAmount:total,
-                status:status,
-                date:new Date()
+                userId: objectId(order.userId),
+                paymentMethod: order['payment-method'],
+                products: products,
+                totalAmount: total,
+                status: status,
+                date: new Date()
             }
-            db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObj).then((response)=>{
-                db.get().collection(collection.CART_COLLECTION).deleteOne({user:objectId(order.userId)})
-                resolve()
+            db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObj).then((response) => {
+                db.get().collection(collection.CART_COLLECTION).deleteOne({ user: objectId(order.userId) })
+                resolve(orderObj._id)
             })
         })
     },
-    getCartProductList:(userId)=>{
-        return new Promise(async(resolve, reject)=>{
+    getCartProductList: (userId) => {
+        return new Promise(async (resolve, reject) => {
             console.log(userId);
-            let cart = await db.get().collection(collection.CART_COLLECTION).findOne({user:objectId(userId)})
+            let cart = await db.get().collection(collection.CART_COLLECTION).findOne({ user: objectId(userId) })
             console.log(cart);
             resolve(cart.products)
         })
     },
-    getUserOrders:(userId)=>{
+    getUserOrders: (userId) => {
         console.log(userId);
-        return new Promise(async(resolve, reject)=>{
+        return new Promise(async (resolve, reject) => {
             let orders = await db.get().collection(collection.ORDER_COLLECTION)
-            .find({userId:objectId(userId)}).toArray()
+                .find({ userId: objectId(userId) }).toArray()
             console.log(orders);
             resolve(orders)
         })
     },
-    getOrderProducts:(orderId)=>{
+    getOrderProducts: (orderId) => {
         return new Promise(async (resolve, reject) => {
             let orderItems = await db.get().collection(collection.ORDER_COLLECTION).aggregate([
                 {
-                    $match: {_id:objectId(orderId) }
+                    $match: { _id: objectId(orderId) }
                 },
                 {
                     $unwind: '$products'
@@ -365,6 +388,50 @@ module.exports = {
             ]).toArray()
             console.log(orderItems);
             resolve(orderItems);
+        })
+    },
+    generateRazorpay:(orderId, total)=>{
+        console.log(orderId,"-------------orderid");
+        return new Promise((resolve, reject)=>{
+            var options = {
+                amount: total*100,
+                currency:"INR",
+                receipt: "" + orderId
+            };
+            instance.orders.create(options, function(err, order){
+                if(err){
+                    console.log(err);
+                }else{
+                    console.log('-------------------------------------',order);
+                    resolve(order)
+                }
+            });
+        })
+    },
+    verifyPayment:(details)=>{
+        return new Promise((resolve, reject)=>{
+            const crypto = require('crypto');
+            let hmac = crypto.createHmac('sha256', 'EzVaW3QLUIRjRr5NLbm0pC9N')
+            hmac.update(details['payment[razorpay_order_id]'] + '|' + details['payment[razorpay_payment_id]']);
+            hmac = hmac.digest('hex')
+            if(hmac == details['payment[razorpay_signature]']){
+                resolve()
+            }else{
+                reject()
+            }
+        })
+    },
+    changePaymentStatus:(orderId)=>{
+        return new Promise((resolve, reject)=>{
+            db.get().collection(collection.ORDER_COLLECTION)
+            .updateOne({_id:objectId(orderId)},
+            {
+                $set:{
+                    status:'placed'
+                }
+            }).then(()=>{
+                resolve()
+            })
         })
     }
 }
