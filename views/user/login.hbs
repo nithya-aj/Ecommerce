@@ -4,17 +4,19 @@
 			<form action="/login" method="post" class="login">
 				<p style="font-size: 26px;">LOGIN</p>
 			{{#if loginErr}}
-			<p class="error"> Invalid username or password</p>
+			<p class="error">{{loginErr}}</p>
 			{{/if}}
 				<div class="login__field">
 					<i class="login__icon fa fa-user"></i>
-					<input name="email" type="text" class="login__input" placeholder="Email">
+					<input name="email" type="email" class="login__input" placeholder="Email" onkeyup="validateEmail()">
+					<p id="emailErr" class="text-danger"></p>
 				</div>
 				<div class="login__field">
 					<i class="login__icon fa fa-lock"></i>
-					<input name="password" type="password" class="login__input" placeholder="Password">
+					<input name="password" type="password" class="login__input" placeholder="Password" onkeyup="validatePassword()">
+					<p id="passwordErr" class="text-danger"></p>
 				</div>
-				<button class="button login__submit">
+				<button class="button login__submit" type="submit" onclick="return validation()">
 					<span class="button__text">Log In Now</span>
 					<i class="button__icon fa fa-chevron-right"></i>
 				</button>
@@ -228,3 +230,49 @@ body {
 	transform: scale(1.5);	
 }
 </style>
+
+ <script>
+    
+    var errorEmail = document.getElementById('emailErr')
+    var errorPassword = document.getElementById('passwordErr')
+   
+    function validateEmail() {
+        const name = document.getElementById('email').value
+        if (name == "") {
+            errorEmail.innerHTML = "Enter you email address"
+            return false
+
+
+        }
+        if (!name.match(/^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/)) {
+            errorEmail.innerHTML = 'Enter a proper email adress'
+            return false
+        }
+
+        errorEmail.innerHTML = null
+        return true
+    }
+
+    function validatePassword() {
+        const name = document.getElementById('password').value
+        if (name == "") {
+            errorPassword.innerHTML = "Enter a password"
+            return false
+        }
+        if (name.length < 3) {
+            errorPassword.innerHTML = "Password should be  three characters"
+            return false
+        }
+        errorPassword.innerHTML = null
+        return true
+    }
+   
+
+
+    function validation() {
+        if (!validateEmail() || !validatePassword()) {
+            return false
+        }
+        return true
+    }
+</script>

@@ -4,8 +4,8 @@
             <div class="product-main">
                 <h2 class="title">Place Order</h2>
                 <section class="h-100 gradient-custom">
-                    <form action="/" id="checkout-form">
-                        <div class="container-fluid">
+                    <div class="container-fluid">
+                        <form action="/" id="checkout-form">
                             <div class="row d-flex justify-content-center my-4 col-md-12">
                                 <div class="col-md-8 mb-4">
                                     <div class="card mb-4">
@@ -19,14 +19,16 @@
                                                     <div class="form-outline">
                                                         <label class="form-label" for="">First name</label>
                                                         <input type="text" id="firstName" name="firstName"
-                                                            class="form-control" />
+                                                            class="form-control" onkeyup="validateFirstName()" />
+                                                        <p id="firstNameErr" class="text-danger mt-3"></p>
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="form-outline">
                                                         <label class="form-label" for="">Last name</label>
                                                         <input type="text" id="lastName" name="lastName"
-                                                            class="form-control" />
+                                                            class="form-control" onkeyup="validateLastName()" />
+                                                        <p id="lastNameErr" class="text-danger mt-3"></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -34,32 +36,42 @@
                                             <!-- Email input -->
                                             <div class="form-outline mb-4">
                                                 <label class="form-label" for="">Email</label>
-                                                <input type="email" id="email" name="email" class="form-control" />
+                                                <input type="email" id="email" name="email" class="form-control"
+                                                    onkeyup="validateEmail()" />
+                                                <p id="emailErr" class="text-danger mt-3"></p>
                                             </div>
 
                                             <!-- Number input -->
                                             <div class="form-outline mb-4">
                                                 <label class="form-label" for="">Phone</label>
-                                                <input id="phone" name="phone" class="form-control" />
+                                                <input id="phone" name="phone" class="form-control"
+                                                    onkeyup="validatePhone()" />
+                                                <p id="phoneErr" class="text-danger mt-3"></p>
                                                 <input type="text" name="userId" id="" hidden value="{{user._id}}">
                                             </div>
 
                                             <!-- Text input -->
                                             <div class="form-outline mb-4">
                                                 <label class="form-label" for="">Address</label>
-                                                <input type="text" id="address" name="address" class="form-control" />
+                                                <input type="text" id="address" name="address" class="form-control"
+                                                    onkeyup="validateAddress()" />
+                                                <p id="addressErr" class="text-danger mt-3"></p>
                                             </div>
 
                                             <!-- Text input -->
                                             <div class="form-outline mb-4">
                                                 <label class="form-label" for="">Land Mark</label>
-                                                <input type="text" id="landMark" name="landMark" class="form-control" />
+                                                <input type="text" id="landMark" name="landMark" class="form-control"
+                                                    onkeyup="validateLandMark()" />
+                                                <p id="landMarkErr" class="text-danger mt-3"></p>
                                             </div>
 
                                             <!-- Text input -->
                                             <div class="form-outline mb-4">
                                                 <label class="form-label" for="">Pincode</label>
-                                                <input type="text" id="pinCode" name="pinCode" class="form-control" />
+                                                <input type="text" id="pinCode" name="pinCode" class="form-control"
+                                                    onkeyup="validatePincode()" />
+                                                <p id="pinCodeErr" class="text-danger mt-3"></p>
                                             </div>
                                         </div>
                                     </div>
@@ -80,38 +92,61 @@
                                                 <li
                                                     class="list-group-item d-flex justify-content-between align-items-center px-0">
                                                     Shipping
-                                                    <span>Gratis</span>
+                                                    <span>Free</span>
                                                 </li>
                                                 <li
                                                     class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                                                     <div>
                                                         <strong>Total amount</strong>
                                                         <strong>
-                                                            <p class="mb-0">(including VAT)</p>
+                                                            <p class="mb-0"></p>
                                                         </strong>
                                                     </div>
-                                                    <span><strong>$53.98</strong></span>
+                                                    <span id="total"><strong>Rs.{{total}}</strong></span>
+
                                                 </li>
                                             </ul>
                                         </div>
                                         <div class="card-header py-3">
                                             <h5 class="mb-0">Payment Method</h5>
                                         </div>
-                                        <div class="card-body">
+                                        <div class="card-body" style=" display: flex; justify-content: space-between; align-items: center; flex-direction: column">
                                             <label for="" class="radio-inline">
                                                 <input type="radio" name="payment-method" value="COD" checked>COD
                                             </label>
                                             <label for="" class="radio-inline mt-2">
-                                                <input type="radio" name="payment-method" value="ONLINE">ONLINE
-                                                PAYMENT
+                                                <input type="radio" name="payment-method" value="ONLINE">RazorPay
                                             </label>
-                                            <button type="submit" class="btn btn-primary btn-lg btn-block">
-                                                Make purchase
-                                            </button>
+                                            <label for="" class="radio-inline mt-2">
+                                                <input type="radio" name="payment-method" value="PAYPAL">PAYPAL
+                                            </label>
                                         </div>
                                     </div>
+                                    <button type="submit" class="btn btn-primary btn-lg btn-block"
+                                        onclick="return validation()">
+                                        Place Order
+                                    </button>
                                 </div>
                             </div>
+                        </form>
+                    </div>
+                    <form action="" id="apply-coupon">
+                        <div class="card-body col-md-5">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                    <div class="form-outline flex-fill">
+                                        <label for="">Enter the coupon code here...</label>
+                                        <input type="text" id="form1" class="form-control form-control-lg"
+                                            placeholder="Discount code" name="couponName" />
+                                        <input type="text" name="total" value="{{total}}" hidden>
+                                        {{!-- <span style="color: red;" id="code-error"></span> --}}
+                                    </div>
+                                    <button type="submit" onclick="applyCoupon()"
+                                        class="btn btn-outline-warning btn-lg ms-3 mt-4">Apply</button>
+                                </li>
+                            </ul>
+                            <span style="color: red;" id="coupon-error"></span>
+                            <span style="color: green;" id="coupon-success"></span>
                         </div>
                     </form>
                 </section>
@@ -344,60 +379,202 @@
             method: 'post',
             data: $('#checkout-form').serialize(),
             success: (response) => {
+                console.log(response)
                 alert('place order')
-                if(response.codSuccess){
-                    location.href='/order-placed'
-                }else{
+                if (response.codSuccess) {
+                    location.href = '/order-placed'
+                } else if (response.paypalSuccess) {
+                    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+                    for (let i = 0; i < response.links.length; i++) {
+                        if (response.links[i].rel === 'approval_url') {
+                            location.href = response.links[i].href;
+                        }
+                    }
+                }
+                else {
                     razorpayPayment(response)
                 }
             }
         })
     })
 
-    function razorpayPayment(order){
+    function razorpayPayment(order) {
         var options = {
-            "key" : "rzp_test_AyhfXZFR2tRSf5",
-            "amount" : order.amount,
-            "currency" : "INR",
-            "name" : "ecommerce",
-            "description" : "test description",
-            "image" : "https://example.com/your_logo",
-            "order_id" : order.id,
-            "handler" : function(response){
+            "key": "rzp_test_AyhfXZFR2tRSf5",
+            "amount": order.amount,
+            "currency": "INR",
+            "name": "ecommerce",
+            "description": "test description",
+            "image": "https://example.com/your_logo",
+            "order_id": order.id,
+            "handler": function (response) {
                 verifyPayment(response, order)
             },
-            "prefill":{
-                "name":"anu",
-                "email":"anu@gmail.com",
-                "contact":"9999999999"
+            "prefill": {
+                "name": "anu",
+                "email": "anu@gmail.com",
+                "contact": "9999999999"
             },
-            "notes":{
-                "address":"Razorpay Corporate Office"
+            "notes": {
+                "address": "Razorpay Corporate Office"
             },
-            "theme":{
-                "color":"#F37254"
+            "theme": {
+                "color": "#F37254"
             }
         };
         var rzp1 = new Razorpay(options);
         rzp1.open()
     }
 
-    function verifyPayment(payment, order){
+    function verifyPayment(payment, order) {
         $.ajax({
-            url:'/verify-payment',
-            data:{
+            url: '/verify-payment',
+            data: {
                 payment,
                 order
             },
-            method:'post',
-            success:(response)=>{
-                if(response.status){
+            method: 'post',
+            success: (response) => {
+                if (response.status) {
                     location.href = '/order-placed'
-                }else{
+                } else {
                     alert('Payment failed')
                 }
             }
         })
     }
 
+</script>
+
+<script>
+    var errorFirstName = document.getElementById('firstNameErr')
+    var errorLastName = document.getElementById('lastNameErr')
+    var errorEmail = document.getElementById('emailErr')
+    var errorMobileNumber = document.getElementById('numberErr')
+    var errorAddress = document.getElementById('addressErr')
+    var errorLandMark = document.getElementById('landMarkErr')
+    var errorPinCode = document.getElementById('pinCodeErr')
+
+    function validateFirstName() {
+        const name = document.getElementById('firstName').value
+
+        if (name == "") {
+            errorFirstName.innerHTML = 'Enter your First Name'
+            return false
+        } else if
+            (!name.match(/^[a-zA-Z]*$/)) {
+            errorFirstName.innerHTML = 'Alphabets are only allowed'
+            return false
+        }
+        errorFirstName.innerHTML = null
+        return true
+
+    }
+    function validateLastName() {
+        const name = document.getElementById('lastName').value
+
+        if (name == "") {
+            errorLastName.innerHTML = 'Enter your Last Name'
+            return false
+        } else if
+            (!name.match(/^[a-zA-Z]*$/)) {
+            errorLastName.innerHTML = 'Alphabets are only allowed'
+            return false
+        }
+        errorLastName.innerHTML = null
+        return true
+
+    }
+    function validateEmail() {
+        const name = document.getElementById('email').value
+        if (name == "") {
+            errorEmail.innerHTML = "Enter you email address"
+            return false
+
+
+        } else if
+            (!name.match(/^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/)) {
+            errorEmail.innerHTML = 'Enter a proper email adress'
+            return false
+        }
+
+        errorEmail.innerHTML = null
+        return true
+    }
+    function validatePhone() {
+        const name = document.getElementById('phoneNumber').value
+        if (name == "" || name == null) {
+            errorMobileNumber.innerHTML = "Enter a mobile number"
+            return false
+        } else if
+            (name.length < 10 || name.length > 10) {
+            errorMobileNumber.innerHTML = "Enter a Valid Mobile number"
+            return false
+        }
+
+        errorMobileNumber.innerHTML = null
+        return true
+    }
+    function validateAddress() {
+        const name = document.getElementById('address').value
+        if (name == "" || name == null) {
+            errorAddress.innerHTML = "Enter your address"
+            return false
+        }
+
+        errorAddress.innerHTML = null
+        return true
+    }
+    function validateLandMark() {
+        const name = document.getElementById('landMark').value
+        if (name == "" || name == null) {
+            errorLandMark.innerHTML = "Enter a land mark"
+            return false
+        }
+
+        errorLandMark.innerHTML = null
+        return true
+    }
+    function validatePincode() {
+        const name = document.getElementById('pinCode').value
+        if (name == "" || name == null) {
+            errorPinCode.innerHTML = "Enter your pincode"
+            return false
+        } else if
+            (name.length < 6 || name.length > 6) {
+            errorPinCode.innerHTML = "Enter a valid pin code"
+            return false
+        }
+
+        errorPinCode.innerHTML = null
+        return true
+    }
+    function validation() {
+        if (!validateFirstName() || !validateLastName() || !validateEmail() || !validatePhone() || !validateAddress() || !validateLandMark() || !validatePincode()) {
+            return false
+        }
+        return true
+    }
+
+
+    $("#apply-coupon").submit((e) => {
+        console.log('response');
+        e.preventDefault()
+        $.ajax({
+            url: '/apply-coupon',
+            method: 'post',
+            data: $('#apply-coupon').serialize(),
+            success: (response) => {
+                if (response.couponErr) {
+                    document.getElementById('coupon-error').innerHTML = response.couponErr
+                } else if (response.userErr) {
+                    document.getElementById('coupon-error').innerHTML = response.userErr
+                } else {
+                    document.getElementById('total').innerHTML = response.total
+                    document.getElementById('coupon-success').innerHTML = "coupon Applied"
+                    //  document.getElementById('totaltwo').value = response.total
+                }
+            }
+        })
+    })
 </script>

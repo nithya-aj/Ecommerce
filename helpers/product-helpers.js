@@ -106,5 +106,124 @@ module.exports = {
                     resolve()
                 })
         })
-    }
+    },
+    getCod: () => {
+        return new Promise(async (resolve, reject) => {
+            let total = await db.get().collection(collection.ORDER_COLLECTION).aggregate([
+                {
+                    $match: {
+                        paymentMethod: "COD",
+                        status: "placed"
+                    }
+                },
+                {
+                    $group: {
+                        _id: null,
+                        total: {
+                            $sum: "$totalAmount"
+                        }
+                    }
+                }
+            ]).toArray()
+            if (total[0]) {
+                console.log(total[0].total);
+                resolve(total[0].total)
+
+            } else {
+                resolve(0)
+            }
+        })
+    },
+    getRazorpay:()=>{
+        return new Promise(async (resolve, reject)=>{
+            let total = await db.get().collection(collection.ORDER_COLLECTION).aggregate([
+                {
+                    $match:{
+                        paymentMethod:"ONLINE",
+                        status:"placed"
+                    }
+                },
+                {
+                    $group:{
+                        _id:null,
+                        total:{
+                            $sum: "$totalAmount"
+                        }
+                    }
+                }
+            ]).toArray()
+            if(total[0]){
+                resolve(total[0].total)
+            }else{
+                resolve(0)
+            }
+        })
+    },
+    getPaypal:()=>{
+        return new Promise(async (resolve, reject)=>{
+            let total = await db.get().collection(collection.ORDER_COLLECTION).aggregate([
+                {
+                    $match:{
+                        paymentMethod:"PAYPAL",
+                        status:"placed"
+                    }
+                },
+                {
+                    $group:{
+                        _id:null,
+                        total:{
+                            $sum:"$totalAmount"
+                        }
+                    }
+                }
+            ]).toArray()
+            if(total[0]){
+                resolve(total[0].total)
+            }else{
+                resolve(0)
+            }
+        })
+    },
+    getAllCoupons: () => {
+        return new Promise(async (resolve, reject) => {
+          let coupons = await db.get().collection(collection.COUPON_COLLECTION).find().toArray()
+          resolve(coupons)
+        })
+    },
+    addCoupon: (body) => {
+        console.log(body,"---------------coupon----------------")
+        body.user = []
+        body.discoundPrice = parseInt(body.discoundPrice)
+        return new Promise(async (resolve, reject) => {
+          db.get().collection(collection.COUPON_COLLECTION).insertOne(body)
+          resolve()
+        })
+    },
+    deleteCoupon:(couponId)=>{
+        return new Promise((resolve, reject)=>{
+            console.log(couponId, "---------coupon id-----------");
+            console.log(objectId(couponId));
+            db.get().collection(collection.COUPON_COLLECTION).deleteOne({_id:objectId(couponId)}).then((response)=>{
+                // console.log(response);
+                resolve(response)
+            })
+        })
+    },
+    getAllOrders: () => {
+        return new Promise(async (resolve, reject) => {
+          let orders = await db.get().collection(collection.ORDER_COLLECTION).find().toArray()
+          resolve(orders)
+        })
+    },
+    changeOrderStatus: (orderId, status) => {
+        return new Promise((resolve, reject) => {
+          db.get().collection(collection.ORDER_COLLECTION).updateOne({ _id: objectId(orderId) }, {
+            $set: {
+              status: status.status
+            }
+          }).then((response) => {
+            resolve(response)
+          })
+        })
+      },
 }

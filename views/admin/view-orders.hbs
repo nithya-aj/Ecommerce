@@ -1,0 +1,106 @@
+<div class="container-fluid page-body-wrapper" style="margin-top: 64px;">
+    <!-- partial:partials/_sidebar.html -->
+
+    {{>admin-sidebar}}
+
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="page-header">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Tables</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Basic tables</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">All Orders</h4>
+                            <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th> User Name </th>
+                                        <th>Date</th>
+                                        <th> Mobile </th>
+                                        <th> Amount </th>
+                                        <th> Payment Method </th>
+                                        <th>Products</th>
+                                        <th> Manage Order </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each orders}}
+                                    <tr class="table-warning">
+                                        <th scope="row">{{inc @index}}</th>
+                                        <td>{{this.deliveryDetails.firstName}}</td>
+                                        <td>{{this.date}}</td>
+                                        <td>{{this.deliveryDetails.phone}}</td>
+                                        <td>Rs.{{this.totalAmount}}</td>
+                                        <td>{{this.paymentMethod}}</td>
+                                        <td><a href="/ordered-products/{{this._id}}"><button type="button" class="btn btn-outline-primary btn-sm">View Products</button></a></td>
+                                        {{#ifCondition this.status 'placed'}}
+                                        <td><select class="form-select" aria-label="Default select example"
+                                                onchange="changeOrderStatus(value,'{{this._id}}')" style="width: 110px;">
+                                                <option selected>{{this.status}}</option>
+                                                <option value="Shipped">Shipped</option>
+                                                <option value="Delivered">Delivered</option>
+                                                <option value="Cancelled">Cancelled</option>
+                                        </select></td>
+                                        {{else}}
+                                        {{#ifCondition this.status 'pending'}}
+                                        <td><select class="form-select" aria-label="Default select example"
+                                                onchange="changeOrderStatus(value,'{{this._id}}')" style="width: 110px;">
+                                                <option selected>{{this.status}}</option>
+                                                <option value="Delivered">Delivered</option>
+                                                <option value="Cancelled">Cancelled</option>
+                                        </select></td>
+                                        {{else}}
+                                        <td><select class="form-select" aria-label="Default select example"
+                                                onchange="changeOrderStatus(value,'{{this._id}}')">
+                                                <option selected>{{this.status}}</option>
+                                                <option value="Cancelled">Cancelled</option>
+                                        </select></td>
+                                        {{!-- <span>{{this.status}}</span> --}}
+                                        {{/ifCondition}}
+                                        {{/ifCondition}}
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:../../partials/_footer.html -->
+        {{>admin-footer}}
+        <!-- partial -->
+    </div>
+
+    <script>
+    function changeOrderStatus(status, orderId) {
+
+        $.ajax({
+            url: '/admin/change-order-status/' + orderId,
+            method: 'post',
+            data: {
+                status: status
+            },
+            success: (response) => {
+                
+                alert('Order Status Changed')
+                    location.reload()
+
+
+            }
+        })
+    }
+
+
+</script>

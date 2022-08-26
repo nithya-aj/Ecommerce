@@ -4,6 +4,7 @@ var router = express.Router();
 var productHelpers = require('../helpers/product-helpers')
 var userHelpers = require('../helpers/user-helpers')
 var categoryHelpers = require('../helpers/category-helpers')
+var adminHelpers = require('../helpers/admin-helpers')
 var multer = require('multer')
 
 var storageds = multer.diskStorage({
@@ -14,21 +15,52 @@ var storageds = multer.diskStorage({
     cb(null, Date.now() + file.originalname)
   }
 })
+const verifyLogin = (req, res, next) => {
+  if (req.session.adminLogin) {
+    next();
+  } else {
+    res.render('admin/login', { adminErr: req.session.adminLoginErr})
+    req.session.adminLoginErr = false;
+  }
+}
 
 var upload = multer({storage: storageds})
+// admin login
 
-/* GET users listing. */
-router.get('/', function (req, res) {
-  res.render('admin/homepage', { admin: true })
+router.post('/admin-login', (req, res) => {
+  adminHelpers.doAdminLogin(req.body).then((response) => {
+    if (response.status) {
+      req.session.adminLogin = true;
+      req.session.admin = response.admin;
+      res.redirect('/admin')
+    } else {
+      req.session.adminLoginErr = "Incorrect username or password ";
+      res.redirect('/admin')
+    }
+  })
 })
 
-router.get('/view-products',async function (req, res, next) {
+router.get('/logout', (req, res) => {
+  req.session.admin = null;
+  req.session.adminLogin = null;
+  res.redirect('/admin')
+})
+
+/* GET users listing. */
+router.get('/',verifyLogin, async(req, res) =>{
+  let cod= await productHelpers.getCod()
+  let razorpay = await productHelpers.getRazorpay()
+  let paypal = await productHelpers.getPaypal()
+  res.render('admin/homepage', { admin: true , cod, razorpay, paypal})
+})
+
+router.get('/view-products', verifyLogin,async function (req, res, next) {
   let products = await productHelpers.getAllProducts()
   let category = await categoryHelpers.getAllCategory()
     res.render('admin/view-products', { products,category, admin: true });
 });
 
-router.get('/add-product',async function (req, res) {
+router.get('/add-product', verifyLogin,async function (req, res) {
   let category = await categoryHelpers.getAllCategory()
   res.render('admin/add-product', { admin: true, category })
 })
@@ -68,7 +100,7 @@ router.post('/edit-product/:id', upload.array('images', 4), (req, res) => {
 });
 
 //--- category --- 
-router.get('/view-category', function (req, res, next) {
+router.get('/view-category', verifyLogin, function (req, res, next) {
   categoryHelpers.getAllCategory().then((category) => {
     res.render('admin/view-category', { category, admin: true });
   })
@@ -119,7 +151,8 @@ router.post('/edit-category/:id', (req, res) => {
 
 
 // --- user ---
-router.get('/view-users', function (req, res, next) {
+
+router.get('/view-users', verifyLogin, function (req, res, next) {
   userHelpers.getUsersData().then((usersData) => {
     console.log(usersData);
     res.render('admin/view-users', { usersData, admin: true })
@@ -153,6 +186,59 @@ router.get('/unblock-user/:id', (req, res) => {
   let userId = req.params.id
   userHelpers.unblockUser(userId).then((response) => {
     res.redirect('/admin/view-users')
+  })
+})
+
+// coupons
+router.get('/view-coupons', verifyLogin, function (req, res, next) {
+  productHelpers.getAllCoupons().then((coupons) => {
+    res.render('admin/view-coupons', { coupons, admin: true });
+  })
+});
+
+router.get('/add-coupon', verifyLogin, function (req, res) {
+  res.render('admin/add-coupon', { admin: true })
+})
+
+router.post('/add-coupon', (req, res) => {
+  productHelpers.addCoupon(req.body).then((response) => {
+    res.redirect('/admin/add-coupon')
+  })
+});
+
+router.get('/delete-coupon/:id', (req, res) => {
+  let couponId = req.params.id
+  console.log(couponId)
+  productHelpers.deleteCoupon(couponId).then((response) => {
+    res.redirect('/admin/view-coupons')
+  })
+})
+
+router.get("/view-orders", verifyLogin, async (req, res) => {
+  productHelpers.getAllOrders().then((orders)=>{
+    console.log(orders,"------------orders in admin side----------------");
+    res.render('admin/view-orders', { admin: true, orders})
+  })
+});
+
+router.get("/ordered-products/:id", async (req, res) => {
+  let products = await userHelpers.getOrderProducts(req.params.id);
+  console.log(products);
+  let category = await categoryHelpers.getAllCategory();
+  res.render("user/ordered-products", {
+    user_head: true,
+    category,
+    user: req.session.user,
+    products,
+    cartCount,
+  });
+});
+
+router.post('/change-order-status/:id', (req, res) => {
+  console.log(req.params);
+  console.log(req.body);
+  productHelpers.changeOrderStatus(req.params.id, req.body).then((response) => {
+    res.json({ status: true })
   })
 })
 

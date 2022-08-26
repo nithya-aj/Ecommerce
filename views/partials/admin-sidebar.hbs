@@ -11,12 +11,12 @@
             <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
                 aria-controls="ui-basic">
                 <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>
-                <span class="menu-title">Products</span>
+                <span class="menu-title">Product</span>
                 <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="/admin/view-products">View product</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="/admin/view-products">View Products</a></li>
                     <li class="nav-item"> <a class="nav-link" href="/admin/add-product">Add product</a></li>
                     </li>
                 </ul>
@@ -31,20 +31,53 @@
             </a>
             <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="/admin/view-category">View category</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="/admin/add-category">Add category</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="/admin/view-category">View Categories</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="/admin/add-category">Add Category</a></li>
                     </li>
                 </ul>
             </div>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="/admin/view-users">
-                <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
-                <span class="menu-title">All Users</span>
+            <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
+                aria-controls="ui-basic">
+                <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>
+                <span class="menu-title">User </span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="/admin/view-users">View Users</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="/admin/add-user">Add User</a></li>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
+                aria-controls="ui-basic">
+                <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>
+                <span class="menu-title">Coupon </span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="/admin/view-coupons">View Coupons</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="/admin/add-coupon">Add Coupon</a></li>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="/admin/view-orders">
+                <span class="icon-bg"><i class="mdi mdi-chart-bar menu-icon"></i></span>
+                <span class="menu-title">Orders</span>
             </a>
         </li>
-        <li class="nav-item">
+        
+        {{!-- <li class="nav-item">
             <a class="nav-link" href="pages/charts/chartjs.html">
                 <span class="icon-bg"><i class="mdi mdi-chart-bar menu-icon"></i></span>
                 <span class="menu-title">Charts</span>
@@ -73,7 +106,7 @@
                     <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
                 </ul>
             </div>
-        </li>
+        </li> --}}
         <li class="nav-item sidebar-user-actions">
             <div class="user-details">
                 <div class="d-flex justify-content-between align-items-center">
@@ -106,7 +139,7 @@
         </li>
         <li class="nav-item sidebar-user-actions">
             <div class="sidebar-user-menu">
-                <a href="#" class="nav-link"><i class="mdi mdi-logout menu-icon"></i>
+                <a href="/logout" class="nav-link"><i class="mdi mdi-logout menu-icon"></i>
                     <span class="menu-title">Log Out</span></a>
             </div>
         </li>

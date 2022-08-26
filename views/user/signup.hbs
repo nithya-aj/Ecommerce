@@ -11,29 +11,34 @@
 				{{/if}}
 				<div class="login__field">
 					<i class="login__icon fa fa-user"></i>
-					<input name="firstName" type="text" class="login__input" placeholder=" First name">
+					<input name="firstName" id="firstName" type="text" class="login__input" placeholder=" First name"  onkeyup="validateFirstName()">
+					<p id="firstNameErr" class="text-danger mt-3"></p>
 				</div>
 				<div class="login__field">
 					<i class="login__icon fa fa-user"></i>
-					<input name="lastName" type="text" class="login__input" placeholder=" Second name">
+					<input name="lastName" id="lastName" type="text" class="login__input" placeholder=" Second name"  onkeyup="validateLastName()">
+					<p id="lastNameErr" class="text-danger mt-3"></p>
 				</div>
 				<div class="login__field">
 					<i class="login__icon fa fa-user"></i>
-					<input name="phoneNumber" type="text" class="login__input" placeholder=" Phone number">
+					<input name="phoneNumber" id="phoneNumber" type="tel" class="login__input" placeholder=" Phone number" onkeyup="validatePhoneNumber()">
+					<p id="numberErr" class="text-danger mt-3"></p>
 				</div>
 				<div class="login__field">
 					<i class="login__icon fa fa-user"></i>
-					<input name="email" type="text" class="login__input" placeholder=" Email">
+					<input name="email" id="email" type="email" class="login__input" placeholder=" Email" onkeyup="validateEmail()">
+					<p id="emailErr" class="text-danger mt-3"></p>
 				</div>
 				<div class="login__field">
 					<i class="login__icon fa fa-lock"></i>
-					<input name="password" type="password" class="login__input" placeholder="Password">
+					<input name="password" id="password" type="password" class="login__input" placeholder="Password" onkeyup="validatePassword()">
+					<p id="passwordErr" class="text-danger mt-3"></p>
 				</div>
 				{{!-- <div class="login__field">
 					<i class="login__icon fa fa-lock"></i>
 					<input name="password2" type="password" class="login__input" placeholder="Re-enter password">
 				</div> --}}
-				<button class="button login__submit">
+				<button class="button login__submit" type="submit" onclick="return validation()">
 					<span class="button__text">Sent OTP</span>
 					<i class="button__icon fa fa-chevron-right"></i>
 				</button>
@@ -74,7 +79,7 @@
 	.screen1 {
 		background: linear-gradient(90deg, #5D54A4, #7C78B8);
 		position: relative;
-		height: 707px;
+		height: 804px;
 		width: 511px;
 		box-shadow: 0px 0px 24px #5C5696;
 	}
@@ -238,3 +243,92 @@
 		transform: scale(1.5);
 	}
 </style>
+
+<script>
+        var errorFirstName = document.getElementById('firstNameErr')
+		var errorLastName = document.getElementById('lastNameErr')
+        var errorEmail = document.getElementById('emailErr')
+        var errorPassword = document.getElementById('passwordErr')
+        var errorMobileNumber = document.getElementById('numberErr')
+
+        function validateFirstName() {
+            const name = document.getElementById('firstName').value
+
+            if (name == "") {
+                errorFirstName.innerHTML = 'Enter your First Name'
+                return false
+            }else if
+             (!name.match(/^[a-zA-Z]*$/)) {
+                errorFirstName.innerHTML = 'Alphabets are only allowed'
+                return false
+            }
+            errorFirstName.innerHTML = null
+            return true
+
+        }
+		function validateLastName() {
+            const name = document.getElementById('lastName').value
+
+            if (name == "") {
+                errorLastName.innerHTML = 'Enter your Last Name'
+                return false
+            }else if
+             (!name.match(/^[a-zA-Z]*$/)) {
+                errorLastName.innerHTML = 'Alphabets are only allowed'
+                return false
+            }
+            errorLastName.innerHTML = null
+            return true
+
+        }
+        function validateEmail() {
+            const name = document.getElementById('email').value
+            if (name == "") {
+                errorEmail.innerHTML = "Enter you email address"
+                return false
+
+
+            }else if 
+            (!name.match(/^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/)) {
+                errorEmail.innerHTML = 'Enter a proper email adress'
+                return false
+            }
+
+            errorEmail.innerHTML = null
+            return true
+        }
+
+        function validatePassword() {
+            const name = document.getElementById('password').value
+            if (name == "") {
+                errorPassword.innerHTML = "Enter a password"
+                return false
+            }
+            else if (name.length < 3) {
+                errorPassword.innerHTML = "Password should be  three characters"
+                return false
+            }
+            errorPassword.innerHTML = null
+            return true
+        }
+        function validatePhoneNumber() {
+            const name = document.getElementById('phoneNumber').value
+            if (name == "" || name == null) {
+                errorMobileNumber.innerHTML = "Enter a mobile number"
+                return false
+            }else if
+            (name.length < 10 || name.length > 10) {
+                errorMobileNumber.innerHTML = "Enter a Valid Mobile number"
+                return false
+            }
+
+            errorMobileNumber.innerHTML = null
+            return true
+        }
+        function validation() {
+            if (!validateFirstName() || !validateLastName() || !validateEmail() || !validatePassword() ||!validatePhoneNumber()) {
+                return false
+            }
+            return true
+        }
+    </script>

@@ -18,7 +18,7 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail3">Category</label>
                                 <select name="category"  value="{{product.category}}" class="form-select" aria-label="Default select example">
-                                    <option value="1">select category</option>
+                                    <option>select category</option>
                                     {{#each category}}
                                     <option >{{this.cat_name}}</option>
                                     {{/each}}
@@ -44,7 +44,7 @@
                             </div>
                             <div class="form-group">
                                 <label>File upload</label>
-                                <img src="/assets/images/products/{{product.images.[0]}}" alt="" style="width: 100px; height:auto" >
+                                {{!-- <img src="/assets/images/products/{{product.images.[0]}}" alt="" style="width: 100px; height:auto" > --}}
                                 <img src="/assets/images/products/{{this.images.[0]}}" alt="" style="width: 100px; height:auto" id="imgView" class="my-4">
                                 <div class="input-group col-xs-12">
                                     <input name="images" type="file" class="form-control file-upload-info" placeholder="Upload Image" onchange="viewImage(event)" required multiple>

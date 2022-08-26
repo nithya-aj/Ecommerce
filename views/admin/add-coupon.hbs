@@ -1,0 +1,78 @@
+<div class="container-fluid page-body-wrapper" style="margin-top: 64px;">
+    <!-- partial:partials/_sidebar.html -->
+
+    {{>admin-sidebar}}
+
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Add Coupon</h4>
+                        <form action="/admin/add-coupon" id="add-coupon" method="post" class="forms-sample">
+                            <div class="form-group">
+                                <label for="exampleInputName1">Coupon Name</label>
+                                <input name="couponName" type="text" class="form-control" id="couponName" required onkeyup="validateCouponName()">
+                                <p id="nameErr" class="text-danger"></p>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail3">Discound Price</label>
+                                <input name="discoundPrice" id="discoundPrice" class="form-control" required onkeyup="validateDiscound()">
+                                <p id="discoundErr" class="text-danger"></p>
+                            </div>
+                            <div class="form-group">
+                                <label>Valid From</label>
+                                <input type="date" name="validFrom" class="form-control" id="validFrom" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Valid To</label>
+                                <input type="date" name="validTo" class="form-control" id="validTo" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary me-2" onclick="return validation()">Add Coupon</button>
+                            <button class="btn btn-light" type="reset">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:../../partials/_footer.html -->
+        {{>admin-footer}}
+        <!-- partial -->
+    </div>
+
+
+    <script>
+
+        function validateCouponName() {
+            const name = document.getElementById("nameErr")
+            const coupon = document.getElementById("couponName").value
+            if (coupon == "") {
+                name.innerHTML = "| Enter Coupon Name"
+                return false;
+            }
+            if (!coupon.match(/^[a-zA-Z-" "]*$/)) {
+                name.innerHTML = "| Only Alphabets Are Allowed"
+                return false;
+            }
+            name.innerHTML = ""
+            return true;
+        }
+        function validateDiscound() {
+            const name = document.getElementById("discoundErr")
+            const coupon = document.getElementById("discoundPrice").value
+            if (coupon == "") {
+                name.innerHTML = "| Fill The Fields"
+                return false;
+            }
+            name.innerHTML = ""
+            return true;
+        }
+        function validation() {
+            if (!validateCouponName() || !validateDiscound()) {
+                return false;
+            }
+            return true;
+        }
+
+    </script>

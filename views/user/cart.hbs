@@ -24,7 +24,7 @@
                                             </div>
                                             <div class="col-md-3 col-lg-3 d-flex">
                                                 <button class="btn btn-link px-2"
-                                                    onclick="changeQuantity('{{this._id}}', '{{this.product._id}}','{{../user._id}}',-1)">
+                                                    onclick="changeQuantity('{{this._id}}', '{{this.product._id}}','{{../user._id}}',-1, location.reload())">
                                                     <i class=" fa fa-minus"></i>
                                                 </button>
 
@@ -35,7 +35,7 @@
                                                 </div>
 
                                                 <button class="btn btn-link px-2"
-                                                    onclick="changeQuantity('{{this._id}}', '{{this.product._id}}','{{../user._id}}', 1)">
+                                                    onclick="changeQuantity('{{this._id}}', '{{this.product._id}}','{{../user._id}}', 1, location.reload())">
                                                     <i class="fa fa-plus"></i>
                                                 </button>
                                             </div>
@@ -43,11 +43,11 @@
                                                 <h5 class="mb-0">Rs.{{this.product.price}}</h5>
                                             </div>
                                             <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                                <button class="btn btn-sm btn-danger"
+                                                <button class="btn btn-sm btn-danger" type="button"
                                                     onclick="removeQuantity('{{this._id}}','{{this.product._id}}')"><i
                                                         class="fa fa-trash fa-lg"></i></button>
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -67,25 +67,17 @@
                                                 Products
                                                 <span id="total">Rs.{{totalValue}}</span>
                                             </li>
-                                            <li
+                                            {{!-- <li
                                                 class="list-group-item d-flex justify-content-between align-items-center px-0">
                                                 Discount
                                                 <span>100</span>
-                                            </li>
+                                            </li> --}}
                                             <li
                                                 class="list-group-item d-flex justify-content-between align-items-center px-0">
                                                 Shipping cost
-                                                <span>30</span>
+                                                <span>Free</span>
                                             </li>
-                                            <li
-                                                class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                                <div class="form-outline flex-fill">
-                                                    <input type="text" id="form1" class="form-control form-control-lg"
-                                                        placeholder="Discount code" />
-                                                </div>
-                                                <button type="button"
-                                                    class="btn btn-outline-warning btn-lg ms-3">Apply</button>
-                                            </li>
+                                            
                                             <li
                                                 class="list-group-item d-flex justify-content-between align-items-center px-0">
                                                 <p><strong>We accept</strong></p>
@@ -104,7 +96,7 @@
                                                         <p class="mb-0">(including GST)</p>
                                                     </strong>
                                                 </div>
-                                                <span><strong>$53.98</strong></span>
+                                                <span><strong>Rs.{{totalValue}}</strong></span>
                                             </li>
                                         </ul>
 
@@ -121,7 +113,8 @@
                                 <div>
                                     <div class="card-body cart">
                                         <div class="col-sm-12 col-md-12 text-center">
-                                            <img src="https://i.imgur.com/dCdflKN.png" width="130" height="130" class="img-fluid mb-4 mr-3" style="margin-left: 140px;">
+                                            <img src="https://i.imgur.com/dCdflKN.png" width="130" height="130"
+                                                class="img-fluid mb-4 mr-3" style="margin-left: 140px;">
                                             <h3><strong>Your Cart is Empty</strong></h3>
                                             <h4>Add something to make me happy :)</h4>
                                             <a href="/view-products" class="btn btn-primary cart-btn-transform m-3"
@@ -396,7 +389,23 @@
             method: 'post',
             success: (response) => {
                 if (response.removeProduct) {
-                    alert("Product Removed")
+                    //swal({
+                    //  title: "Are you sure?",
+                    // text: "Once deleted, you will not be able to recover this imaginary file!",
+                    //    icon: "warning",
+                    //    buttons: true,
+                    //    dangerMode: true,
+                    //})
+                    //    .then((willDelete) => {
+                    //        if (willDelete) {
+                    //            swal("Poof! Your imaginary file has been deleted!", {
+                    //                icon: "success",
+                    //            });
+                    //        } else {
+                    //            swal("Your imaginary file is safe!");
+                    //        }
+                    //    }); 
+                    alert('Product removed from the cart')
                     location.reload()
                 } else {
                     document.getElementById(proId).innerHTML = quantity + count

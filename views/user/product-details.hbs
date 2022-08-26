@@ -18,7 +18,19 @@
     }
 </style> --}}
 
+<style>
+    .imageColumn {
+        float: left;
+        width: 20%;
+        padding: 7px;
+    }
+</style>
 
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" 
+        integrity="sha384-JUMjoW8OzDJw4oFpWIB2Bu/c6768ObEthBMVSiIx4ruBIEdyNSUQAjJNFqT5pnJ6" 
+        crossorigin="anonymous">
+</script>
+<script src="/assets/js/zoomsl.min.js"></script>
 
 <div class="product-container">
     <div class="container">
@@ -28,22 +40,24 @@
 
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="col-md-6 border-end">
+                        <div class="col-md-12 border-end">
                             <div class="d-flex flex-column justify-content-center">
-                                <div class="main_image"> <img src="/assets/images/products/{{product.images.[0]}}"
-                                        id="main_product_image" width="350">
+                                <div class="main_image" id="main_product_image"> 
+                                    <img src="/assets/images/products/{{product.images.[0]}}"  id="zoom" width="350">
                                 </div>
-                                <div class="thumbnail_images">
-                                    <ul id="thumbnail">
-                                        <li><img onclick="changeImage(this)"
-                                                src="/assets/images/products/{{product.images.[0]}}" width="70"></li>
-                                        <li><img onclick="changeImage(this)"
-                                                src="/assets/images/products/{{product.images.[1]}}" width="70"></li>
-                                        <li><img onclick="changeImage(this)"
-                                                src="/assets/images/products/{{product.images.[2]}}" width="70"></li>
-                                        <li><img onclick="changeImage(this)"
-                                                src="/assets/images/products/{{product.images.[3]}}" width="70"></li>
-                                    </ul>
+                                <div class="thumbnail_images alignRow ">
+                                    <div class="imageColumn">
+                                        <img onclick="changeImage(this)" src="/assets/images/products/{{product.images.[0]}}" style="width:100%">
+                                    </div>
+                                    <div class="imageColumn">
+                                        <img onclick="changeImage(this)" src="/assets/images/products/{{product.images.[1]}}" style="width:100%">
+                                    </div>
+                                    <div class="imageColumn">
+                                        <img onclick="changeImage(this)" src="/assets/images/products/{{product.images.[2]}}" style="width:100%">
+                                    </div>
+                                    <div class="imageColumn">
+                                        <img onclick="changeImage(this)" src="/assets/images/products/{{product.images.[2]}}" style="width:100%">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -101,7 +115,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link active" id="description-tab" data-toggle="tab"
                                         href="#description" role="tab" aria-controls="description"
-                                        aria-selected="true">Details</a>
+                                        aria-selected="true">Description</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab"
@@ -109,52 +123,55 @@
                                 </li>
                             </ul>
                             <div class="tab-content" id="myTabContent">
-                                <table class="table table-striped">
-                                    <tbody>
-                                        <tr>
-                                            <td><b>Brand</b></td>
-                                            <td>{{product.brand}}</td>
-                                            <td><b>Collection</b></td>
-                                            <td>{{product.collection}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><b>Function</td>
-                                            <td>{{product.function}}</td>
-                                            <td><b>Movement</b></td>
-                                            <td>{{product.movement}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><b>Warrenty</b></td>
-                                            <td>{{product.warrenty}}</td>
-                                            <td><b>Case Material</b></td>
-                                            <td>{{product.caseMaterial}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><b>Dial Colour</b></td>
-                                            <td>{{product.dialColour}}</td>
-                                            <td><b>Dial Shape</b></td>
-                                            <td>{{product.dialShape}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><b>Glass Material</b></td>
-                                            <td>{{product.glassMaterial}}</td>
-                                            <td><b>Lock Mechanism</b></td>
-                                            <td>{{product.lockMechanism}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><b>Strap Colour</b></td>
-                                            <td>{{product.strapColour}}</td>
-                                            <td><b>Strap Material</b></td>
-                                            <td>{{product.strapMaterial}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><b>Water Resistance</b></td>
-                                            <td>{{product.waterResistance}}</td>
-                                            <td><b>Case Thickness</b></td>
-                                            <td>{{product.caseThickness}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div class="tab-pane fade show active" id="description" role="tabpanel"
+                                    aria-labelledby="description-tab">
+                                    <table class="table table-striped">
+                                        <tbody>
+                                            <tr>
+                                                <td><b>Brand</b></td>
+                                                <td>{{product.brand}}</td>
+                                                <td><b>Collection</b></td>
+                                                <td>{{product.collection}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Function</td>
+                                                <td>{{product.function}}</td>
+                                                <td><b>Movement</b></td>
+                                                <td>{{product.movement}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Warrenty</b></td>
+                                                <td>{{product.warrenty}}</td>
+                                                <td><b>Case Material</b></td>
+                                                <td>{{product.caseMaterial}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Dial Colour</b></td>
+                                                <td>{{product.dialColour}}</td>
+                                                <td><b>Dial Shape</b></td>
+                                                <td>{{product.dialShape}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Glass Material</b></td>
+                                                <td>{{product.glassMaterial}}</td>
+                                                <td><b>Lock Mechanism</b></td>
+                                                <td>{{product.lockMechanism}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Strap Colour</b></td>
+                                                <td>{{product.strapColour}}</td>
+                                                <td><b>Strap Material</b></td>
+                                                <td>{{product.strapMaterial}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Water Resistance</b></td>
+                                                <td>{{product.waterResistance}}</td>
+                                                <td><b>Case Thickness</b></td>
+                                                <td>{{product.caseThickness}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                                 <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
                                     <div class="review-heading">REVIEWS</div>
                                     <p class="mb-20">There are no reviews yet.</p>
@@ -426,4 +443,6 @@
         var main_prodcut_image = document.getElementById('main_product_image');
         main_prodcut_image.src = element.src;
     }
+    $('#zoom').imagezoomsl();
+
 </script>

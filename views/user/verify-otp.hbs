@@ -3,9 +3,12 @@
 		<div class="screen__content">
 			<form action="/verify-otp" method="post" class="login">
 				<p style="font-size: 26px;">Register</p>
+				{{#if otpErr}}
+                <p class="text-danger">{{otpErr}}</p>
+                {{/if}}
 				<div class="login__field">
 					<i class="login__icon fa fa-user"></i>
-					<input name="otp" type="text" class="login__input" placeholder="Enter otp">
+					<input name="otp" type="text" class="login__input" placeholder="Enter otp" maxlength="4">
 				</div>
 				<button class="button login__submit">
 					<span class="button__text">Register</span>

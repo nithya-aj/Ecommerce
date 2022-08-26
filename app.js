@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const hbs = require ('express-handlebars');
+const HBS = hbs.create({});
 var db=require('./config/connection')
 var session = require('express-session')
 var Handlebars = require('handlebars');
@@ -26,13 +27,27 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret: "secret key",
   resave: false,
-  cookie: { maxAge: 600000 },
+  cookie: { maxAge: 6000000000 },
   saveUninitialized: false
 }));
 Handlebars.registerHelper("inc", function(value, options)
 {
     return parseInt(value) + 1;
 });
+
+HBS.handlebars.registerHelper("ifCondition",function(v1,v2,options){
+  if(v1==v2){
+    return options.fn(this)
+  }
+  return options.inverse(this) 
+})
+
+HBS.handlebars.registerHelper("notEquals",function(v1,v2,options){
+  if(v1!=v2){
+    return options.fn(this)
+  }
+  return options.inverse(this) 
+})
 
 db.connect((err) => {
   if (err) {
