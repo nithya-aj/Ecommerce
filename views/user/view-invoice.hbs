@@ -152,7 +152,7 @@
                     <h1 class="page-title text-secondary-d1">
                         <small class="page-info">
                             <i class="fa fa-angle-double-right text-80"></i>
-                            ID: #{{orderId}}
+                            ID: # <small> {{orderId}} </small>
                         </small>
                     </h1>
 
@@ -179,16 +179,18 @@
                                     <div>
                                         <span class="text-sm text-grey-m2 align-middle">To:</span>
                                         <span
-                                            class="text-600 text-110 text-blue align-middle">{{order.deliveryDetails.firstName}}
-                                            {{order.deliveryDetails.lastName}}</span>
+                                            class="text-600 text-110 text-blue align-middle">{{orders.[0].deliveryDetails.firstName}}
+                                            {{orders.[0].deliveryDetails.lastName}}</span>
                                     </div>
                                     <div class="text-grey-m2">
                                         <address>
-                                            {{order.deliveryDetails.address}}
+                                            {{orders.[0].deliveryDetails.address}} <br>
+                                            {{orders.[0].deliveryDetails.landMark}} <br>
+                                            {{orders.[0].deliveryDetails.pinCode}}
                                         </address>
 
                                         <div class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i>
-                                            <b class="text-600">{{order.deliveryDetails.phone}}</b>
+                                            <b class="text-600">{{orders.[0].deliveryDetails.phone}}</b>
                                         </div>
                                     </div>
                                 </div>
@@ -205,11 +207,15 @@
                                                 class="text-600 text-90">ID:</span> #{{orderId}}</div>
 
                                         <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span
-                                                class="text-600 text-90">Issue Date:</span> {{orders.date}}</div>
+                                                class="text-600 text-90">Issue Date:</span> {{orders.[0].date}}</div>
 
                                         <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span
-                                                class="text-600 text-90">Status:</span> <span
-                                                class="badge badge-warning badge-pill px-25">Unpaid</span></div>
+                                                class="text-600 text-90">Status:</span> 
+                                                {{#ifCondition orders.[0].paymentMethod 'COD'}}
+                                                <span class="badge badge-warning badge-pill px-25">Unpaid</span></div>
+                                                {{else}}
+                                                <span class="badge badge-warning badge-pill px-25">Paid</span></div>
+                                                {{/ifCondition}}
                                     </div>
                                 </div>
                                 <!-- /.col -->
@@ -229,7 +235,7 @@
                                         <div class="d-none d-sm-block col-1">{{inc @index}}</div>
                                         <div class="col-9 col-sm-5">{{product.name}}</div>
                                         <div class="d-none d-sm-block col-2">{{product.category}}</div>
-                                        <div class="d-none d-sm-block col-2 text-95">{{product.price}}</div>
+                                        <div class="d-none d-sm-block col-2 text-95">Rs.{{product.price}}</div>
                                         <div class="col-2 text-secondary-d2"><img
                                                 src="/assets/images/products/{{product.images.[0]}}"
                                                 style="height: 100px;" alt="" /></div>
@@ -273,30 +279,13 @@
                                     </div>
 
                                     <div class="col-12 col-sm-5 text-grey text-90 order-first order-sm-last">
-                                        <div class="row my-2">
-                                            <div class="col-7 text-right">
-                                                SubTotal
-                                            </div>
-                                            <div class="col-5">
-                                                <span class="text-120 text-secondary-d1">$2,250</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="row my-2">
-                                            <div class="col-7 text-right">
-                                                Tax (10%)
-                                            </div>
-                                            <div class="col-5">
-                                                <span class="text-110 text-secondary-d1">$225</span>
-                                            </div>
-                                        </div>
 
                                         <div class="row my-2 align-items-center bgc-primary-l3 p-2">
                                             <div class="col-7 text-right">
                                                 Total Amount
                                             </div>
                                             <div class="col-5">
-                                                <span class="text-150 text-success-d3 opacity-2">$2,475</span>
+                                                <span class="text-150 text-success-d3 opacity-2">Rs.{{orders.[0].totalAmount}}</span>
                                             </div>
                                         </div>
                                     </div>

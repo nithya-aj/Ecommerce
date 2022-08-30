@@ -18,7 +18,7 @@
                                                 <div class="col">
                                                     <div class="form-outline">
                                                         <label class="form-label" for="">First name</label>
-                                                        <input type="text" id="firstName" name="firstName"
+                                                        <input type="text" id="firstName" name="firstName" value="{{user.firstName}}"
                                                             class="form-control" onkeyup="validateFirstName()" />
                                                         <p id="firstNameErr" class="text-danger mt-3"></p>
                                                     </div>
@@ -26,7 +26,7 @@
                                                 <div class="col">
                                                     <div class="form-outline">
                                                         <label class="form-label" for="">Last name</label>
-                                                        <input type="text" id="lastName" name="lastName"
+                                                        <input type="text" id="lastName" name="lastName" value="{{user.lastName }}"
                                                             class="form-control" onkeyup="validateLastName()" />
                                                         <p id="lastNameErr" class="text-danger mt-3"></p>
                                                     </div>
@@ -36,7 +36,7 @@
                                             <!-- Email input -->
                                             <div class="form-outline mb-4">
                                                 <label class="form-label" for="">Email</label>
-                                                <input type="email" id="email" name="email" class="form-control"
+                                                <input type="email" id="email" name="email" class="form-control" value="{{user.email}}"
                                                     onkeyup="validateEmail()" />
                                                 <p id="emailErr" class="text-danger mt-3"></p>
                                             </div>
@@ -44,7 +44,7 @@
                                             <!-- Number input -->
                                             <div class="form-outline mb-4">
                                                 <label class="form-label" for="">Phone</label>
-                                                <input id="phone" name="phone" class="form-control"
+                                                <input id="phone" name="phone" class="form-control" value="{{user.phoneNumber}}"
                                                     onkeyup="validatePhone()" />
                                                 <p id="phoneErr" class="text-danger mt-3"></p>
                                                 <input type="text" name="userId" id="" hidden value="{{user._id}}">
@@ -380,7 +380,7 @@
             data: $('#checkout-form').serialize(),
             success: (response) => {
                 console.log(response)
-                alert('place order')
+                swal('Place Order')
                 if (response.codSuccess) {
                     location.href = '/order-placed'
                 } else if (response.paypalSuccess) {
@@ -438,7 +438,7 @@
                 if (response.status) {
                     location.href = '/order-placed'
                 } else {
-                    alert('Payment failed')
+                    swal('Payment failed')
                 }
             }
         })

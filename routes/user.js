@@ -356,11 +356,18 @@ router.post('/change-password', verifyLogin, async (req, res) => {
   })
 })
 
-router.get('/view-invoice', async (req, res) => {
-  // let orderId = req.params.id
-  // let orders = await userHelpers.getUserOrders(req.session.user._id);
-  // console.log(orders,"-----------------orders to fetch in invoice page-------------------");
-  res.render('user/view-invoice', { user: req.session.user, user_head: true, })
+// invoice 
+
+router.get('/view-invoice/:id', async(req, res)=>{
+  try{
+    let orderId = req.params.id
+    let category = await categoryHelpers.getAllCategory();
+    let orders = await userHelpers.getUserOrders(req.session.user._id);
+    let products = await userHelpers.getOrderProducts(req.params.id);
+    res.render('user/view-invoice', {user: req.session.user, orderId, orders, products, category, user_head:true})
+  }catch (error) {
+    console.log(error);
+  }
 })
 
 module.exports = router;

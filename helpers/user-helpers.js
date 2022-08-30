@@ -92,11 +92,12 @@ module.exports = {
                             resolve(response)
                         } else {
                             response.status = false
-                            console.log('Login Failed');
+                            console.log('Login Failed becoz of user blocked');
                             response.err = "User is blocked"
+                            resolve(response)
                         }
                     } else {
-                        console.log('Login Failed gggg');
+                        console.log('Login Failed cause of invalid email or password');
                         response.err = "Invalid email or password"
                         response.status = false
                         console.log(response);
@@ -104,8 +105,11 @@ module.exports = {
                     }
                 })
             } else {
-                console.log('Login Failed');
-                resolve({ status: false })
+                console.log('Login Failed because of there is no user');
+                response.err = "You do not have an account"
+                response.status = false
+                console.log(response);
+                resolve(response)
             }
         })
     },
@@ -166,7 +170,7 @@ module.exports = {
         })
     },
 
-// ------------cart functions---------------
+    // ------------cart functions---------------
 
     addToCart: (proId, userId) => {
         let proObj = {
@@ -386,7 +390,7 @@ module.exports = {
         })
     },
 
-// ---------------order functions----------------
+    // ---------------order functions----------------
 
     getUserOrders: (userId) => {
         console.log(userId);
@@ -579,7 +583,7 @@ module.exports = {
         })
     },
 
-// --------------user profile functions ----------------------
+    // --------------user profile functions ----------------------
 
     editUserProfile: (proId, userDetails) => {
         return new Promise(async (resolve, reject) => {

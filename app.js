@@ -8,6 +8,7 @@ const HBS = hbs.create({});
 var db=require('./config/connection')
 var session = require('express-session')
 var Handlebars = require('handlebars');
+const swal = require('sweetalert');
 
 var userRouter = require('./routes/user');
 var adminRouter = require('./routes/admin');

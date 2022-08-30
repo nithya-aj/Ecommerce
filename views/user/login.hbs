@@ -4,16 +4,16 @@
 			<form action="/login" method="post" class="login">
 				<p style="font-size: 26px;">LOGIN</p>
 			{{#if loginErr}}
-			<p class="error">{{loginErr}}</p>
+			<p class="error" style="color: red;">{{loginErr}}</p>
 			{{/if}}
 				<div class="login__field">
 					<i class="login__icon fa fa-user"></i>
-					<input name="email" type="email" class="login__input" placeholder="Email" onkeyup="validateEmail()">
+					<input name="email" id="email" type="email" class="login__input" placeholder="Email" onkeyup="validateEmail()">
 					<p id="emailErr" class="text-danger"></p>
 				</div>
 				<div class="login__field">
 					<i class="login__icon fa fa-lock"></i>
-					<input name="password" type="password" class="login__input" placeholder="Password" onkeyup="validatePassword()">
+					<input name="password" id="password" type="password" class="login__input" placeholder="Password" onkeyup="validatePassword()">
 					<p id="passwordErr" class="text-danger"></p>
 				</div>
 				<button class="button login__submit" type="submit" onclick="return validation()">

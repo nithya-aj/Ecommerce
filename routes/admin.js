@@ -32,10 +32,10 @@ router.post('/admin-login', (req, res) => {
     if (response.status) {
       req.session.adminLogin = true;
       req.session.admin = response.admin;
-      res.redirect('/admin')
+      res.redirect('/admin/')
     } else {
       req.session.adminLoginErr = "Incorrect username or password ";
-      res.redirect('/admin')
+      res.redirect('/admin/')
     }
   })
 })
@@ -43,7 +43,7 @@ router.post('/admin-login', (req, res) => {
 router.get('/logout', (req, res) => {
   req.session.admin = null;
   req.session.adminLogin = null;
-  res.redirect('/admin')
+  res.redirect('/admin/')
 })
 
 /* GET users listing. */

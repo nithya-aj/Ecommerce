@@ -47,7 +47,7 @@
   <div class="header-main">
     <div class="container">
       <a href="/" class="header-logo">
-        <img src="assets/images/logo/logo.svg" alt="Anon's logo" width="120" height="36">
+        <img src="assets/images/logo/trend-logo-png-transparent.png" alt="Anon's logo" width="120" height="113">
       </a>
       <div class="header-search-container">
         <input type="search" name="search" class="search-field" placeholder="Enter your product name...">
@@ -75,7 +75,7 @@
           <div class="dropdown-content">
             <a href="/my-profile">My Account</a>
             <a href="/view-orders">Orders</a>
-            <a href="#">wishlist</a>
+            {{!-- <a href="#">wishlist</a> --}}
             <a href="#">Cart</a>
             <a href="/logout">Logout</a>
           </div>
@@ -87,10 +87,10 @@
           </div>
           {{/if}}
         </div>
-        <a href="/user/wishlist"><button class="action-btn">
+        {{!-- <a href="/user/wishlist"><button class="action-btn">
             <ion-icon name="heart-outline"></ion-icon>
             <span class="count">0</span>
-          </button></a>
+          </button></a> --}}
         {{#if user}}
         <a href="/cart"><button class="action-btn">
             <ion-icon name="bag-handle-outline"></ion-icon>

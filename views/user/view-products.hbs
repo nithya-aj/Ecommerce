@@ -74,11 +74,11 @@
                                         alt="Mens Winter Leathers Jackets" width="300" class="product-img hover">
                                     <p class="showcase-badge">{{this.badge}}</p>
                                     <div class="showcase-actions">
-                                        <button class="btn-action">
+                                        {{!-- <button class="btn-action">
                                             <a href="/whishlist/{{this._id}}">
                                                 <ion-icon name="heart-outline"></ion-icon>
                                             </a>
-                                        </button>
+                                        </button> --}}
                                         <button class="btn-action" onclick="addToCart('{{this._id}}')">
                                             <ion-icon name="bag-add-outline"></ion-icon>
                                         </button>
@@ -86,9 +86,7 @@
                                 </div>
                                 <div class="showcase-content">
                                     <a href="/product-details/{{this._id}}" class="showcase-category">{{this.name}}</a>
-                                    <a href="#">
-                                        <h3 class="showcase-title">{{this.category}}</h3>
-                                    </a>
+                                    <h3 class="showcase-title">{{this.category}}</h3>
                                     <div class="showcase-rating">
                                         <ion-icon name="star"></ion-icon>
                                         <ion-icon name="star"></ion-icon>

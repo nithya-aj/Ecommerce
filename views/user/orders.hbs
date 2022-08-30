@@ -15,6 +15,7 @@
                             <th scope="col">Method</th>
                             <th scope="col">Status</th>
                             <th scope="col">Ordered Items</th>
+                            <th scope="col">Invoice</th>
                             <th scope="col">Cancel</th>
                         </tr>
                     </thead>
@@ -30,6 +31,7 @@
                             <td>{{this.paymentMethod}}</td>
                             <td>{{this.status}}</td>
                             <td><a href="/ordered-products/{{this._id}}"><button type="button" class="btn btn-outline-primary btn-sm">View Products</button></a></td>
+                            <td><a href="/view-invoice/{{this._id}}"><button type="button" class="btn btn-outline-secondary btn-sm">Invoice</button></a></td>
                             <td><a href="/cancel-order/{{this._id}}"><button type="button" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you want to cancel this order?')">Cancel Order</button></a></td>
                         </tr>
                         {{/each}}
