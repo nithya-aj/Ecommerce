@@ -380,7 +380,7 @@
             data: $('#checkout-form').serialize(),
             success: (response) => {
                 console.log(response)
-                swal('Place Order')
+                alert('Place Order')
                 if (response.codSuccess) {
                     location.href = '/order-placed'
                 } else if (response.paypalSuccess) {
@@ -438,7 +438,7 @@
                 if (response.status) {
                     location.href = '/order-placed'
                 } else {
-                    swal('Payment failed')
+                    alert('Payment failed')
                 }
             }
         })
