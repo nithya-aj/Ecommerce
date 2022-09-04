@@ -47,7 +47,7 @@
   <div class="header-main">
     <div class="container">
       <a href="/" class="header-logo">
-        <img src="/assets/images/logo/trend-logo-png-transparent.png" alt="Anon's logo" width="120" height="113">
+        <img src="/assets/images/logo/trend-logo-png-transparent.png" alt="" width="120" height="113">
       </a>
       <div class="header-search-container">
         <input type="search" name="search" class="search-field" placeholder="Enter your product name...">
@@ -57,26 +57,13 @@
       </div>
       <div class="header-user-actions">
         <div class="dropdown">
-          {{!-- <button class="dropbtn,action-btn"><i style="font-size: 37px;" class="fa fa-user"></i></button>
-          <div class="dropdown-content">
-            {{#if user}}
-            <a href="/login">My Account</a>
-            <a href="#">Orders</a>
-            <a href="#">wishlist</a>
-            <a href="#">Cart</a>
-            <a href="#">Logout</a>
-            {{else}}
-            <a href="/login">Login</a>
-            <a href="/signup">Register</a>
-            {{/if}}
-          </div> --}}
           {{#if user}}
           <button class="dropbtn,action-btn"><i style="font-size: 28px;" class="fa fa-user">  <span style="color: blue; font-size :23px;">{{user.firstName}}</span></i></button>
           <div class="dropdown-content">
             <a href="/my-profile">My Account</a>
             <a href="/view-orders">Orders</a>
             {{!-- <a href="#">wishlist</a> --}}
-            <a href="#">Cart</a>
+            <a href="/cart">Cart</a>
             <a href="/logout">Logout</a>
           </div>
           {{else}}
@@ -119,10 +106,10 @@
           {{#each category}}
           <ul class="dropdown-panel-list">
             <li class="menu-title">
-              <a href="#">{{this.cat_name}}</a>
+              <a href="/view-products">{{this.cat_name}}</a>
             </li>
             <li class="panel-list-item">
-              <a href="#">
+              <a href="/view-products">
                 <img src="/assets/images/products/{{this._id}}.jpg" alt="" width="250" height="119">
               </a>
             </li>
@@ -138,9 +125,6 @@
       </li>
       <li class="menu-category">
         <a href="#" class="menu-title">Services</a>
-      </li>
-      <li class="menu-category">
-        <a href="#" class="menu-title">Hot offers</a>
       </li>
       <li class="menu-category">
         <a href="#" class="menu-title">Contact Us</a>

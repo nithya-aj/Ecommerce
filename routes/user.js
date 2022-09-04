@@ -92,7 +92,7 @@ router.post("/signup", (req, res) => {
         req.session.signErr = true;
         res.redirect("/signup");
       } else {
-        userDetais = response.userData;
+        userDetails = response.userData;
         res.render("user/verify-otp");
       }
     });
@@ -103,7 +103,7 @@ router.post("/signup", (req, res) => {
 
 router.post("/verify-otp", (req, res) => {
   try{
-    userHelpers.signupOtp(req.body, userDetais).then((response) => {
+    userHelpers.signupOtp(req.body, userDetails).then((response) => {
       if (response.err) {
         req.session.user.otpErr = response.err;
         res.redirect("/signup");
@@ -128,9 +128,11 @@ router.get("/logout", (req, res) => {
   }
 });
 
-router.get("/product-details", (req, res) => {
+router.get("/product-details", async(req, res) => {
   try{
-    res.render("user/product-details", { user_head: true });
+    let user = req.session.user;
+    let products = await userHelpers.getCartProducts(req.session.user._id);
+    res.render("user/product-details", { user_head: true, user, products});
   }catch (error) {
     console.log(error);
   }

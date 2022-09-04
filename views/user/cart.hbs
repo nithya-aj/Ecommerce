@@ -349,7 +349,7 @@
     </div>
 </footer>
 
-<script>
+{{!-- <script>
     function changeQuantity(cartId, proId, userId, count) {
         console.log(cartId, proId, userId, count)
         let quantity = parseInt(document.getElementById(proId).innerHTML)
@@ -367,7 +367,7 @@
             success: (response) => {
                 if (response.removeProduct) {
                     alert('Product removed from the cart')
-                    location.reload()
+                    //location.reload()
                 } else {
                     console.log(response)
                     document.getElementById(proId).innerHTML = quantity + count
@@ -415,4 +415,4 @@
         })
     }
 
-</script>
+</script> --}}

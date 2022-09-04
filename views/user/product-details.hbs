@@ -92,18 +92,18 @@
                             <p>{{product.description}}</p>
 
                             <div class="product-count">
-                                <label for="size">Quantity</label>
+                                {{!-- <label for="size">Quantity</label> --}}
                                 <form action="#" class="display-flex">
-                                    <div class="qtyminus">-</div>
+                                    {{!-- <div class="qtyminus">-</div>
                                     <input type="text" name="quantity" value="1" class="qty" style=" height: 34px;">
-                                    <div class="qtyplus">+</div>
+                                    <div class="qtyplus">+</div> --}}
                                     <div>
-                                        <button class="btn" onclick="addToCart('{{product._id}}')"><i
+                                        <button class="btn" onclick="addToCart('{{product._id}}')">Add to cart  <i
                                                 class="fa fa-shopping-cart"></i></button>
-                                        <button class="btn"><i class="fa fa-heart"></i></button>
+                                        {{!-- <button class="btn"><i class="fa fa-heart"></i></button> --}}
                                     </div>
                                 </form>
-                                <a href="" class="round-black-btn">Buy now</a>
+                                <a href="/cart" class="round-black-btn">Buy now</a>
                             </div>
                         </div>
                     </div>
@@ -440,8 +440,8 @@
 
 <script>
     function changeImage(element) {
-        var main_prodcut_image = document.getElementById('main_product_image');
-        main_prodcut_image.src = element.src;
+        var main_product_image = document.getElementById('main_product_image');
+        main_product_image.src = element.src;
     }
     $('#zoom').imagezoomsl();
 

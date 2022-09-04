@@ -33,7 +33,7 @@ router.post('/admin-login', (req, res) => {
       if (response.status) {
         req.session.adminLogin = true;
         req.session.admin = response.admin;
-        res.redirect('/admin')
+        res.redirect('/admin/homepage')
       } else {
         req.session.adminLoginErr = "Incorrect username or password ";
         res.redirect('/admin')
@@ -55,8 +55,11 @@ router.get('/logout', (req, res) => {
   }
 })
 
-/* GET users listing. */
-router.get('/',verifyLogin, async(req, res) =>{
+router.get('/',verifyLogin, (req, res)=>{
+  res.redirect('/admin/homepage')
+})
+
+router.get('/homepage',verifyLogin, async(req, res) =>{
   try{
     let cod= await productHelpers.getCod()
     let razorpay = await productHelpers.getRazorpay()

@@ -1,6 +1,6 @@
 var db = require('../config/connection');
 var collection = require('../config/collections');
-const client = require('twilio')('ACf9af3508f42107fa635b3f9cd47d23ba', '972ea5429b3652df10ee6ea6cf52f75d');
+const client = require('twilio')('ACf9af3508f42107fa635b3f9cd47d23ba', '0b5b3b9b39e29b4e7ca051a9e1c54bbf');
 var bcrypt = require('bcrypt');
 const { response } = require('../app');
 var objectId = require('mongodb').ObjectId
@@ -396,7 +396,7 @@ module.exports = {
         console.log(userId);
         return new Promise(async (resolve, reject) => {
             let orders = await db.get().collection(collection.ORDER_COLLECTION)
-                .find({ userId: objectId(userId) }).toArray()
+            .find({ userId: objectId(userId) }).sort({ 'date': -1 }).toArray()
             console.log(orders);
             resolve(orders)
         })
