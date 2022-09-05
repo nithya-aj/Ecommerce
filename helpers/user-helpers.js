@@ -1,6 +1,7 @@
 var db = require('../config/connection');
 var collection = require('../config/collections');
-const client = require('twilio')('ACf9af3508f42107fa635b3f9cd47d23ba', '0b5b3b9b39e29b4e7ca051a9e1c54bbf');
+var otp = require('../config/otp')
+const client = require('twilio')(otp.accountSID, otp.authToken);
 var bcrypt = require('bcrypt');
 const { response } = require('../app');
 var objectId = require('mongodb').ObjectId
@@ -41,12 +42,12 @@ module.exports = {
                 // })
                 userData.password = await bcrypt.hash(userData.password, 10)
                 userData.userStatus = true;
-                client.verify.v2.services(collection.serviceID)
+                client.verify.v2.services(otp.serviceID)
                     .verifications
                     .create({ to: '+91' + userData.phoneNumber, channel: 'sms' })
                     .then(verification => console.log(verification.status));
                 console.log('no same email');
-                console.log(collection.serviceID);
+                console.log(otp.serviceID);
                 resolve({ userData })
             }
         })
@@ -54,7 +55,7 @@ module.exports = {
     signupOtp: (userData, userDetails) => {
         return new Promise((resolve, reject) => {
             let response = {}
-            client.verify.services(collection.serviceID)
+            client.verify.services(otp.serviceID)
                 .verificationChecks
                 .create({
                     to: `+91${userDetails.phoneNumber}`,
