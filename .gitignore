@@ -131,5 +131,3 @@
 
 *.node_modules
 *.env
-*.client
-*.serviceID
