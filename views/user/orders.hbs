@@ -29,10 +29,15 @@
                             <td>{{this.deliveryDetails.phone}}</td>
                             <td>Rs.{{this.totalAmount}}</td>
                             <td>{{this.paymentMethod}}</td>
-                            <td>{{this.status}}</td>
+                            <td><button type="button" class="btn btn-outline-dark btn-sm" disabled>{{this.status}} </button></td>
                             <td><a href="/ordered-products/{{this._id}}"><button type="button" class="btn btn-outline-primary btn-sm">View Products</button></a></td>
                             <td><a href="/view-invoice/{{this._id}}"><button type="button" class="btn btn-outline-secondary btn-sm">Invoice</button></a></td>
-                            <td><a href="/cancel-order/{{this._id}}"><button type="button" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you want to cancel this order?')">Cancel Order</button></a></td>
+                            <td>
+                                {{#ifCondition this.status 'Cancelled'}}
+                                <a href="/cancel-order/{{this._id}}"><button type="button" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you want to cancel this order?')" disabled>Cancel Order</button></a></td>
+                                {{else}}
+                                <a href="/cancel-order/{{this._id}}"><button type="button" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you want to cancel this order?')" >Cancel Order</button></a></td>
+                                {{/ifCondition}}
                         </tr>
                         {{/each}}
                     </tbody>

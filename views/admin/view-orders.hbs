@@ -34,31 +34,15 @@
                                         <td>Rs.{{this.totalAmount}}</td>
                                         <td>{{this.paymentMethod}}</td>
                                         <td><a href="/ordered-products/{{this._id}}"><button type="button" class="btn btn-outline-primary btn-sm">View Products</button></a></td>
-                                        {{#ifCondition this.status 'placed'}}
+                                        {{!-- {{#ifCondition this.status 'placed'}} --}}
                                         <td><select class="form-select" aria-label="Default select example"
                                                 onchange="changeOrderStatus(value,'{{this._id}}')" style="width: 110px;">
                                                 <option selected>{{this.status}}</option>
+                                                <option value="Shipped">Processing</option>
                                                 <option value="Shipped">Shipped</option>
                                                 <option value="Delivered">Delivered</option>
                                                 <option value="Cancelled">Cancelled</option>
                                         </select></td>
-                                        {{else}}
-                                        {{#ifCondition this.status 'pending'}}
-                                        <td><select class="form-select" aria-label="Default select example"
-                                                onchange="changeOrderStatus(value,'{{this._id}}')" style="width: 110px;">
-                                                <option selected>{{this.status}}</option>
-                                                <option value="Delivered">Delivered</option>
-                                                <option value="Cancelled">Cancelled</option>
-                                        </select></td>
-                                        {{else}}
-                                        <td><select class="form-select" aria-label="Default select example"
-                                                onchange="changeOrderStatus(value,'{{this._id}}')">
-                                                <option selected>{{this.status}}</option>
-                                                <option value="Cancelled">Cancelled</option>
-                                        </select></td>
-                                        {{!-- <span>{{this.status}}</span> --}}
-                                        {{/ifCondition}}
-                                        {{/ifCondition}}
                                     </tr>
                                     {{/each}}
                                 </tbody>

@@ -397,7 +397,7 @@ module.exports = {
         console.log(userId);
         return new Promise(async (resolve, reject) => {
             let orders = await db.get().collection(collection.ORDER_COLLECTION)
-            .find({ userId: objectId(userId) }).sort({ 'date': -1 }).toArray()
+                .find({ userId: objectId(userId) }).sort({ 'date': -1 }).toArray()
             console.log(orders);
             resolve(orders)
         })
@@ -586,37 +586,95 @@ module.exports = {
 
     // --------------user profile functions ----------------------
 
-    editUserProfile: (proId, userDetails) => {
-        return new Promise(async (resolve, reject) => {
-            let user = await db.get().collection(collection.USER_COLLECTION).findOne({ _id: objectId(proId) })
-            let userExit = await db.get().collection(collection.USER_COLLECTION).findOne({ email: userDetails.email })
-            let response = {}
-            if (user.email == userDetails.email) {
-                db.get().collection(collection.USER_COLLECTION).updateOne({ _id: objectId(proId) }, {
-                    $set: {
-                        firstName: userDetails.firstName,
-                        lastName: userDetails.lastName,
-                        email: userDetails.email,
-                        phoneNumber: userDetails.phoneNumber
-                    }
-                }).then((response) => {
-                    resolve(response)
-                })
-            } else if (userExit) {
-                response.err = true
-                resolve(response)
+    // editUserProfile: (userId, userDetails) => {
+    //     return new Promise(async (resolve, reject) => {
+    //         let user = await db.get().collection(collection.USER_COLLECTION).findOne({ _id: objectId(userId) })
+    //         let userExit = await db.get().collection(collection.USER_COLLECTION).findOne({ email: userDetails.email })
+    //         let response = {}
+    //         if (user.email == userDetails.email) {
+    //             db.get().collection(collection.USER_COLLECTION).updateOne({ _id: objectId(userId) }, {
+    //                 $set: {
+    //                     firstName: userDetails.firstName,
+    //                     lastName: userDetails.lastName,
+    //                     email: userDetails.email,
+    //                     phoneNumber: userDetails.phoneNumber
+    //                 }
+    //             }).then((response) => {
+    //                 resolve(response)
+    //             })
+    //         } else if (userExit) {
+    //             response.err = true
+    //             resolve(response)
 
+    //         } else {
+    //             db.get().collection(collection.USER_COLLECTION).updateOne({ _id: objectId(userId) }, {
+    //                 $set: {
+    //                     firstName: userDetails.firstName,
+    //                     lastName: userDetails.lastName,
+    //                     email: userDetails.email,
+    //                     phoneNumber: userDetails.phoneNumber
+    //                 }
+    //             }).then((response) => {
+    //                 resolve(response)
+    //             })
+    //         }
+    //     })
+    // },
+    // editUserProfile:(userId, userDetails)=>{
+    //     return new Promise ((resolve, reject)=>{
+    //         db.get().collection(collection.USER_COLLECTION)
+    //         .updateOne({_id:objectId(userId)},{
+    //             $set:{
+    //                 firstName: userDetails.firstName,
+    //                 lastName: userDetails.lastName,
+    //                 email: userDetails.email,
+    //                 phoneNumber: userDetails.phoneNumber
+    //             }
+    //         }).then((response)=>{
+    //             resolve(response)
+    //         })
+    //     })
+    // },
+    editUserProfile: (userId, userDetails) => {
+
+        return new Promise(async (resolve, reject) => {
+            let response={}
+            let user = await db.get().collection(collection.USER_COLLECTION).findOne({ _id: objectId(userId) })
+            if (userDetails.email == user.email) {
+                console.log("same Email");
+                db.get().collection(collection.USER_COLLECTION).updateOne({  _id: objectId(userId) },
+                    {
+                        $set: {
+                            firstName: userDetails.firstName,
+                            lastName: userDetails.lastName,
+                            email: userDetails.email,
+                            phoneNumber: userDetails.phoneNumber
+                        }
+
+                    }).then((data) => {
+                        resolve(data);
+                    })
             } else {
-                db.get().collection(collection.USER_COLLECTION).updateOne({ _id: objectId(proId) }, {
-                    $set: {
-                        firstName: userDetails.firstName,
-                        lastName: userDetails.lastName,
-                        email: userDetails.email,
-                        phoneNumber: userDetails.phoneNumber
-                    }
-                }).then((response) => {
+                console.log("Not same Email");
+                let response = {};
+                let userDataEdit = await db.get().collection(collection.USER_COLLECTION).findOne({ email: userDetails.email })
+                if (userDataEdit) {
+                    response.err = true
                     resolve(response)
-                })
+                } else {
+                    db.get().collection(collection.USER_COLLECTION).updateOne({  _id: objectId(userId) },
+                        {
+                            $set: {
+                                firstName: userDetails.firstName,
+                                lastName: userDetails.lastName,
+                                email: userDetails.email,
+                                phoneNumber: userDetails.phoneNumber
+                            }
+                        }
+                    ).then((data) => {
+                        resolve(data);
+                    })
+                }
             }
         })
     },

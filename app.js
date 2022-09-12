@@ -50,6 +50,13 @@ HBS.handlebars.registerHelper("notEquals",function(v1,v2,options){
   return options.inverse(this) 
 })
 
+HBS.handlebars.registerHelper('if_eq', function(a, b, opts) {
+  if(a == b) // Or === depending on your needs
+      return opts.fn(this);
+  else
+      return opts.inverse(this);
+});
+
 db.connect((err) => {
   if (err) {
     console.log('Connection Error'+err);

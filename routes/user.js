@@ -240,7 +240,7 @@ router.get("/place-order", verifyLogin, async (req, res) => {
       total,
       user: req.session.user,
       cartCount,
-      category
+      category,couponDetails
     });
   }catch (error) {
     console.log(error);
@@ -425,7 +425,7 @@ router.get("/my-profile", verifyLogin, async (req, res) => {
   }
 });
 
-router.get('/edit-profile', async (req, res) => {
+router.get('/edit-profile', verifyLogin, async (req, res) => {
   try{
     let category = await categoryHelpers.getAllCategory();
     res.render('user/edit-profile', {
@@ -436,7 +436,7 @@ router.get('/edit-profile', async (req, res) => {
   }
 })
 
-router.post("/edit-profile/:id", (req, res) => {
+router.post("/edit-profile/:id", verifyLogin, (req, res) => {
   try{
     userHelpers.editUserProfile(req.params.id, req.body).then(() => {
       res.redirect("/my-profile");
