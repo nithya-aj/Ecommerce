@@ -31,6 +31,7 @@ router.get("/", async function (req, res, next) {
     res.render("index", { products, category, user_head: true, user, cartCount });
   }catch (error) {
     console.log(error);
+    res.render('user/error')
   }
 });
 
@@ -44,6 +45,7 @@ router.get("/login", (req, res) => {
     }
   }catch (error) {
     console.log(error);
+    res.render('user/error')
   }
 });
 router.post("/login", (req, res) => {
@@ -66,6 +68,7 @@ router.post("/login", (req, res) => {
     });
   }catch (error) {
     console.log(error);
+    res.render('user/error')
   }
 });
 
@@ -82,6 +85,7 @@ router.get("/signup", (req, res) => {
     }
   }catch (error) {
     console.log(error);
+    res.render('user/error')
   }
 });
 
@@ -98,6 +102,7 @@ router.post("/signup", (req, res) => {
     });
   }catch (error) {
     console.log(error);
+    res.render('user/error')
   }
 });
 
@@ -115,6 +120,7 @@ router.post("/verify-otp", (req, res) => {
     });
   }catch (error) {
     console.log(error);
+    res.render('user/error')
   }
 });
 
@@ -125,6 +131,7 @@ router.get("/logout", (req, res) => {
     res.redirect("/");
   }catch (error) {
     console.log(error);
+    res.render('user/error')
   }
 });
 
@@ -135,6 +142,7 @@ router.get("/product-details", async(req, res) => {
     res.render("user/product-details", { user_head: true, user, products});
   }catch (error) {
     console.log(error);
+    res.render('user/error')
   }
 });
 
@@ -152,6 +160,7 @@ router.get("/view-products", verifyLogin, async function (req, res, next) {
     });
   }catch (error) {
     console.log(error);
+    res.render('user/error')
   }
 });
 
@@ -174,10 +183,11 @@ router.get("/cart", verifyLogin, async (req, res) => {
       user_head: true,
       user,
       cartCount,
-      totalValue,
+      totalValue
     });
   }catch (error) {
     console.log(error);
+    res.render('user/error')
   }
 });
 
@@ -189,6 +199,7 @@ router.get("/add-to-cart/:id", (req, res) => {
     });
   }catch (error) {
     console.log(error);
+    res.render('user/error')
   }
 });
 
@@ -201,6 +212,7 @@ router.post("/change-product-quantity", (req, res, next) => {
     });
   }catch (error) {
     console.log(error);
+    res.render('user/error')
   }
 });
 
@@ -211,6 +223,7 @@ router.post("/remove-product", (req, res) => {
     });
   }catch (error) {
     console.log(error);
+    res.render('user/error')
   }
 });
 
@@ -228,6 +241,7 @@ router.post('/apply-coupon', verifyLogin, async (req, res) => {
   } catch (error) {
     //console.log(error);
     console.log(err);
+    res.render('user/error')
   }
 
 
@@ -243,10 +257,11 @@ router.get("/place-order", verifyLogin, async (req, res) => {
       total,
       user: req.session.user,
       cartCount,
-      category,couponDetails
+      category
     });
   }catch (error) {
     console.log(error);
+    res.render('user/error')
   }
 });
 
@@ -275,6 +290,7 @@ router.post("/place-order", async (req, res) => {
     console.log(req.body);
   }catch (error) {
     console.log(error);
+    res.render('user/error')
   }
 });
 
@@ -319,6 +335,7 @@ router.get("/success", async (req, res) => {
     );
   }catch (error) {
     console.log(error);
+    res.render('user/error')
   }
 });
 
@@ -334,6 +351,7 @@ router.get("/order-placed", async (req, res) => {
     });
   }catch (error) {
     console.log(error);
+    res.render('user/error')
   }
 });
 
@@ -348,6 +366,7 @@ router.get("/view-orders", verifyLogin, async (req, res) => {
     });
   }catch (error) {
     console.log(error);
+    res.render('user/error')
   }
 });
 
@@ -360,6 +379,7 @@ router.get('/cancel-order/:id', (req, res) => {
     })
   }catch (error) {
     console.log(error);
+    res.render('user/error')
   }
 }),
 
@@ -373,6 +393,7 @@ router.get('/cancel-order/:id', (req, res) => {
       });
     }catch (error) {
       console.log(error);
+      res.render('user/error')
     }
   });
 
@@ -392,6 +413,7 @@ router.get("/product-details/:id", verifyLogin, async (req, res) => {
     });
   }catch (error) {
     console.log(error);
+    res.render('user/error')
   }
 });
 
@@ -412,6 +434,7 @@ router.post("/verify-payment", (req, res) => {
       });
   }catch (error) {
     console.log(error);
+    res.render('user/error')
   }
 });
 
@@ -425,6 +448,7 @@ router.get("/my-profile", verifyLogin, async (req, res) => {
     });
   }catch (error) {
     console.log(error);
+    res.render('user/error')
   }
 });
 
@@ -436,6 +460,7 @@ router.get('/edit-profile', verifyLogin, async (req, res) => {
     });
   }catch (error) {
     console.log(error);
+    res.render('user/error')
   }
 })
 
@@ -446,6 +471,7 @@ router.post("/edit-profile/:id", verifyLogin, (req, res) => {
     })
   }catch (error) {
     console.log(error);
+    res.render('user/error')
   }
 });
 
@@ -457,6 +483,7 @@ router.get('/change-password', verifyLogin, async (req, res) => {
     })
   }catch (error) {
     console.log(error);
+    res.render('user/error')
   }
 })
 
@@ -467,6 +494,7 @@ router.post('/change-password', verifyLogin, async (req, res) =>{
     })
   }catch(error){
     console.log(error);
+    res.render('user/error')
   }
 })
 
@@ -481,6 +509,7 @@ router.get('/view-invoice/:id', async(req, res)=>{
     res.render('user/view-invoice', {user: req.session.user, orderId, orders, products, category, user_head:true})
   }catch (error) {
     console.log(error);
+    res.render('user/error')
   }
 })
 
