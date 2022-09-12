@@ -226,8 +226,11 @@ router.post('/apply-coupon', verifyLogin, async (req, res) => {
       res.json(response)
     })
   } catch (error) {
-    console.log(error);
+    //console.log(error);
+    console.log(err);
   }
+
+
 
 })
 
