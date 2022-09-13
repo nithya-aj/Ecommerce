@@ -18,16 +18,18 @@
                                                 <div class="col">
                                                     <div class="form-outline">
                                                         <label class="form-label" for="">First name</label>
-                                                        <input type="text" id="firstName" name="firstName" value="{{user.firstName}}"
-                                                            class="form-control" onkeyup="validateFirstName()" />
+                                                        <input type="text" id="firstName" name="firstName"
+                                                            value="{{user.firstName}}" class="form-control"
+                                                            onkeyup="validateFirstName()" />
                                                         <p id="firstNameErr" class="text-danger mt-3"></p>
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="form-outline">
                                                         <label class="form-label" for="">Last name</label>
-                                                        <input type="text" id="lastName" name="lastName" value="{{user.lastName }}"
-                                                            class="form-control" onkeyup="validateLastName()" />
+                                                        <input type="text" id="lastName" name="lastName"
+                                                            value="{{user.lastName }}" class="form-control"
+                                                            onkeyup="validateLastName()" />
                                                         <p id="lastNameErr" class="text-danger mt-3"></p>
                                                     </div>
                                                 </div>
@@ -36,16 +38,16 @@
                                             <!-- Email input -->
                                             <div class="form-outline mb-4">
                                                 <label class="form-label" for="">Email</label>
-                                                <input type="email" id="email" name="email" class="form-control" value="{{user.email}}"
-                                                    onkeyup="validateEmail()" />
+                                                <input type="email" id="email" name="email" class="form-control"
+                                                    value="{{user.email}}" onkeyup="validateEmail()" />
                                                 <p id="emailErr" class="text-danger mt-3"></p>
                                             </div>
 
                                             <!-- Number input -->
                                             <div class="form-outline mb-4">
                                                 <label class="form-label" for="">Phone</label>
-                                                <input id="phone" name="phone" class="form-control" value="{{user.phoneNumber}}"
-                                                    onkeyup="validatePhone()" />
+                                                <input id="phone" name="phone" class="form-control"
+                                                    value="{{user.phoneNumber}}" onkeyup="validatePhone()" />
                                                 <p id="phoneErr" class="text-danger mt-3"></p>
                                                 <input type="text" name="userId" id="" hidden value="{{user._id}}">
                                             </div>
@@ -94,13 +96,12 @@
                                                     Shipping
                                                     <span>Free</span>
                                                 </li>
-                                                {{#if couponName}}
                                                 <li
                                                     class="list-group-item d-flex justify-content-between align-items-center px-0">
                                                     Discount
-                                                    <span>{{discountPrice}}</span>
+                                                    <span id="discound"> {{discound}} 0</span>
+
                                                 </li>
-                                                {{/if}}
                                                 <li
                                                     class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                                                     <div>
@@ -117,7 +118,8 @@
                                         <div class="card-header py-3">
                                             <h5 class="mb-0">Payment Method</h5>
                                         </div>
-                                        <div class="card-body" style=" display: flex; justify-content: space-between; align-items: center; flex-direction: column">
+                                        <div class="card-body"
+                                            style=" display: flex; justify-content: space-between; align-items: center; flex-direction: column">
                                             <label for="" class="radio-inline">
                                                 <input type="radio" name="payment-method" value="COD" checked>COD
                                             </label>
@@ -578,6 +580,7 @@
                     document.getElementById('coupon-error').innerHTML = response.userErr
                 } else {
                     document.getElementById('total').innerHTML = response.total
+                    document.getElementById('discound').innerHTML = response.discound
                     document.getElementById('coupon-success').innerHTML = "coupon Applied"
                     //  document.getElementById('totaltwo').value = response.total
                 }

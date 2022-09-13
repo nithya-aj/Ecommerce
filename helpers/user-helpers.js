@@ -546,6 +546,7 @@ module.exports = {
                                 let offerPrice = data.total - discountPrice
                                 response.user = true
                                 response.total = parseInt(offerPrice)
+                                response.discound = parseInt(discountPrice)
                                 resolve(response)
                             })
                     }
