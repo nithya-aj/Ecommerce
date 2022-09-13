@@ -1,9 +1,9 @@
-
-    <div class="container">
-        <div class="product-box">
-            <div class="product-main">
-                <h2 class="title">Your Orders</h2>
-                <table class="table table-striped">
+<div class="container">
+    <div class="product-box">
+        <div class="product-main">
+            <h2 class="title">Your Orders</h2>
+            {{!-- <div style="height: 600px;overflow: scroll;"> --}}
+                <table class="table table-striped table-responsive">
                     <thead>
                         <tr>
                             <th scope="col">No</th>
@@ -29,22 +29,33 @@
                             <td>{{this.deliveryDetails.phone}}</td>
                             <td>Rs.{{this.totalAmount}}</td>
                             <td>{{this.paymentMethod}}</td>
-                            <td><button type="button" class="btn btn-outline-dark btn-sm" disabled>{{this.status}} </button></td>
-                            <td><a href="/ordered-products/{{this._id}}"><button type="button" class="btn btn-outline-primary btn-sm">View Products</button></a></td>
-                            <td><a href="/view-invoice/{{this._id}}"><button type="button" class="btn btn-outline-secondary btn-sm">Invoice</button></a></td>
+                            <td><button type="button" class="btn btn-outline-dark btn-sm" disabled>{{this.status}}
+                                </button></td>
+                            <td><a href="/ordered-products/{{this._id}}"><button type="button"
+                                        class="btn btn-outline-primary btn-sm">View Products</button></a></td>
+                            <td><a href="/view-invoice/{{this._id}}"><button type="button"
+                                        class="btn btn-outline-secondary btn-sm">Invoice</button></a></td>
                             <td>
                                 {{#ifCondition this.status 'Cancelled'}}
-                                <a href="/cancel-order/{{this._id}}"><button type="button" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you want to cancel this order?')" disabled>Cancel Order</button></a></td>
-                                {{else}}
-                                <a href="/cancel-order/{{this._id}}"><button type="button" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you want to cancel this order?')" >Cancel Order</button></a></td>
-                                {{/ifCondition}}
+                                <a href="/cancel-order/{{this._id}}"><button type="button"
+                                        class="btn btn-outline-danger btn-sm"
+                                        onclick="return confirm('Are you want to cancel this order?')" disabled>Cancel
+                                        Order</button></a>
+                            </td>
+                            {{else}}
+                            <a href="/cancel-order/{{this._id}}"><button type="button"
+                                    class="btn btn-outline-danger btn-sm"
+                                    onclick="return confirm('Are you want to cancel this order?')">Cancel
+                                    Order</button></a></td>
+                            {{/ifCondition}}
                         </tr>
                         {{/each}}
                     </tbody>
                 </table>
-            </div>
+            {{!-- </div> --}}
         </div>
     </div>
+</div>
 
 <footer>
     <div class="footer-category">

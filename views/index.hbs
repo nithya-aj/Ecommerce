@@ -6,36 +6,36 @@
     <div class="container">
       <div class="slider-container has-scrollbar">
         <div class="slider-item">
-          <img src="/assets/images/watch-banner1.jpg" alt="women's latest fashion sale" class="banner-img">
+          <img src="/assets/images/watch-banner3.jpg" alt="women's latest fashion sale" class="banner-img">
           <div class="banner-content">
             <p class="banner-subtitle">Trending item</p>
-            <h2 class="banner-title">Women's latest fashion sale</h2>
+            <h2 class="banner-title">Latest fashion sale for all</h2>
             <p class="banner-text">
-              starting at &dollar; <b>20</b>.00
+              starting at Rs. <b>2999</b>.00
             </p>
-            <a href="#" class="banner-btn">Shop now</a>
+            <a href="/view-products" class="banner-btn">Shop now</a>
           </div>
         </div>
         <div class="slider-item">
-          <img src="/assets/images/watch-banner3.jpg" alt="modern sunglasses" class="banner-img">
+          <img src="/assets/images/watch-banner2.jpg" alt="modern sunglasses" class="banner-img">
           <div class="banner-content">
             <p class="banner-subtitle">Trending accessories</p>
-            <h2 class="banner-title">Modern sunglasses</h2>
+            <h2 class="banner-title">Modern watches</h2>
             <p class="banner-text">
-              starting at &dollar; <b>15</b>.00
+              starting at Rs. <b>2500</b>.00
             </p>
-            <a href="#" class="banner-btn">Shop now</a>
+            <a href="/view-products" class="banner-btn">Shop now</a>
           </div>
         </div>
         <div class="slider-item">
-          <img src="/assets/images/watch-banner2.jpg" alt="new fashion summer sale" class="banner-img">
-          <div class="banner-content">
+          <img src="/assets/images/watch-banner8.jpg" class="banner-img">
+          <div class="banner-content" style="left: 55%;">
             <p class="banner-subtitle">Sale Offer</p>
             <h2 class="banner-title">New fashion summer sale</h2>
             <p class="banner-text">
-              starting at &dollar; <b>29</b>.99
+              starting at Rs. <b>3000</b>.99
             </p>
-            <a href="#" class="banner-btn">Shop now</a>
+            <a href="/view-products" class="banner-btn">Shop now</a>
           </div>
         </div>
       </div>
@@ -55,7 +55,7 @@
           <div class="category-content-box">
             <div class="category-content-flex">
               <h3 class="category-item-title">{{this.cat_name}}</h3>
-              <p class="category-item-amount">(53)</p>
+              {{!-- <p class="category-item-amount">(53)</p> --}}
             </div>
             <a href="/view-products" class="category-btn">Show all</a>
           </div>
@@ -66,14 +66,13 @@
   </div>
 
   <!--- PRODUCT -->
-
   <div class="product-container">
     <div class="container">
       <div class="product-box">
 
         <!--- PRODUCT FEATURED -->
 
-        <div class="product-featured">
+        <div class="product-featured" id="special-deal">
           <h2 class="title">Deal of the day</h2>
           <div class="showcase-wrapper has-scrollbar">
             <div class="showcase-container">
@@ -99,7 +98,7 @@
                     <p class="price">Rs.9,395.00</p>
                     <del>Rs.9,999.00</del>
                   </div>
-                  <button class="add-cart-btn">add to cart</button>
+                  <a href="/view-products"><button class="add-cart-btn">See more</button></a>
                   <div class="showcase-status">
                     <div class="wrapper">
                       <p>
@@ -113,26 +112,8 @@
                   </div>
                   <div class="countdown-box">
                     <p class="countdown-desc">
-                      Hurry Up! Offer ends in:
+                      Hurry Up!
                     </p>
-                    <div class="countdown">
-                      <div class="countdown-content">
-                        <p class="display-number">360</p>
-                        <p class="display-text">Days</p>
-                      </div>
-                      <div class="countdown-content">
-                        <p class="display-number">24</p>
-                        <p class="display-text">Hours</p>
-                      </div>
-                      <div class="countdown-content">
-                        <p class="display-number">59</p>
-                        <p class="display-text">Min</p>
-                      </div>
-                      <div class="countdown-content">
-                        <p class="display-number">00</p>
-                        <p class="display-text">Sec</p>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -160,7 +141,7 @@
                     <p class="price">Rs.5,095.00</p>
                     <del>Rs.6,999.00</del>
                   </div>
-                  <button class="add-cart-btn">add to cart</button>
+                  <a href="/view-products"><button class="add-cart-btn">See more</button></a>
                   <div class="showcase-status">
                     <div class="wrapper">
                       <p> already sold: <b>15</b> </p>
@@ -169,25 +150,7 @@
                     <div class="showcase-status-bar"></div>
                   </div>
                   <div class="countdown-box">
-                    <p class="countdown-desc">Hurry Up! Offer ends in:</p>
-                    <div class="countdown">
-                      <div class="countdown-content">
-                        <p class="display-number">360</p>
-                        <p class="display-text">Days</p>
-                      </div>
-                      <div class="countdown-content">
-                        <p class="display-number">24</p>
-                        <p class="display-text">Hours</p>
-                      </div>
-                      <div class="countdown-content">
-                        <p class="display-number">59</p>
-                        <p class="display-text">Min</p>
-                      </div>
-                      <div class="countdown-content">
-                        <p class="display-number">00</p>
-                        <p class="display-text">Sec</p>
-                      </div>
-                    </div>
+                    <p class="countdown-desc">Hurry Up!</p>
                   </div>
                 </div>
               </div>
@@ -244,7 +207,7 @@
   </div>
 
   <!--- TESTIMONIALS, CTA & SERVICE -->
-  <div>
+  <div id="testimonials">
     <div class="container">
       <div class="testimonials-box">
         <!--- TESTIMONIALS -->
@@ -273,7 +236,7 @@
 
         <!--- SERVICE -->
 
-        <div class="service">
+        <div class="service" id="services">
           <h2 class="title">Our Services</h2>
           <div class="service-container">
             <a href="#" class="service-item">

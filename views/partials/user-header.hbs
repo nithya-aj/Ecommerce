@@ -168,16 +168,16 @@
           </div>
         </li>
         <li class="menu-category">
-          <a href="#" class="menu-title">Special Deal</a>
+          <a href="#special-deal  " class="menu-title">Special Deal</a>
         </li>
         <li class="menu-category">
           <a href="/view-products" class="menu-title">Products</a>
         </li>
         <li class="menu-category">
-          <a href="#" class="menu-title">Services</a>
+          <a href="#services" class="menu-title">Services</a>
         </li>
         <li class="menu-category">
-          <a href="#" class="menu-title">Contact Us</a>
+          <a href="#testimonials" class="menu-title">Testimonial</a>
         </li>
       </ul>
     </div>
@@ -190,7 +190,9 @@
     </button>
 
     <button class="action-btn">
-      <a href="/"><ion-icon name="home-outline"></ion-icon></a>
+      <a href="/">
+        <ion-icon name="home-outline"></ion-icon>
+      </a>
     </button>
 
     {{#if user}}
@@ -227,6 +229,65 @@
       </button>
     </div>
 
+    <div class="menu-bottom">
+
+      <ul class="menu-category-list">
+
+        <li class="menu-category">
+
+          {{#if user}}
+
+          <button class="accordion-menu" data-accordion-btn>
+            <p class="menu-title">{{user.firstName}}</p>
+
+            <ion-icon name="caret-back-outline" class="caret-back"></ion-icon>
+          </button>
+
+          <ul class="submenu-category-list" data-accordion>
+
+            <li class="submenu-category">
+              <a href="/my-profile" class="submenu-title">My Account</a>
+            </li>
+
+            <li class="submenu-category">
+              <a href="/view-orders" class="submenu-title">Orders</a>
+            </li>
+
+            <li class="submenu-category">
+              <a href="/cart" class="submenu-title">Cart</a>
+            </li>
+
+            <li class="submenu-category">
+              <a href="/logout" class="submenu-title">Logout</a>
+            </li>
+
+          </ul>
+
+          {{else}}
+
+          <button class="accordion-menu" data-accordion-btn>
+            <p class="menu-title"><i style="font-size: 37px;" class="fa fa-user"></i></p>
+
+            <ion-icon name="caret-back-outline" class="caret-back"></ion-icon>
+          </button>
+
+          <ul class="submenu-category-list" data-accordion>
+
+            <li class="submenu-category">
+              <a href="/login" class="submenu-title">Login</a>
+            </li>
+
+            <li class="submenu-category">
+              <a href="/signup" class="submenu-title">Register</a>
+            </li>
+
+          </ul>
+
+          {{/if}}
+
+        </li>
+    </div>
+
     <ul class="mobile-menu-category-list">
 
       <li class="menu-category">
@@ -235,14 +296,14 @@
 
       <li class="menu-category">
 
-        <button class="accordion-menu" data-accordion-btn>
+        {{!-- <button class="accordion-menu" data-accordion-btn>
           <p class="menu-title">Men's</p>
 
           <div>
             <ion-icon name="add-outline" class="add-icon"></ion-icon>
             <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
           </div>
-        </button>
+        </button> --}}
 
         {{#each category}}
         <ul class="dropdown-panel-list">
@@ -260,16 +321,16 @@
       </li>
 
       <li class="menu-category">
-        <a href="#" class="menu-title">Special Deal</a>
+        <a href="#special-deal" class="menu-title">Special Deal</a>
       </li>
       <li class="menu-category">
         <a href="/view-products" class="menu-title">Products</a>
       </li>
       <li class="menu-category">
-        <a href="#" class="menu-title">Services</a>
+        <a href="#services" class="menu-title">Services</a>
       </li>
       <li class="menu-category">
-        <a href="#" class="menu-title">Contact Us</a>
+        <a href="#testimonials" class="menu-title">Testimonial</a>
       </li>
 
     </ul>
