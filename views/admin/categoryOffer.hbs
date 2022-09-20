@@ -1,0 +1,112 @@
+<div class="container-fluid page-body-wrapper">
+    <!-- partial:partials/_sidebar.html -->
+
+    {{>admin-sidebar}}
+
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Add Offer</h4>
+                        <form action="/admin/category-offer" id="add-offer" method="post" class="forms-sample">
+                            <div class="form-group">
+                                <label for="exampleInputEmail3">Select Category</label>
+                                <select name="category" class="form-select" aria-label="Default select example">
+                                    <option value="1">select category</option>
+                                    {{#each category}}
+                                    <option >{{this.cat_name}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail3">Offer Percentage</label>
+                                <input name="discound" id="discound" class="form-control" required onkeyup="validateDiscound()">
+                                <p id="discoundErr" class="text-danger"></p>
+                            </div>
+                            <button type="submit" class="btn btn-primary me-2" onclick="return validation()">Add Offer</button>
+                            <button class="btn btn-light" type="reset">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-lg-12 stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Offers</h4>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th> No </th>
+                                        <th>Offer Name</th>
+                                        <th>Category</th>
+                                        <th>Offer discound </th>
+                                        {{!-- <th> Action </th> --}}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each offer}}
+                                    <tr class="table-warning">
+                                        <td>{{inc @index}}</td>
+                                        <td>{{this.offerName}}</td>
+                                        <td>{{this.category}}</td>
+                                        <td> {{this.discound}} </td>
+                                        {{!-- <td><a href="/admin/delete-offer/{{this._id}}"><button type="button"
+                                                    class="btn btn-outline-primary btn-sm"
+                                                    onclick="return confirm('Are you want to delete {{this.offerName}} offer?')">
+                                                    Delete</button></a></td> --}}
+                                        {{!-- <td><a href="/admin/edit-user/{{this._id}}"><button type="button"
+                                                    class="btn btn-outline-primary btn-sm">Edit</button></a></td> --}}
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:../../partials/_footer.html -->
+        {{>admin-footer}}
+        <!-- partial -->
+    </div>
+
+
+    <script>
+
+        function validateOfferName() {
+            const name = document.getElementById("nameErr")
+            const offer = document.getElementById("offerName").value
+            if (offer == "") {
+                name.innerHTML = "| Enter offer name"
+                return false;
+            }
+            if (!offer.match(/^[a-zA-Z-" "]*$/)) {
+                name.innerHTML = "| Only Alphabets Are Allowed"
+                return false;
+            }
+            name.innerHTML = ""
+            return true;
+        }
+        function validateDiscound() {
+            const name = document.getElementById("discoundErr")
+            const offer = document.getElementById("discound").value
+            if (offer == "") {
+                name.innerHTML = "| Fill The Fields"
+                return false;
+            }
+            name.innerHTML = ""
+            return true;
+        }
+        function validation() {
+            if (!validateCouponName() || !validateDiscound()) {
+                return false;
+            }
+            return true;
+        }
+
+    </script>

@@ -1,15 +1,12 @@
 <body>
     <div class="container-scroller">
-        {{!-- <div class="row p-0 m-0 proBanner" id="proBanner">
+        <div class="row p-0 m-0 ">
             <div class="col-md-12 p-0 m-0">
                 <div class="card-body card-body-padding d-flex align-items-center justify-content-between">
                     <div class="ps-lg-1">
                         <div class="d-flex align-items-center justify-content-between">
-                            <p class="mb-0 font-weight-medium me-3 buy-now-text">Free 24/7 customer support, updates,
-                                and more with
-                                this template!</p>
                             <a href="https://www.bootstrapdash.com/product/connect-plus-bootstrap-admin-template/?utm_source=organic&utm_medium=banner&utm_campaign=buynow_demo"
-                                target="_blank" class="btn me-2 buy-now-btn border-0">Get Pro</a>
+                                target="_blank" class="btn me-2 buy-now-btn border-0"></a>
                         </div>
                     </div>
                     <div class="d-flex align-items-center justify-content-between">
@@ -21,11 +18,11 @@
                     </div>
                 </div>
             </div>
-        </div> --}}
+        </div>
         <!-- partial:partials/_navbar.html -->
 
         <!-- partial -->
-        <div class="container-fluid page-body-wrapper" style="margin-top: 64px;">
+        <div class="container-fluid page-body-wrapper">
             <!-- partial:partials/_sidebar.html -->
             {{>admin-sidebar}}
             <!-- partial -->
@@ -77,41 +74,75 @@
                                 <div class="tab-pane fade show active" id="business-1" role="tabpanel"
                                     aria-labelledby="business-tab">
                                     <div class="row">
-                                        <div class="col-xl-4 col-lg-6 col-sm-6 grid-margin stretch-card">
+                                        <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
                                             <div class="card">
                                                 <div class="card-body text-center">
                                                     <h5 class="mb-2 text-dark font-weight-normal">COD</h5>
+                                                    <h2 class="mb-4 text-dark font-weight-bold"></h2>
                                                     <div
                                                         class="dashboard-progress dashboard-progress-1 d-flex align-items-center justify-content-center item-parent">
+                                                        {{!-- <i
+                                                            class="mdi mdi-lightbulb icon-md absolute-center text-dark"></i>
+                                                        --}}
+                                                        <i class="pb-5 icon-md absolute-center text-dark"><img
+                                                                src="https://img.icons8.com/ultraviolet/80/000000/cash-in-hand.png" /></i>
                                                     </div>
                                                     <p class="mt-4 mb-0"></p>
                                                     <h2 class="mb-4 text-dark font-weight-bold">{{cod}}/-</h2>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-xl-4 col-lg-6 col-sm-6 grid-margin stretch-card">
+                                        <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
                                             <div class="card">
                                                 <div class="card-body text-center">
                                                     <h5 class="mb-2 text-dark font-weight-normal">Razorpay</h5>
-
+                                                    <h2 class="mb-4 text-dark font-weight-bold"></h2>
                                                     <div
                                                         class="dashboard-progress dashboard-progress-2 d-flex align-items-center justify-content-center item-parent">
+                                                        <i class="pb-5 icon-md absolute-center text-dark"><img
+                                                                class="pb-3"
+                                                                src="https://img.icons8.com/nolan/64/bank-cards.png" /></i>
+
                                                     </div>
                                                     <p class="mt-4 mb-0"></p>
                                                     <h2 class="mb-4 text-dark font-weight-bold">{{razorpay}}/-</h2>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-xl-4  col-lg-6 col-sm-6 grid-margin stretch-card">
+                                        <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
                                             <div class="card">
                                                 <div class="card-body text-center">
                                                     <h5 class="mb-2 text-dark font-weight-normal">Paypal</h5>
+                                                    <h2 class="mb-4 text-dark font-weight-bold"></h2>
                                                     <div
-                                                        class="dashboard-progress dashboard-progress-3 d-flex align-items-center justify-content-center item-parent">
+                                                        class="dashboard-progress dashboard-progress-1 d-flex align-items-center justify-content-center item-parent">
+                                                        {{!-- <i
+                                                            class="mdi mdi-lightbulb icon-md absolute-center text-dark"></i>
+                                                        --}}
+                                                        <i class="pb-5 icon-md absolute-center text-dark"><img
+                                                                src="https://img.icons8.com/color/48/000000/paypal.png" /></i>
                                                     </div>
                                                     <p class="mt-4 mb-0"></p>
-
                                                     <h2 class="mb-4 text-dark font-weight-bold">{{paypal}}/-</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
+                                            <div class="card">
+                                                <div class="card-body text-center">
+                                                    <h5 class="mb-2 text-dark font-weight-normal">Total Sale</h5>
+                                                    <h2 class="mb-4 text-dark font-weight-bold"></h2>
+                                                    <div
+                                                        class="dashboard-progress dashboard-progress-1 d-flex align-items-center justify-content-center item-parent">
+                                                        {{!-- <i
+                                                            class="mdi mdi-lightbulb icon-md absolute-center text-dark"></i>
+                                                        --}}
+                                                        <i class="pb-5 icon-md absolute-center text-dark"><img
+                                                                src="https://img.icons8.com/nolan/64/total-sales-1.png" /></i>
+                                                    </div>
+                                                    <p class="mt-4 mb-0"></p>
+                                                    <h3 class="mb-0 font-weight-bold mt-2 text-dark">{{totalSale}}/-
+                                                    </h3>
                                                 </div>
                                             </div>
                                         </div>
@@ -120,6 +151,80 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="row">
+
+                        <div class="content-wrapper">
+                            <div class="row">
+                                <div class="col-lg-6 grid-margin stretch-card">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title">Pie chart</h4>
+                                            <canvas id="pieChart" style="height:250px"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="content-wrapper">
+                            <div class="row">
+                                <div class="col-md-7 pt-4"><canvas id="myCharttwo" class=""></canvas></div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
+
+        <script>
+            let myCharttwo = document.getElementById('myCharttwo').getContext('2d');
+            // Global Options
+            //Chart.defaults.global.defaultFontFamily = 'Lato';
+            //Chart.defaults.global.defaultFontSize = 18;
+            //Chart.defaults.global.defaultFontColor = '#777';
+            let massPopChartw = new Chart(myCharttwo, {
+                type: 'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+                data: {
+                    labels: ["COD", "PAYPAL", "RAZORPAY"],
+                    datasets: [{
+                        label: 'Payment',
+                        data: [{{ cod }}, {{ paypal }},{{ razorpay }}, {{ totalSale }}],
+            //backgroundColor:'green',
+            backgroundColor: [
+                "#5b6be8",
+                "#5b6be8",
+                "#5b6be8",
+                "#5b6be8",
+
+            ],
+                borderWidth: 1,
+                    borderColor: '#777',
+                        hoverBorderWidth: 3,
+                            hoverBorderColor: '#000'
+        }]
+      },
+            options: {
+                title: {
+                    display: true,
+                        text: 'Payments',
+                            fontSize: 15
+                },
+
+                layout: {
+                    padding: {
+                        left: 50,
+                            right: 0,
+                                bottom: 0,
+                                    top: 0
+                    }
+                },
+                tooltips: {
+                    enabled: true
+                }
+            }
+    });
+        </script>

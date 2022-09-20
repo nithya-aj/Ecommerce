@@ -64,7 +64,8 @@ router.get('/homepage',verifyLogin, async(req, res) =>{
     let cod= await productHelpers.getCod()
     let razorpay = await productHelpers.getRazorpay()
     let paypal = await productHelpers.getPaypal()
-    res.render('admin/homepage', { admin: true , cod, razorpay, paypal})
+    let totalSale = await productHelpers.getTotalSales()
+    res.render('admin/homepage', { admin: true , cod, razorpay, paypal, totalSale})
   }catch (error) {
     console.log(error);
   }
@@ -139,7 +140,8 @@ router.post('/edit-product/:id', upload.array('images', 4), (req, res) => {
   }
 });
 
-//--- category --- 
+//--------------------- category --------------------
+
 router.get('/view-category', verifyLogin, function (req, res, next) {
   try{
     categoryHelpers.getAllCategory().then((category) => {
@@ -214,7 +216,7 @@ router.post('/edit-category/:id', (req, res) => {
 })
 
 
-// --- user ---
+// -------------------- user ----------------------
 
 router.get('/view-users', verifyLogin, function (req, res, next) {
   try{
@@ -277,7 +279,8 @@ router.get('/unblock-user/:id', (req, res) => {
   }
 })
 
-// coupons
+// ---------------------coupons-----------------------
+
 router.get('/view-coupons', verifyLogin, function (req, res, next) {
   try{
     productHelpers.getAllCoupons().then((coupons) => {
@@ -357,5 +360,31 @@ router.post('/change-order-status/:id', (req, res) => {
     console.log(error);
   }
 })
+
+// ----------------------- category offer----------------------
+
+// router.get('/category-offer', verifyLogin, async(req, res)=>{
+//   let offer = await productHelpers.getOffer()
+//   let category = await productHelpers.getAllCategory()
+//   res.render('admin/categoryOffer', { offer, category, admin: true })
+// })
+
+// router.post('/category-offer', verifyLogin ,(req,res)=>{
+//   productHelpers.addCategoryOffer(req.body)
+//   console.log(req.body);
+//     productHelpers.applyOffer(req.body).then((response)=>{
+//     res.redirect('/admin/category-offer')
+//   })
+// })
+
+// router.post('/deleteCategoryOffer', (req, res) => {
+//   console.log("---------to delete category offer---------------:",req.body);
+//   productHelpers.deleteCatOffer(req.body).then((response) => {
+//     // console.log("hgjg");
+//     res.render('/admin/categoryOffer')
+//   }).catch((error) => {
+//     console.log(error);
+//   })
+// })
 
 module.exports = router;

@@ -43,8 +43,8 @@ module.exports = {
                         category: proDetails.category,
                         name: proDetails.name,
                         description: proDetails.description,
-                        price:parseInt( proDetails.price),
-                        realPrice:parseInt(proDetails.realPrice),
+                        price: parseInt(proDetails.price),
+                        realPrice: parseInt(proDetails.realPrice),
                         brand: proDetails.brand,
                         collection: proDetails.collection,
                         function: proDetails.function,
@@ -59,7 +59,7 @@ module.exports = {
                         strapMaterial: proDetails.strapMaterial,
                         glassMaterial: proDetails.glassMaterial,
                         lockMechanism: proDetails.lockMechanism,
-                        images:proDetails.images
+                        images: proDetails.images
                     }
                 }).then((response) => {
                     resolve()
@@ -134,76 +134,106 @@ module.exports = {
             }
         })
     },
-    getRazorpay:()=>{
-        return new Promise(async (resolve, reject)=>{
+    getRazorpay: () => {
+        return new Promise(async (resolve, reject) => {
             let total = await db.get().collection(collection.ORDER_COLLECTION).aggregate([
                 {
-                    $match:{
-                        paymentMethod:"ONLINE",
-                        status:"placed"
+                    $match: {
+                        paymentMethod: "ONLINE",
+                        status: "placed"
                     }
                 },
                 {
-                    $group:{
-                        _id:null,
-                        total:{
+                    $group: {
+                        _id: null,
+                        total: {
                             $sum: "$totalAmount"
                         }
                     }
                 }
             ]).toArray()
-            if(total[0]){
+            if (total[0]) {
                 resolve(total[0].total)
-            }else{
+            } else {
                 resolve(0)
             }
         })
     },
-    getPaypal:()=>{
-        return new Promise(async (resolve, reject)=>{
+    getPaypal: () => {
+        return new Promise(async (resolve, reject) => {
             let total = await db.get().collection(collection.ORDER_COLLECTION).aggregate([
                 {
-                    $match:{
-                        paymentMethod:"PAYPAL",
-                        status:"placed"
+                    $match: {
+                        paymentMethod: "PAYPAL",
+                        status: "placed"
                     }
                 },
                 {
-                    $group:{
-                        _id:null,
-                        total:{
-                            $sum:"$totalAmount"
+                    $group: {
+                        _id: null,
+                        total: {
+                            $sum: "$totalAmount"
                         }
                     }
                 }
             ]).toArray()
-            if(total[0]){
+            if (total[0]) {
                 resolve(total[0].total)
-            }else{
+            } else {
+                resolve(0)
+            }
+        })
+    },
+    getTotalSales: () => {
+        console.log("total");
+        return new Promise(async (resolve, reject) => {
+            let total = await db.get().collection(collection.ORDER_COLLECTION).aggregate([
+                {
+                    $match: {
+                        status: "placed"
+                    }
+                },
+                {
+                    $group: {
+                        _id: null,
+                        total: {
+                            $sum: "$totalAmount"
+                        }
+                    }
+                }
+            ]).toArray()
+
+
+            console.log("-------------------totalSales------------------------");
+            if (total[0]) {
+                console.log(total[0].total);
+                resolve(total[0].total)
+
+            } else {
                 resolve(0)
             }
         })
     },
     getAllCoupons: () => {
         return new Promise(async (resolve, reject) => {
-          let coupons = await db.get().collection(collection.COUPON_COLLECTION).find().toArray()
-          resolve(coupons)
+            let coupons = await db.get().collection(collection.COUPON_COLLECTION).find().toArray()
+            resolve(coupons)
         })
     },
     addCoupon: (body) => {
-        console.log(body,"---------------coupon----------------")
+        console.log(body, "---------------coupon----------------")
         body.user = []
         body.discoundPrice = parseInt(body.discoundPrice)
         return new Promise(async (resolve, reject) => {
-          db.get().collection(collection.COUPON_COLLECTION).insertOne(body)
-          resolve()
+            db.get().collection(collection.COUPON_COLLECTION).insertOne(body)
+            resolve()
         })
     },
-    deleteCoupon:(couponId)=>{
-        return new Promise((resolve, reject)=>{
+    deleteCoupon: (couponId) => {
+        return new Promise((resolve, reject) => {
             console.log(couponId, "---------coupon id-----------");
             console.log(objectId(couponId));
-            db.get().collection(collection.COUPON_COLLECTION).deleteOne({_id:objectId(couponId)}).then((response)=>{
+            db.get().collection(collection.COUPON_COLLECTION).deleteOne({ _id: objectId(couponId) }).then((response) => {
                 // console.log(response);
                 resolve(response)
             })
@@ -211,19 +241,65 @@ module.exports = {
     },
     getAllOrders: () => {
         return new Promise(async (resolve, reject) => {
-          let orders = await db.get().collection(collection.ORDER_COLLECTION).find().toArray()
-          resolve(orders)
+            let orders = await db.get().collection(collection.ORDER_COLLECTION).find().toArray()
+            resolve(orders)
         })
     },
     changeOrderStatus: (orderId, status) => {
         return new Promise((resolve, reject) => {
-          db.get().collection(collection.ORDER_COLLECTION).updateOne({ _id: objectId(orderId) }, {
-            $set: {
-              status: status.status
-            }
-          }).then((response) => {
-            resolve(response)
-          })
+            db.get().collection(collection.ORDER_COLLECTION).updateOne({ _id: objectId(orderId) }, {
+                $set: {
+                    status: status.status
+                }
+            }).then((response) => {
+                resolve(response)
+            })
         })
-      },
+    },
+
+    //------------------category offer------------------------ 
+
+//     addCategoryOffer: (offerDetails) => {
+//         return new Promise(async(resolve, reject) => {
+//             console.log("------------is it enter in to this block--------------");
+//             let data = await db.get().collection(collection.OFFER_COLLECTION).findOne({ category: offerDetails.category })
+//             if (data) {
+//                 db.get().collection(collection.OFFER_COLLECTION).updateOne({ category: offerDetails.category },
+//                     {
+//                         $set: { discount: offerDetails.discount }
+//                     }
+//                 ).then((data) => {
+//                     resolve(data)
+//                 })
+//             } else {
+//                 db.get().collection(collection.OFFER_COLLECTION).insertOne(offerDetails).then((data) => {
+//                     resolve(data)
+//                 })
+//             }
+//         })
+//     },
+//     getOffer:()=>{
+//         return new Promise(async (resolve, reject) => {
+//             let offer = await db.get().collection(collection.OFFER_COLLECTION).find().toArray()
+//             resolve(offer)
+//         })
+//     },
+//     applyOffer: (offerDetails) => {
+//         console.log("-----------------category in offerDetails--------------------:",offerDetails.category);
+//         return new Promise(async (resolve, reject) => {
+//             let data = await db.get().collection(collection.PRODUCT_COLLECTION).find({ category: offerDetails.category }).toArray()
+//             data.map(async (data) => {
+//                 let realPrice = data.offerprice
+//                 let discountPrice = realPrice * offerDetails.discount / 100
+//                 let offerPrice = realPrice - discountPrice
+//                 await db.get().collection(collection.PRODUCT_COLLECTION).updateMany({ _id:data._id },
+//                     {
+//                         $set: { price: offerPrice }
+//                     }
+//                 )
+//             })
+//             resolve()
+//         })
+//     },
+
 }

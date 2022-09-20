@@ -6,5 +6,6 @@ module.exports = {
     CART_COLLECTION: 'cart',
     // serviceID: 'VAda51f04d739daf6bc132f26401288222',
     ORDER_COLLECTION:'order',
-    COUPON_COLLECTION:'coupon'
+    COUPON_COLLECTION:'coupon',
+    OFFER_COLLECTION:'offer'
 }
