@@ -12,7 +12,7 @@
                         <form action="/admin/category-offer" id="add-offer" method="post" class="forms-sample">
                             <div class="form-group">
                                 <label for="exampleInputEmail3">Select Category</label>
-                                <select name="category" class="form-select" aria-label="Default select example">
+                                <select name="category" class="form-select" aria-label="Default select example" required>
                                     <option value="1">select category</option>
                                     {{#each category}}
                                     <option >{{this.cat_name}}</option>
@@ -21,7 +21,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail3">Offer Percentage</label>
-                                <input name="discound" id="discound" class="form-control" required onkeyup="validateDiscound()">
+                                <input name="offer" id="discound" class="form-control" required onkeyup="validateDiscound()">
                                 <p id="discoundErr" class="text-danger"></p>
                             </div>
                             <button type="submit" class="btn btn-primary me-2" onclick="return validation()">Add Offer</button>
@@ -41,9 +41,8 @@
                                 <thead>
                                     <tr>
                                         <th> No </th>
-                                        <th>Offer Name</th>
                                         <th>Category</th>
-                                        <th>Offer discound </th>
+                                        <th>Offer Percentage </th>
                                         {{!-- <th> Action </th> --}}
                                     </tr>
                                 </thead>
@@ -51,9 +50,8 @@
                                     {{#each offer}}
                                     <tr class="table-warning">
                                         <td>{{inc @index}}</td>
-                                        <td>{{this.offerName}}</td>
                                         <td>{{this.category}}</td>
-                                        <td> {{this.discound}} </td>
+                                        <td> {{this.offer}} </td>
                                         {{!-- <td><a href="/admin/delete-offer/{{this._id}}"><button type="button"
                                                     class="btn btn-outline-primary btn-sm"
                                                     onclick="return confirm('Are you want to delete {{this.offerName}} offer?')">

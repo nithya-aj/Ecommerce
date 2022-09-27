@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+
 <body>
     <div class="container-scroller">
         <div class="row p-0 m-0 ">
@@ -22,7 +25,7 @@
         <!-- partial:partials/_navbar.html -->
 
         <!-- partial -->
-        <div class="container-fluid page-body-wrapper">
+        <div class="container-fluid page-body-wrapper" style="padding-right: 0 !important; padding-left: 0 !important">
             <!-- partial:partials/_sidebar.html -->
             {{>admin-sidebar}}
             <!-- partial -->
@@ -151,80 +154,49 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
-
-                        <div class="content-wrapper">
-                            <div class="row">
-                                <div class="col-lg-6 grid-margin stretch-card">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Pie chart</h4>
-                                            <canvas id="pieChart" style="height:250px"></canvas>
-                                        </div>
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="header-title pb-3 mt-0">Sales Report</h5>
+                                    <div class="table-responsive">
+                                        <table id="example" class="table table-striped table-bordered table-sm"
+                                            cellspacing="0" width="100%">
+                                            <thead>
+                                                <tr class="align-self-center">
+                                                    <th>Day</th>
+                                                    <th>Month</th>
+                                                    <th>Year</th>
+                                                    <th>Product Name</th>
+                                                    <th>Price</th>
+                                                    <th>quantity</th>
+                                                    <th>Total Amount</th>
+                                                    {{!-- <th>Transaction</th> --}}
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {{#each data}}
+                                                <tr>
+                                                    <td>{{this._id.day}}</td>
+                                                    <td>{{this._id.month}}</td>
+                                                    <td>{{this._id.year}}</td>
+                                                    <td>{{this._id.product}}</td>
+                                                    <td>Rs.{{this._id.price}}</td>
+                                                    <td>{{this.quantity}}</td>
+                                                    <td>Rs.{{this.total}}</td>
+                                                </tr>
+                                                {{/each}}
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="content-wrapper">
-                            <div class="row">
-                                <div class="col-md-7 pt-4"><canvas id="myCharttwo" class=""></canvas></div>
-                            </div>
-                        </div>
-                    </div>
 
-                </div>
-            </div>
-        </div>
-
-        <script>
-            let myCharttwo = document.getElementById('myCharttwo').getContext('2d');
-            // Global Options
-            //Chart.defaults.global.defaultFontFamily = 'Lato';
-            //Chart.defaults.global.defaultFontSize = 18;
-            //Chart.defaults.global.defaultFontColor = '#777';
-            let massPopChartw = new Chart(myCharttwo, {
-                type: 'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
-                data: {
-                    labels: ["COD", "PAYPAL", "RAZORPAY"],
-                    datasets: [{
-                        label: 'Payment',
-                        data: [{{ cod }}, {{ paypal }},{{ razorpay }}, {{ totalSale }}],
-            //backgroundColor:'green',
-            backgroundColor: [
-                "#5b6be8",
-                "#5b6be8",
-                "#5b6be8",
-                "#5b6be8",
-
-            ],
-                borderWidth: 1,
-                    borderColor: '#777',
-                        hoverBorderWidth: 3,
-                            hoverBorderColor: '#000'
-        }]
-      },
-            options: {
-                title: {
-                    display: true,
-                        text: 'Payments',
-                            fontSize: 15
-                },
-
-                layout: {
-                    padding: {
-                        left: 50,
-                            right: 0,
-                                bottom: 0,
-                                    top: 0
-                    }
-                },
-                tooltips: {
-                    enabled: true
-                }
-            }
-    });
-        </script>
+                    <script>
+                        $(document).ready(function () {
+                            $('#example').DataTable();
+                        });
+                    </script>

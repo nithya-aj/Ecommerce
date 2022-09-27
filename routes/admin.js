@@ -65,7 +65,8 @@ router.get('/homepage',verifyLogin, async(req, res) =>{
     let razorpay = await productHelpers.getRazorpay()
     let paypal = await productHelpers.getPaypal()
     let totalSale = await productHelpers.getTotalSales()
-    res.render('admin/homepage', { admin: true , cod, razorpay, paypal, totalSale})
+    let data = await productHelpers.salesDaily()
+    res.render('admin/homepage', { admin: true , cod, razorpay, paypal, totalSale, data})
   }catch (error) {
     console.log(error);
   }
@@ -360,31 +361,5 @@ router.post('/change-order-status/:id', (req, res) => {
     console.log(error);
   }
 })
-
-// ----------------------- category offer----------------------
-
-// router.get('/category-offer', verifyLogin, async(req, res)=>{
-//   let offer = await productHelpers.getOffer()
-//   let category = await productHelpers.getAllCategory()
-//   res.render('admin/categoryOffer', { offer, category, admin: true })
-// })
-
-// router.post('/category-offer', verifyLogin ,(req,res)=>{
-//   productHelpers.addCategoryOffer(req.body)
-//   console.log(req.body);
-//     productHelpers.applyOffer(req.body).then((response)=>{
-//     res.redirect('/admin/category-offer')
-//   })
-// })
-
-// router.post('/deleteCategoryOffer', (req, res) => {
-//   console.log("---------to delete category offer---------------:",req.body);
-//   productHelpers.deleteCatOffer(req.body).then((response) => {
-//     // console.log("hgjg");
-//     res.render('/admin/categoryOffer')
-//   }).catch((error) => {
-//     console.log(error);
-//   })
-// })
 
 module.exports = router;

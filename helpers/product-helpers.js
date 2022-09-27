@@ -6,7 +6,7 @@ var objectId = require('mongodb').ObjectId
 module.exports = {
     addProduct: (products, callback) => {
         products.price = parseInt(products.price)
-        products.realPrice = parseInt(products.realPrice)
+        products.offerprice = parseInt(products.offerprice)
         db.get().collection('products').insertOne(products).then((data) => {
             callback(data.insertedId)
         })
@@ -44,7 +44,7 @@ module.exports = {
                         name: proDetails.name,
                         description: proDetails.description,
                         price: parseInt(proDetails.price),
-                        realPrice: parseInt(proDetails.realPrice),
+                        offerprice: parseInt(proDetails.offerprice),
                         brand: proDetails.brand,
                         collection: proDetails.collection,
                         function: proDetails.function,
@@ -256,50 +256,57 @@ module.exports = {
             })
         })
     },
+    salesDaily: () => {
 
-    //------------------category offer------------------------ 
+        return new Promise(async (resolve, reject) => {
 
-//     addCategoryOffer: (offerDetails) => {
-//         return new Promise(async(resolve, reject) => {
-//             console.log("------------is it enter in to this block--------------");
-//             let data = await db.get().collection(collection.OFFER_COLLECTION).findOne({ category: offerDetails.category })
-//             if (data) {
-//                 db.get().collection(collection.OFFER_COLLECTION).updateOne({ category: offerDetails.category },
-//                     {
-//                         $set: { discount: offerDetails.discount }
-//                     }
-//                 ).then((data) => {
-//                     resolve(data)
-//                 })
-//             } else {
-//                 db.get().collection(collection.OFFER_COLLECTION).insertOne(offerDetails).then((data) => {
-//                     resolve(data)
-//                 })
-//             }
-//         })
-//     },
-//     getOffer:()=>{
-//         return new Promise(async (resolve, reject) => {
-//             let offer = await db.get().collection(collection.OFFER_COLLECTION).find().toArray()
-//             resolve(offer)
-//         })
-//     },
-//     applyOffer: (offerDetails) => {
-//         console.log("-----------------category in offerDetails--------------------:",offerDetails.category);
-//         return new Promise(async (resolve, reject) => {
-//             let data = await db.get().collection(collection.PRODUCT_COLLECTION).find({ category: offerDetails.category }).toArray()
-//             data.map(async (data) => {
-//                 let realPrice = data.offerprice
-//                 let discountPrice = realPrice * offerDetails.discount / 100
-//                 let offerPrice = realPrice - discountPrice
-//                 await db.get().collection(collection.PRODUCT_COLLECTION).updateMany({ _id:data._id },
-//                     {
-//                         $set: { price: offerPrice }
-//                     }
-//                 )
-//             })
-//             resolve()
-//         })
-//     },
+            let data = await db.get().collection(collection.ORDER_COLLECTION).aggregate([
+                {
+
+                    $unwind: '$products'
+
+                },
+                {
+                    $project:
+                    {
+                        date: 1, totalAmount: 1, item: '$products.item', quantity: '$products.quantity'
+                    }
+                },
+                {
+                    $lookup:
+                    {
+                        from: collection.PRODUCT_COLLECTION,
+                        localField: 'item',
+                        foreignField: '_id',
+                        as: 'products'
+                    }
+                },
+
+                {
+                    $unwind: '$products'
+                },
+
+                {
+                    $project:
+                    {
+                        totalAmount: 1, date: 1, quantity: 1, product: '$products.name', Price: '$products.price'
+                    }
+                },
+
+                {
+                    $group: {
+                        _id: { day: { $dayOfMonth: '$date' }, month: { $month: '$date' }, year: { $year: '$date' }, product: '$product', price: '$Price' },
+
+
+                        total: { $sum: { $multiply: ['$totalAmount', '$quantity'] } }, quantity: { $count: {} }   
+                    }
+                },
+                {
+                    $sort: { '_id.day': 1 }
+                }
+            ]).toArray()
+            resolve(data) 
+        })
+    }
 
 }

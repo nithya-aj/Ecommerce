@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret: "secret key",
   resave: false,
-  cookie: { maxAge: 6000000000 },
+  cookie: { maxAge: 2000000 },
   saveUninitialized: false
 }));
 Handlebars.registerHelper("inc", function(value, options)

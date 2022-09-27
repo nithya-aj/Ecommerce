@@ -1,6 +1,6 @@
-<div class="container p-5">
+<div class="container py-5">
 	<div class="row ">
-		<div class="col col-md-12 col-sm-12">
+		<div class="col col-md-6 col-sm-12 mx-auto">
 			<div class="screen1">
 				<div class="screen__content">
 					<form action="/signup" method="post" class="login1">
@@ -50,7 +50,7 @@
 							<span class="button__text">Sent OTP</span>
 							<i class="button__icon fa fa-chevron-right"></i>
 						</button>
-						<p class="mt-5 ">Have already an account? <a href="/login" class="fw-bold text-body"
+						<p class="mt-5 ">Have already an account? <a href="/login" class="fw-bold text-body login-btn"
 								style="color: white; margin-left: 329px;"><u>Login here</u></a></p>
 					</form>
 				</div>
@@ -79,19 +79,20 @@
 		background: linear-gradient(90deg, #C7C5F4, #776BCC);
 	}
 
-	.container {
+	/*.container {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		min-height: 100vh;
-	}
+	}*/
 
 	.screen1 {
 		background: linear-gradient(90deg, #5D54A4, #7C78B8);
 		position: relative;
 		height: 804px;
-		width: 511px;
+		width: 100%;
 		box-shadow: 0px 0px 24px #5C5696;
+		margin: 0 auto;
 	}
 
 	.screen__content {
@@ -107,6 +108,7 @@
 		right: 0;
 		bottom: 0;
 		z-index: 0;
+		overflow: hidden;
 		-webkit-clip-path: inset(0 0 0 0);
 		clip-path: inset(0 0 0 0);
 	}
@@ -160,7 +162,7 @@
 	}
 
 	.login1 {
-		width: 610px;
+		/*width: 610px; */
 		padding: 30px;
 		padding-top: 87px;
 		line-height: 0px;
@@ -184,7 +186,7 @@
 		padding: 10px;
 		padding-left: 24px;
 		font-weight: 700;
-		width: 75%;
+		width: 100%;
 		transition: .2s;
 	}
 
@@ -206,7 +208,7 @@
 		font-weight: 700;
 		display: flex;
 		align-items: center;
-		width: 77%;
+		width: 100%;
 		color: #4C489D;
 		box-shadow: 0px 2px 2px #5C5696;
 		cursor: pointer;
@@ -251,6 +253,11 @@
 
 	.social-login__icon:hover {
 		transform: scale(1.5);
+	}
+	@media only screen and (max-width: 600px){
+		.login-btn{
+			margin-left: 70% !important;
+		}
 	}
 </style>
 
